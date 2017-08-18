@@ -1,0 +1,56 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myDeviceLabel" data-translate="demoAngular1XApp.device.home.createOrEditLabel">Create or edit a Device</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.device.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.device.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="demoAngular1XApp.device.deviceName" for="field_deviceName">Device Name</label>
+            <input type="text" class="form-control" name="deviceName" id="field_deviceName"
+                    ng-model="vm.device.deviceName"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="demoAngular1XApp.device.ipAddress" for="field_ipAddress">Ip Address</label>
+            <input type="text" class="form-control" name="ipAddress" id="field_ipAddress"
+                    ng-model="vm.device.ipAddress"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="demoAngular1XApp.device.download" for="field_download">Download</label>
+            <input type="number" class="form-control" name="download" id="field_download"
+                    ng-model="vm.device.download"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="demoAngular1XApp.device.upload" for="field_upload">Upload</label>
+            <input type="number" class="form-control" name="upload" id="field_upload"
+                    ng-model="vm.device.upload"
+                    />
+        </div>
+
+        <div class="form-group">
+            <label data-translate="demoAngular1XApp.device.model" for="field_model">Model</label>
+            <select class="form-control" id="field_model" name="model" ng-model="vm.device.model" ng-options="model as model.id for model in vm.models track by model.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

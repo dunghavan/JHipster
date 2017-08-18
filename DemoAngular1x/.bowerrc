@@ -1,0 +1,7 @@
+{
+    "directory": "src/main/webapp/bower_components",
+
+    "proxy" : "http://127.0.0.1:3128",
+    "https-proxy" : "http://127.0.0.1:3128",
+    "strict-ssl": false
+}

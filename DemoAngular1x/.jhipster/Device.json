@@ -1,0 +1,35 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "model",
+            "otherEntityName": "model",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "deviceName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ipAddress",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "download",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "upload",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20170817022439",
+    "entityTableName": "device",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

@@ -1,0 +1,43 @@
+
+<div *ngIf="device">
+    <h2><span jhiTranslate="deviceMgmtApp.device.detail.title">Device</span> {{device.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="deviceMgmtApp.device.deviceName">Device Name</span></dt>
+        <dd>
+            <span>{{device.deviceName}}</span>
+        </dd>
+        <dt><span jhiTranslate="deviceMgmtApp.device.ipAddress">Ip Address</span></dt>
+        <dd>
+            <span>{{device.ipAddress}}</span>
+        </dd>
+        <dt><span jhiTranslate="deviceMgmtApp.device.download">Download</span></dt>
+        <dd>
+            <span>{{device.download}}</span>
+        </dd>
+        <dt><span jhiTranslate="deviceMgmtApp.device.upload">Upload</span></dt>
+        <dd>
+            <span>{{device.upload}}</span>
+        </dd>
+        <dt><span jhiTranslate="deviceMgmtApp.device.model">Model</span></dt>
+        <dd>
+            <div *ngIf="device.model">
+                <a [routerLink]="['/model-my-suffix', device.model?.id]">{{device.model?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'device-my-suffix/'+ device.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
