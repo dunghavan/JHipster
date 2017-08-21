@@ -152,6 +152,10 @@ public class UserService {
             user.setLangKey(langKey);
             user.setImageUrl(imageUrl);
             log.debug("Changed Information for User: {}", user);
+
+            // @Dung Add:
+            log.debug("Class UserService - CurrentUserLogin: " + SecurityUtils.getCurrentUserLogin());
+            //--
         });
     }
 

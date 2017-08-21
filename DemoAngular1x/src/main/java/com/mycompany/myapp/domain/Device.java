@@ -36,6 +36,17 @@ public class Device implements Serializable {
     @ManyToOne
     private Model model;
 
+    @ManyToOne
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }

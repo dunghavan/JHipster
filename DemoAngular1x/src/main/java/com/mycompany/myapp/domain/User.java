@@ -84,6 +84,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date")
     private Instant resetDate = null;
 
+    //@Dung Add:
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Device> secondEntities = new HashSet<>();
+
+
+    public Set<Device> getSecondEntities() {
+        return secondEntities;
+    }
+
+    public void setSecondEntities(Set<Device> secondEntities) {
+        this.secondEntities = secondEntities;
+    }
+    //------------------------
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
