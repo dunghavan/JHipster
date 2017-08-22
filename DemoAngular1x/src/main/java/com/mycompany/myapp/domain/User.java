@@ -88,15 +88,15 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Device> secondEntities = new HashSet<>();
+    private Set<Device> devices = new HashSet<>();
 
 
-    public Set<Device> getSecondEntities() {
-        return secondEntities;
+    public Set<Device> getDevice() {
+        return devices;
     }
 
-    public void setSecondEntities(Set<Device> secondEntities) {
-        this.secondEntities = secondEntities;
+    public void setDevices(Set<Device> devices) {
+        this.devices = devices;
     }
     //------------------------
 

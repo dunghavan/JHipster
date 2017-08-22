@@ -1,0 +1,30 @@
+entity WLANGroup {
+	alias String,
+    ssid String,
+    encryption String,
+    passphase String
+}
+
+entity Configuration {
+	alias String,
+    chanel Int,
+    maxAssoc Int,
+    htMode String,
+    txPower Int,
+    maxInactivity Int
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	WLANGroup{configuration} to Configuration{wlanGroup}
+}
+
+// Set pagination options
+paginate WLANGroup with infinite-scroll
+paginate Configuration with pagination
+
+
+// Set service options to all except few
+// service all with serviceImpl except Employee, Job
+// Set an angular suffix
+angularSuffix * with mySuffix
