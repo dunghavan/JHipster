@@ -9,6 +9,8 @@
                 "main": "Entities",
                 "modelMySuffix": "Model",
                 "deviceMySuffix": "Device",
+                "wlanGroupMySuffix": "WLAN Group",
+                "wlanConfigMySuffix": "WLAN Config",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -1,11 +1,9 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-    <changeSet author="dunghv (generated)" id="1503384961133-1">
-        <addColumn tableName="device">
-            <column name="user_id" type="bigint"/>
-        </addColumn>
+    <changeSet author="dunghv (generated)" id="1503389513498-1">
+        <dropForeignKeyConstraint baseTableName="wlan_group" constraintName="FKqfyskl8hks5gt5e6wuaj5ri83"/>
     </changeSet>
-    <changeSet author="dunghv (generated)" id="1503384961133-2">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="device" constraintName="FKpuhclcoacscfexwyomkcxxus4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    <changeSet author="dunghv (generated)" id="1503389513498-2">
+        <dropColumn columnName="user_id" tableName="wlan_group"/>
     </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span data-translate="demoAngular1XApp.wLANConfig.detail.title">WLAN Config</span> {{vm.wLANConfig.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="demoAngular1XApp.wLANConfig.alias">Alias</span></dt>
+        <dd>
+            <span>{{vm.wLANConfig.alias}}</span>
+        </dd>
+        <dt><span data-translate="demoAngular1XApp.wLANConfig.chanel">Chanel</span></dt>
+        <dd>
+            <span>{{vm.wLANConfig.chanel}}</span>
+        </dd>
+        <dt><span data-translate="demoAngular1XApp.wLANConfig.maxAssoc">Max Assoc</span></dt>
+        <dd>
+            <span>{{vm.wLANConfig.maxAssoc}}</span>
+        </dd>
+        <dt><span data-translate="demoAngular1XApp.wLANConfig.htMode">Ht Mode</span></dt>
+        <dd>
+            <span>{{vm.wLANConfig.htMode}}</span>
+        </dd>
+        <dt><span data-translate="demoAngular1XApp.wLANConfig.txPower">Tx Power</span></dt>
+        <dd>
+            <span>{{vm.wLANConfig.txPower}}</span>
+        </dd>
+        <dt><span data-translate="demoAngular1XApp.wLANConfig.maxInactivity">Max Inactivity</span></dt>
+        <dd>
+            <span>{{vm.wLANConfig.maxInactivity}}</span>
+        </dd>
+        <dt><span data-translate="demoAngular1XApp.wLANConfig.wlanGroup">Wlan Group</span></dt>
+        <dd>
+            <a ui-sref="wlan-group-my-suffix-detail({id:vm.wLANConfig.wlanGroup.id})">{{vm.wLANConfig.wlanGroup.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="wlan-config-my-suffix-detail.edit({id:vm.wLANConfig.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -43,6 +43,12 @@ public class CacheConfiguration {
             cm.createCache(com.mycompany.myapp.domain.Model.class.getName(), jcacheConfiguration);
             cm.createCache(com.mycompany.myapp.domain.Device.class.getName(), jcacheConfiguration);
             cm.createCache(com.mycompany.myapp.domain.User.class.getName() + ".devices", jcacheConfiguration);
+            cm.createCache(com.mycompany.myapp.domain.WLANGroup.class.getName(), jcacheConfiguration);
+            cm.createCache(com.mycompany.myapp.domain.WLANGroup.class.getName() + ".wlanConfigs", jcacheConfiguration);
+            cm.createCache(com.mycompany.myapp.domain.WLANConfig.class.getName(), jcacheConfiguration);
+            //@Dung Add:
+            cm.createCache(com.mycompany.myapp.domain.User.class.getName() + ".wlanGroups", jcacheConfiguration);
+
             // jhipster-needle-ehcache-add-entry
         };
     }

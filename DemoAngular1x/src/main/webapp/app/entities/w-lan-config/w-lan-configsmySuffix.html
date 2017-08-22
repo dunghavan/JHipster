@@ -1,0 +1,74 @@
+<div>
+    <h2 data-translate="demoAngular1XApp.wLANConfig.home.title">WLAN Configs</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="wlan-config-my-suffix.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="demoAngular1XApp.wLANConfig.home.createLabel">
+                        Create new WLAN Config
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="alias"><span data-translate="demoAngular1XApp.wLANConfig.alias">Alias</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="chanel"><span data-translate="demoAngular1XApp.wLANConfig.chanel">Chanel</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="maxAssoc"><span data-translate="demoAngular1XApp.wLANConfig.maxAssoc">Max Assoc</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="htMode"><span data-translate="demoAngular1XApp.wLANConfig.htMode">Ht Mode</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="txPower"><span data-translate="demoAngular1XApp.wLANConfig.txPower">Tx Power</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="maxInactivity"><span data-translate="demoAngular1XApp.wLANConfig.maxInactivity">Max Inactivity</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="wlanGroup.id"><span data-translate="demoAngular1XApp.wLANConfig.wlanGroup">Wlan Group</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="wLANConfig in vm.wLANConfigs track by wLANConfig.id">
+                    <td><a ui-sref="wlan-config-my-suffix-detail({id:wLANConfig.id})">{{wLANConfig.id}}</a></td>
+                    <td>{{wLANConfig.alias}}</td>
+                    <td>{{wLANConfig.chanel}}</td>
+                    <td>{{wLANConfig.maxAssoc}}</td>
+                    <td>{{wLANConfig.htMode}}</td>
+                    <td>{{wLANConfig.txPower}}</td>
+                    <td>{{wLANConfig.maxInactivity}}</td>
+                    <td>
+                        <a ui-sref="wlan-group-my-suffix-detail({id:wLANConfig.wlanGroup.id})">{{wLANConfig.wlanGroup.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="wlan-config-my-suffix-detail({id:wLANConfig.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="wlan-config-my-suffix.edit({id:wLANConfig.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="wlan-config-my-suffix.delete({id:wLANConfig.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

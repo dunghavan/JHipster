@@ -100,6 +100,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
     }
     //------------------------
 
+    //@Dung Add:
+    @OneToMany(mappedBy = "owner")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<WLANGroup> wlanGroups = new HashSet<>();
+
+
+    public Set<WLANGroup> getWLANGroup() {
+        return wlanGroups;
+    }
+
+    public void setWLANGroups(Set<WLANGroup> wlanGroups) {
+        this.wlanGroups = wlanGroups;
+    }
+    //------------------------
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
