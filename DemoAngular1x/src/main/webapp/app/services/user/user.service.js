@@ -19,7 +19,12 @@
             },
             'save': { method:'POST' },
             'update': { method:'PUT' },
-            'delete':{ method:'DELETE'}
+            'delete':{ method:'DELETE'},
+            'getCurrentUser': {
+                url: 'api/users/currentUserId',
+                method: 'GET'
+            }
+
         });
 
         return service;

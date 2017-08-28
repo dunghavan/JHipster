@@ -16,6 +16,7 @@
                 "title": "WLAN Group"
             },
             "alias": "Alias",
+            "owner_id": "Owner ID",
             "ssid": "Ssid",
             "encryption": "Encryption",
             "passphase": "Passphase",

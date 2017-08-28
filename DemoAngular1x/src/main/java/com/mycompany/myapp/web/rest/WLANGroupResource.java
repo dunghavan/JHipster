@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -55,6 +57,7 @@ public class WLANGroupResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new wLANGroup cannot already have an ID")).body(null);
         }
         WLANGroup result = wLANGroupRepository.save(wLANGroup);
+
         return ResponseEntity.created(new URI("/api/w-lan-groups/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -96,6 +99,8 @@ public class WLANGroupResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/w-lan-groups");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
 
     /**
      * GET  /w-lan-groups/:id : get the "id" wLANGroup.

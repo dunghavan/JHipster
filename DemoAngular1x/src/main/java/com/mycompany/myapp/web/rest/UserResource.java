@@ -22,6 +22,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -179,6 +181,28 @@ public class UserResource {
             userService.getUserWithAuthoritiesByLogin(login)
                 .map(UserDTO::new));
     }
+
+
+
+    /** @Dung add:
+     * GET
+     *
+     * Get current user id
+     */
+    @GetMapping("/users/currentUserId")
+    @Timed
+    public ResponseEntity<UserDTO> getCurrentUserId() {
+        log.debug("REST request to get current user id");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        log.debug("------------------Current user : " + username);
+
+        return ResponseUtil.wrapOrNotFound(userService.getUserWithAuthoritiesByLogin(username)
+            .map(UserDTO::new));
+
+    }
+
 
     /**
      * DELETE /users/:login : delete the "login" User.

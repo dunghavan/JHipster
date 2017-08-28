@@ -110,7 +110,10 @@
                                 passphase: null,
                                 id: null
                             };
-                        }
+                        },
+                        user: ['User', function(User) {
+                            return User.getCurrentUser().$promise;
+                        }]
                     }
                 }).result.then(function() {
                     $state.go('wlan-group-my-suffix', null, { reload: 'wlan-group-my-suffix' });
@@ -119,6 +122,41 @@
                 });
             }]
         })
+
+        // @Dung Add:
+        //     .state('wlan-group-my-suffix.new', {
+        //         parent: 'wlan-group-my-suffix',
+        //         url: '/new',
+        //         data: {
+        //             authorities: ['ROLE_USER']
+        //         },
+        //         onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+        //             $uibModal.open({
+        //                 templateUrl: 'app/entities/w-lan-group/wlan-group-my-suffix-dialog.html',
+        //                 controller: 'WLANGroupMySuffixDialogController',
+        //                 controllerAs: 'vm',
+        //                 backdrop: 'static',
+        //                 size: 'lg',
+        //                 resolve: {
+        //                     entity: function (WLANGroup) {
+        //                         return {
+        //                             alias: null,
+        //                             ssid: null,
+        //                             encryption: null,
+        //                             passphase: null,
+        //                             id: null
+        //                         };
+        //                     }
+        //                 }
+        //             }).result.then(function() {
+        //                 $state.go('wlan-group-my-suffix', null, { reload: 'wlan-group-my-suffix' });
+        //             }, function() {
+        //                 $state.go('wlan-group-my-suffix');
+        //             });
+        //         }]
+        //     })
+            //----------------------
+
         .state('wlan-group-my-suffix.edit', {
             parent: 'wlan-group-my-suffix',
             url: '/{id}/edit',

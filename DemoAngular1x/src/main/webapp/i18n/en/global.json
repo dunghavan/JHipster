@@ -76,7 +76,8 @@
             }
         },
         "field": {
-            "id": "ID"
+            "id": "ID",
+            "owner_id": "Owner ID"
         },
         "ribbon": {
             "dev":"Development"
