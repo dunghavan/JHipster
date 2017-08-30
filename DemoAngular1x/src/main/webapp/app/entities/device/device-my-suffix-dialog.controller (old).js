@@ -24,6 +24,7 @@
         }
 
         function save () {
+            console.log('DeviceMySuffixDialogController: Ham save trong new Device'); //Dung Add
             vm.isSaving = true;
             if (vm.device.id !== null) {
                 Device.update(vm.device, onSaveSuccess, onSaveError);

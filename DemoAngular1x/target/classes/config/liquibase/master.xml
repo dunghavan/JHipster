@@ -13,7 +13,7 @@
     <include file="config/liquibase/changelog/20170817022439_added_entity_constraints_Device.xml" relativeToChangelogFile="false"/>
 
     <!--@Dung add:-->
-    <include file="config/liquibase/changelog/20170822081149_changelog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20170829032942_changelog.xml" relativeToChangelogFile="false"/>
 
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -16,8 +16,7 @@
         loadAll();
 
         function loadAll() {
-            Device.query(function(result){ //@Dung add
-            //Device.get({id: 2})(function(result){
+            Device.query(function(result) {
                 vm.devices = result;
                 vm.searchQuery = null;
             });

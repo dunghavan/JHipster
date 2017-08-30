@@ -33,6 +33,9 @@ public class Device implements Serializable {
     @Column(name = "upload")
     private Long upload;
 
+    @Column(name = "new_field_1")
+    private String newField1;
+
     @ManyToOne
     private Model model;
 
@@ -107,6 +110,19 @@ public class Device implements Serializable {
         this.upload = upload;
     }
 
+    public String getNewField1() {
+        return newField1;
+    }
+
+    public Device newField1(String newField1) {
+        this.newField1 = newField1;
+        return this;
+    }
+
+    public void setNewField1(String newField1) {
+        this.newField1 = newField1;
+    }
+
     public Model getModel() {
         return model;
     }
@@ -148,6 +164,7 @@ public class Device implements Serializable {
             ", ipAddress='" + getIpAddress() + "'" +
             ", download='" + getDownload() + "'" +
             ", upload='" + getUpload() + "'" +
+            ", newField1='" + getNewField1() + "'" +
             "}";
     }
 }

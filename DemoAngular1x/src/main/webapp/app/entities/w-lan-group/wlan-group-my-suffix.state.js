@@ -110,7 +110,7 @@
                                 passphase: null,
                                 id: null
                             };
-                        },
+                        }, //@Dung Add:
                         user: ['User', function(User) {
                             return User.getCurrentUser().$promise;
                         }]
@@ -172,7 +172,14 @@
                     size: 'lg',
                     resolve: {
                         entity: ['WLANGroup', function(WLANGroup) {
-                            return WLANGroup.get({id : $stateParams.id}).$promise;
+                            var v = WLANGroup.get({id : $stateParams.id}).$promise;
+                            console.log('Struct of WLANGroup resource: ', v);
+                            return v;
+                            //WLANGroup.get({id : $stateParams.id}).$promise;
+                        }],
+                        //@Dung Add:
+                        user: ['User', function(User) {
+                            return User.getCurrentUser().$promise;
                         }]
                     }
                 }).result.then(function() {

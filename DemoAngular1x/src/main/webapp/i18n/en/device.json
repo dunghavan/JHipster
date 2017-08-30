@@ -19,6 +19,7 @@
             "ipAddress": "Ip Address",
             "download": "Download",
             "upload": "Upload",
+            "newField1": "New Field 1",
             "model": "Model"
         }
     }

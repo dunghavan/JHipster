@@ -4,6 +4,10 @@ import com.mycompany.myapp.domain.Device;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.util.Assert;
+
+import javax.persistence.LockModeType;
+import java.util.Map;
 
 
 /**

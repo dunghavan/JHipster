@@ -99,7 +99,6 @@ public class DeviceResource {
     public ResponseEntity<Device> getDevice(@PathVariable Long id) {
         log.debug("REST request to get Device : {}", id);
         Device device = deviceRepository.findOne(id);
-        log.debug("Result of query: " + device.toString());
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(device));
     }
 

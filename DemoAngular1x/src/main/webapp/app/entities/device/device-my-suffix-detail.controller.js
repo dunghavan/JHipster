@@ -10,13 +10,11 @@
     function DeviceMySuffixDetailController($scope, $rootScope, $stateParams, previousState, entity, Device, Model) {
         var vm = this;
 
-        vm.devices = [];
-
-        vm.devices = entity;
+        vm.device = entity;
         vm.previousState = previousState.name;
 
         var unsubscribe = $rootScope.$on('demoAngular1XApp:deviceUpdate', function(event, result) {
-            vm.devices = result;
+            vm.device = result;
         });
         $scope.$on('$destroy', unsubscribe);
     }

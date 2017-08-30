@@ -20,12 +20,11 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
-            // 'currentUserId': {
-            //     method: 'GET',
-            //     url: 'api/w-lan-groups/currentUserId',
-            //     isArray: false,
-            //     responseType: 'text'
+            'update': { method:'PUT' },
+                //@Dung Add:
+            'getByUserId' : {method: 'GET',
+                isArray: true,
+                url: resourceUrl + '/get-by-user-logged-in'}
 
         }
         );

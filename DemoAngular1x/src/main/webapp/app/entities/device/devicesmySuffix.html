@@ -23,34 +23,22 @@
                     <th><span data-translate="demoAngular1XApp.device.ipAddress">Ip Address</span></th>
                     <th><span data-translate="demoAngular1XApp.device.download">Download</span></th>
                     <th><span data-translate="demoAngular1XApp.device.upload">Upload</span></th>
+                    <th><span data-translate="demoAngular1XApp.device.newField1">New Field 1</span></th>
                     <th><span data-translate="demoAngular1XApp.device.model">Model</span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-
-            <!--<td><a ui-sref="device-my-suffix-detail({id:device.id})">{{vm.devices.id}}</a></td>-->
-            <!--<td>{{vm.devices.deviceName}}</td>-->
-            <!--<td>{{vm.devices.ipAddress}}</td>-->
-            <!--<td>{{vm.devices.download}}</td>-->
-            <!--<td>{{vm.devices.upload}}</td>-->
-
                 <tr ng-repeat="device in vm.devices track by device.id">
                     <td><a ui-sref="device-my-suffix-detail({id:device.id})">{{device.id}}</a></td>
                     <td>{{device.deviceName}}</td>
                     <td>{{device.ipAddress}}</td>
                     <td>{{device.download}}</td>
                     <td>{{device.upload}}</td>
-
-
+                    <td>{{device.newField1}}</td>
                     <td>
                         <a ui-sref="model-my-suffix-detail({id:device.model.id})">{{device.model.id}}</a>
                     </td>
-
-                    <td>
-                        <a ui-sref="model-my-suffix-detail({id:device.model.id})">{{device.user.id}}</a>
-                    </td>
-
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

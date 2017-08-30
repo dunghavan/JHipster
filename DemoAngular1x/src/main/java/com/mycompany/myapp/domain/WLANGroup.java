@@ -41,7 +41,17 @@ public class WLANGroup implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<WLANConfig> wlanConfigs = new HashSet<>();
 
-    //@Dung Add:
+//    //@Dung Add:
+//    private String owner1;
+//
+//    public String getOwner1() {
+//        return owner1;
+//    }
+//
+//    public void setOwner1(String owner1) {
+//        this.owner1 = owner1;
+//    }
+
     @ManyToOne
     private User owner;
 

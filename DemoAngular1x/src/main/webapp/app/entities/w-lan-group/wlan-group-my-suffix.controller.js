@@ -25,7 +25,8 @@
         loadAll();
 
         function loadAll () {
-            WLANGroup.query({
+            //WLANGroup.query({
+                WLANGroup.getByUserId({
                 page: vm.page,
                 size: vm.itemsPerPage,
                 sort: sort()

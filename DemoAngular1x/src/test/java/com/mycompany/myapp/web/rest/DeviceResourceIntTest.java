@@ -49,6 +49,9 @@ public class DeviceResourceIntTest {
     private static final Long DEFAULT_UPLOAD = 1L;
     private static final Long UPDATED_UPLOAD = 2L;
 
+    private static final String DEFAULT_NEW_FIELD_1 = "AAAAAAAAAA";
+    private static final String UPDATED_NEW_FIELD_1 = "BBBBBBBBBB";
+
     @Autowired
     private DeviceRepository deviceRepository;
 
@@ -89,7 +92,8 @@ public class DeviceResourceIntTest {
             .deviceName(DEFAULT_DEVICE_NAME)
             .ipAddress(DEFAULT_IP_ADDRESS)
             .download(DEFAULT_DOWNLOAD)
-            .upload(DEFAULT_UPLOAD);
+            .upload(DEFAULT_UPLOAD)
+            .newField1(DEFAULT_NEW_FIELD_1);
         return device;
     }
 
@@ -117,6 +121,7 @@ public class DeviceResourceIntTest {
         assertThat(testDevice.getIpAddress()).isEqualTo(DEFAULT_IP_ADDRESS);
         assertThat(testDevice.getDownload()).isEqualTo(DEFAULT_DOWNLOAD);
         assertThat(testDevice.getUpload()).isEqualTo(DEFAULT_UPLOAD);
+        assertThat(testDevice.getNewField1()).isEqualTo(DEFAULT_NEW_FIELD_1);
     }
 
     @Test
@@ -152,7 +157,8 @@ public class DeviceResourceIntTest {
             .andExpect(jsonPath("$.[*].deviceName").value(hasItem(DEFAULT_DEVICE_NAME.toString())))
             .andExpect(jsonPath("$.[*].ipAddress").value(hasItem(DEFAULT_IP_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].download").value(hasItem(DEFAULT_DOWNLOAD.intValue())))
-            .andExpect(jsonPath("$.[*].upload").value(hasItem(DEFAULT_UPLOAD.intValue())));
+            .andExpect(jsonPath("$.[*].upload").value(hasItem(DEFAULT_UPLOAD.intValue())))
+            .andExpect(jsonPath("$.[*].newField1").value(hasItem(DEFAULT_NEW_FIELD_1.toString())));
     }
 
     @Test
@@ -169,7 +175,8 @@ public class DeviceResourceIntTest {
             .andExpect(jsonPath("$.deviceName").value(DEFAULT_DEVICE_NAME.toString()))
             .andExpect(jsonPath("$.ipAddress").value(DEFAULT_IP_ADDRESS.toString()))
             .andExpect(jsonPath("$.download").value(DEFAULT_DOWNLOAD.intValue()))
-            .andExpect(jsonPath("$.upload").value(DEFAULT_UPLOAD.intValue()));
+            .andExpect(jsonPath("$.upload").value(DEFAULT_UPLOAD.intValue()))
+            .andExpect(jsonPath("$.newField1").value(DEFAULT_NEW_FIELD_1.toString()));
     }
 
     @Test
@@ -193,7 +200,8 @@ public class DeviceResourceIntTest {
             .deviceName(UPDATED_DEVICE_NAME)
             .ipAddress(UPDATED_IP_ADDRESS)
             .download(UPDATED_DOWNLOAD)
-            .upload(UPDATED_UPLOAD);
+            .upload(UPDATED_UPLOAD)
+            .newField1(UPDATED_NEW_FIELD_1);
 
         restDeviceMockMvc.perform(put("/api/devices")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -208,6 +216,7 @@ public class DeviceResourceIntTest {
         assertThat(testDevice.getIpAddress()).isEqualTo(UPDATED_IP_ADDRESS);
         assertThat(testDevice.getDownload()).isEqualTo(UPDATED_DOWNLOAD);
         assertThat(testDevice.getUpload()).isEqualTo(UPDATED_UPLOAD);
+        assertThat(testDevice.getNewField1()).isEqualTo(UPDATED_NEW_FIELD_1);
     }
 
     @Test

@@ -9,7 +9,7 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-            .state('device-my-suffix', {
+        .state('device-my-suffix', {
             parent: 'entity',
             url: '/device-my-suffix',
             data: {
@@ -31,41 +31,6 @@
                 }]
             }
         })
-            // .state('device-my-suffix', { //------------------------------------------- Dung Add new State
-            //     parent: 'entity',
-            //     url: '/device-my-suffix',
-            //     data: {
-            //         authorities: ['ROLE_USER'],
-            //         pageTitle: 'demoAngular1XApp.device.home.title'
-            //     },
-            //     views: {
-            //         'content@': {
-            //             templateUrl: 'app/entities/device/devicesmySuffix.html',
-            //             controller: 'DeviceMySuffixController',
-            //             //controller: 'DeviceMySuffixDetailController',
-            //             controllerAs: 'vm'
-            //         }
-            //     },
-            //     resolve: {
-            //         translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-            //             $translatePartialLoader.addPart('device');
-            //             return $translate.refresh();
-            //         }],
-            //         entity: ['$stateParams', 'Device', function($stateParams, Device) {
-            //             return Device.get({id : 2}).$promise;
-            //         }],
-            //         previousState: ["$state", function ($state) {
-            //             var currentStateData = {
-            //             name: $state.current.name || 'device-my-suffix',
-            //             params: $state.params,
-            //             url: $state.href($state.current.name, $state.params)
-            //         };
-            //         return currentStateData;
-            //     }],
-            //     }
-            // })
-            //------------------------------------------------------------------------------------------
-
         .state('device-my-suffix-detail', {
             parent: 'device-my-suffix',
             url: '/device-my-suffix/{id}',
@@ -114,7 +79,6 @@
                     resolve: {
                         entity: ['Device', function(Device) {
                             return Device.get({id : $stateParams.id}).$promise;
-                            Console.log('state device-my-seffix-detail.edit'); //Dung Add
                         }]
                     }
                 }).result.then(function() {
@@ -125,7 +89,6 @@
             }]
         })
         .state('device-my-suffix.new', {
-
             parent: 'device-my-suffix',
             url: '/new',
             data: {
@@ -145,10 +108,9 @@
                                 ipAddress: null,
                                 download: null,
                                 upload: null,
+                                newField1: null,
                                 id: null
                             };
-
-                            Console.log('state device-my-seffix.new'); //Dung Add
                         }
                     }
                 }).result.then(function() {
@@ -173,8 +135,9 @@
                     size: 'lg',
                     resolve: {
                         entity: ['Device', function(Device) {
-                            return Device.get({id : $stateParams.id}).$promise;
-                            Console.log('state device-my-seffix.edit'); //Dung Add
+                            var v = Device.get({id : $stateParams.id}).$promise;
+                            console.log('Struct of Device resource: ', v);
+                            return v;
                         }]
                     }
                 }).result.then(function() {
@@ -199,7 +162,6 @@
                     resolve: {
                         entity: ['Device', function(Device) {
                             return Device.get({id : $stateParams.id}).$promise;
-                            Console.log('state device-my-seffix.delete'); //Dung Add
                         }]
                     }
                 }).result.then(function() {

@@ -16,9 +16,9 @@
         vm.wlanconfigs = WLANConfig.query();
 
         //@Dung add:
-        vm.owner = user.login;
+        vm.wLANGroup.owner1 = user.login;
 
-        console.log("------------------vm.currentUserLogin: ", vm.owner);
+        console.log("------------------vm.currentUserLogin: ", vm.wLANGroup.owner);
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -29,12 +29,14 @@
         }
 
         function save () {
-            vm.owner = 1;
+//            vm.wLANGroup.owner = 1;
             vm.isSaving = true;
             if (vm.wLANGroup.id !== null) {
                 WLANGroup.update(vm.wLANGroup, onSaveSuccess, onSaveError);
+                console.log('Update vm.wLANGroup in Controller: ', vm.wLANGroup);
             } else {
                 WLANGroup.save(vm.wLANGroup, onSaveSuccess, onSaveError);
+                console.log('Save vm.wLANGroup in Controller: ', vm.wLANGroup);
             }
         }
 
