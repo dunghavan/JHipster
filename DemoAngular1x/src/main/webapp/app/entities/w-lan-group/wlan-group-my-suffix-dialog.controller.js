@@ -16,7 +16,7 @@
         vm.wlanconfigs = WLANConfig.query();
 
         //@Dung add:
-        vm.wLANGroup.owner1 = user.login;
+        //vm.wLANGroup.owner1 = user.login;
 
         console.log("------------------vm.currentUserLogin: ", vm.wLANGroup.owner);
 

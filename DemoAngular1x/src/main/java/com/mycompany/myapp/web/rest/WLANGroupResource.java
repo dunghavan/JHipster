@@ -1,9 +1,12 @@
 package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.domain.WLANGroup;
 
 import com.mycompany.myapp.repository.WLANGroupRepository;
+import com.mycompany.myapp.service.UserService;
+import com.mycompany.myapp.service.dto.UserDTO;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
 import io.swagger.annotations.ApiParam;
@@ -75,20 +78,33 @@ public class WLANGroupResource {
     //@GetMapping("/w-lan-groups")
     @Timed
     public ResponseEntity<List<WLANGroup>> getWLANGroupByUserLogin() {
-    //public void getWLANGroupByUserLogin() {
 
-        // Get username logged in via Authenticate:
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-
-        Long id = wLANGroupRepository.getUserIdByUserLogin(username);
-        List<WLANGroup> list = wLANGroupRepository.getWLANGroupByUserId(id);
+        List<WLANGroup> list = wLANGroupRepository.getWLANGroupByUserId(getCurrentUserId());
         Page<WLANGroup> page = new PageImpl<WLANGroup>(list);
-        log.debug("REST request to get WLANGroups by userId = " + id + ": \n--------------------------------" + list.toString());
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/w-lan-groups");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+    //Method get current userId:
+    public Long getCurrentUserId(){
+        // Get username logged in via Authenticate:
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        return wLANGroupRepository.getUserIdByUserLogin(username);
+    }
+
+//
+//    UserService userService;
+//    public ResponseEntity<UserDTO> getCurrentUserLoggin() {
+//        log.debug("REST request to get current user");
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String username = auth.getName();
+//
+//        return ResponseUtil.wrapOrNotFound(userService.getUserWithAuthoritiesByLogin(username)
+//            .map(UserDTO::new));
+//    }
+
 
     /**
      * POST  /w-lan-groups : Create a new wLANGroup.
@@ -104,6 +120,10 @@ public class WLANGroupResource {
         if (wLANGroup.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new wLANGroup cannot already have an ID")).body(null);
         }
+        User owner = new User();
+        owner.setId(getCurrentUserId());
+        wLANGroup.setOwner(owner);
+
         WLANGroup result = wLANGroupRepository.save(wLANGroup);
 
         return ResponseEntity.created(new URI("/api/w-lan-groups/" + result.getId()))

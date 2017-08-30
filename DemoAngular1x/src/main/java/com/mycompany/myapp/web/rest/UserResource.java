@@ -191,7 +191,7 @@ public class UserResource {
      */
     @GetMapping("/users/currentUserId")
     @Timed
-    public ResponseEntity<UserDTO> getCurrentUserId() {
+    public ResponseEntity<UserDTO> getCurrentUserLoggin() {
         log.debug("REST request to get current user id");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
