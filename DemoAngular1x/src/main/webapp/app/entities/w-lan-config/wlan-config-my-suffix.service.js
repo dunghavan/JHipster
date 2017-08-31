@@ -20,7 +20,9 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            //@Dung Add:
+            'getByWlanGroup':{method: 'GET', isArray: true, url: resourceUrl + '/get-by-wlan-group'}
         });
     }
 })();

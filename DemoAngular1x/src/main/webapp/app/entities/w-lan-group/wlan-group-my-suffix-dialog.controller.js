@@ -5,9 +5,9 @@
         .module('demoAngular1XApp')
         .controller('WLANGroupMySuffixDialogController', WLANGroupMySuffixDialogController);
 
-    WLANGroupMySuffixDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'WLANGroup', 'WLANConfig', 'user'];
+    WLANGroupMySuffixDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'WLANGroup', 'WLANConfig'];
 
-    function WLANGroupMySuffixDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, WLANGroup, WLANConfig, user) {
+    function WLANGroupMySuffixDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, WLANGroup, WLANConfig) {
         var vm = this;
 
         vm.wLANGroup = entity;
@@ -18,7 +18,7 @@
         //@Dung add:
         //vm.wLANGroup.owner1 = user.login;
 
-        console.log("------------------vm.currentUserLogin: ", vm.wLANGroup.owner);
+        //console.log("------------------vm.currentUserLogin: ", vm.wLANGroup.owner);
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

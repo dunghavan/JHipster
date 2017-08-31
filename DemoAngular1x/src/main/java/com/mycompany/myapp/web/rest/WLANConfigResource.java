@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.WLANConfig;
 
 import com.mycompany.myapp.repository.WLANConfigRepository;
+import com.mycompany.myapp.repository.WLANGroupRepository;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
 import io.swagger.annotations.ApiParam;
@@ -11,6 +12,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,8 +24,7 @@ import java.io.Console;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.security.core.Authentication;
 
@@ -85,6 +86,40 @@ public class WLANConfigResource {
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, wLANConfig.getId().toString()))
             .body(result);
+    }
+
+
+    /**
+     * @Dung Add:
+     * GET  /w-lan-configs : get all the wLANConfigs by WlanGroup.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of wLANConfigs in body
+     */
+
+    @GetMapping("/w-lan-configs/get-by-wlan-group")
+    @Timed
+    public ResponseEntity<List<WLANConfig>> getWLANConfigsByWlanGroup(@ApiParam Pageable pageable) {
+        log.debug("REST request to get a page of WLANConfigs by WlanGroup");
+
+        List<Long> listWlanGroupId = wLANConfigRepository.getListWlanGroupId(getCurrentUserId());
+        List<WLANConfig> list = new ArrayList<WLANConfig>();
+        for (Long id: listWlanGroupId) {
+            list.addAll(wLANConfigRepository.getWLANConfigByWLANGroupId(id));
+        }
+        log.debug("-------------------List WlanGroup id: " + listWlanGroupId.toString());
+        Page<WLANConfig> page = new PageImpl<WLANConfig>(list);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/w-lan-configs");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+
+    //Method get current userId:
+    public Long getCurrentUserId(){
+        // Get username logged in via Authenticate:
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        return wLANConfigRepository.getUserIdByUserLogin(username);
     }
 
     /**

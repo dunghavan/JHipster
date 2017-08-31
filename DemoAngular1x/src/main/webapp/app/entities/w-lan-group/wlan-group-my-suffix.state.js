@@ -176,11 +176,11 @@
                             console.log('Struct of WLANGroup resource: ', v);
                             return v;
                             //WLANGroup.get({id : $stateParams.id}).$promise;
-                        }],
-                        //@Dung Add:
-                        user: ['User', function(User) {
-                            return User.getCurrentUser().$promise;
                         }]
+                        //@Dung Add:
+                        // user: ['User', function(User) {
+                        //     return User.getCurrentUser().$promise;
+                        // }]
                     }
                 }).result.then(function() {
                     $state.go('wlan-group-my-suffix', null, { reload: 'wlan-group-my-suffix' });

@@ -147,6 +147,11 @@ public class WLANGroupResource {
         if (wLANGroup.getId() == null) {
             return createWLANGroup(wLANGroup);
         }
+
+        User owner = new User();
+        owner.setId(getCurrentUserId());
+        wLANGroup.setOwner(owner);
+
         WLANGroup result = wLANGroupRepository.save(wLANGroup);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, wLANGroup.getId().toString()))
