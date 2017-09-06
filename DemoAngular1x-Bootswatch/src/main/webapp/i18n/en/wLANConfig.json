@@ -1,0 +1,27 @@
+{
+    "demoAngular1XApp": {
+        "wLANConfig" : {
+            "home": {
+                "title": "WLAN Configs",
+                "createLabel": "Create a new WLAN Config",
+                "createOrEditLabel": "Create or edit a WLAN Config"
+            },
+            "created": "A new WLAN Config is created with identifier {{ param }}",
+            "updated": "A WLAN Config is updated with identifier {{ param }}",
+            "deleted": "A WLAN Config is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete WLAN Config {{ id }}?"
+            },
+            "detail": {
+                "title": "WLAN Config"
+            },
+            "alias": "Alias",
+            "chanel": "Chanel",
+            "maxAssoc": "Max Assoc",
+            "htMode": "Ht Mode",
+            "txPower": "Tx Power",
+            "maxInactivity": "Max Inactivity",
+            "wlanGroup": "Wlan Group"
+        }
+    }
+}

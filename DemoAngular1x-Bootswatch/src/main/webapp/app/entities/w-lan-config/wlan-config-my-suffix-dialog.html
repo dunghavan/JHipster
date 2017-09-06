@@ -1,0 +1,68 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myWLANConfigLabel" data-translate="demoAngular1XApp.wLANConfig.home.createOrEditLabel">Create or edit a WLAN Config</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.wLANConfig.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.wLANConfig.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="demoAngular1XApp.wLANConfig.alias" for="field_alias">Alias</label>
+            <input type="text" class="form-control" name="alias" id="field_alias"
+                    ng-model="vm.wLANConfig.alias"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="demoAngular1XApp.wLANConfig.chanel" for="field_chanel">Chanel</label>
+            <input type="number" class="form-control" name="chanel" id="field_chanel"
+                    ng-model="vm.wLANConfig.chanel"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="demoAngular1XApp.wLANConfig.maxAssoc" for="field_maxAssoc">Max Assoc</label>
+            <input type="number" class="form-control" name="maxAssoc" id="field_maxAssoc"
+                    ng-model="vm.wLANConfig.maxAssoc"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="demoAngular1XApp.wLANConfig.htMode" for="field_htMode">Ht Mode</label>
+            <input type="text" class="form-control" name="htMode" id="field_htMode"
+                    ng-model="vm.wLANConfig.htMode"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="demoAngular1XApp.wLANConfig.txPower" for="field_txPower">Tx Power</label>
+            <input type="number" class="form-control" name="txPower" id="field_txPower"
+                    ng-model="vm.wLANConfig.txPower"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="demoAngular1XApp.wLANConfig.maxInactivity" for="field_maxInactivity">Max Inactivity</label>
+            <input type="number" class="form-control" name="maxInactivity" id="field_maxInactivity"
+                    ng-model="vm.wLANConfig.maxInactivity"
+                    />
+        </div>
+
+        <div class="form-group">
+            <label data-translate="demoAngular1XApp.wLANConfig.wlanGroup" for="field_wlanGroup">Wlan Group</label>
+            <select class="form-control" id="field_wlanGroup" name="wlanGroup" ng-model="vm.wLANConfig.wlanGroup" ng-options="wLANGroup as wLANGroup.id for wLANGroup in vm.wlangroups track by wLANGroup.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,62 @@
+<div>
+    <h2 data-translate="demoAngular1XApp.wLANGroup.home.title">WLAN Groups</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="wlan-group-my-suffix.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="demoAngular1XApp.wLANGroup.home.createLabel">
+                        Create new WLAN Group
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
+                    <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="alias"><span data-translate="demoAngular1XApp.wLANGroup.alias">Alias</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="ssid"><span data-translate="demoAngular1XApp.wLANGroup.ssid">Ssid</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="encryption"><span data-translate="demoAngular1XApp.wLANGroup.encryption">Encryption</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="passphase"><span data-translate="demoAngular1XApp.wLANGroup.passphase">Passphase</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
+                <tr ng-repeat="wLANGroup in vm.wLANGroups track by wLANGroup.id">
+                    <td><a ui-sref="wlan-group-my-suffix-detail({id:wLANGroup.id})">{{wLANGroup.id}}</a></td>
+                    <td>{{wLANGroup.alias}}</td>
+                    <td>{{wLANGroup.ssid}}</td>
+                    <td>{{wLANGroup.encryption}}</td>
+                    <td>{{wLANGroup.passphase}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="wlan-group-my-suffix-detail({id:wLANGroup.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="wlan-group-my-suffix.edit({id:wLANGroup.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="wlan-group-my-suffix.delete({id:wLANGroup.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div>
+    <h2 data-translate="demoAngular1XApp.model.home.title">Models</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="model-my-suffix.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="demoAngular1XApp.model.home.createLabel">
+                        Create new Model
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="demoAngular1XApp.model.modelName">Model Name</span></th>
+                    <th><span data-translate="demoAngular1XApp.model.note">Note</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="model in vm.models track by model.id">
+                    <td><a ui-sref="model-my-suffix-detail({id:model.id})">{{model.id}}</a></td>
+                    <td>{{model.modelName}}</td>
+                    <td>{{model.note}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="model-my-suffix-detail({id:model.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="model-my-suffix.edit({id:model.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="model-my-suffix.delete({id:model.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

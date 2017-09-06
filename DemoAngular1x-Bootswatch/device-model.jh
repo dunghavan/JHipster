@@ -1,0 +1,17 @@
+entity Model{
+	modelName String,
+	note String
+}
+
+entity Device{
+	deviceName String,
+	ipAddress String,
+	download Long,
+	upload Long
+}
+
+relationship ManyToOne{
+	Device{model} to Model	
+}
+
+angularSuffix * with mySuffix

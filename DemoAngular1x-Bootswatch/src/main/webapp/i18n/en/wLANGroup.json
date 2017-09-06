@@ -1,0 +1,26 @@
+{
+    "demoAngular1XApp": {
+        "wLANGroup" : {
+            "home": {
+                "title": "WLAN Groups",
+                "createLabel": "Create a new WLAN Group",
+                "createOrEditLabel": "Create or edit a WLAN Group"
+            },
+            "created": "A new WLAN Group is created with identifier {{ param }}",
+            "updated": "A WLAN Group is updated with identifier {{ param }}",
+            "deleted": "A WLAN Group is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete WLAN Group {{ id }}?"
+            },
+            "detail": {
+                "title": "WLAN Group"
+            },
+            "alias": "Alias",
+            "owner_id": "Owner ID",
+            "ssid": "Ssid",
+            "encryption": "Encryption",
+            "passphase": "Passphase",
+            "wlanConfig": "Wlan Config"
+        }
+    }
+}

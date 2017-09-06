@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span data-translate="demoAngular1XApp.device.detail.title">Device</span> {{vm.device.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="demoAngular1XApp.device.deviceName">Device Name</span></dt>
+        <dd>
+            <span>{{vm.device.deviceName}}</span>
+        </dd>
+        <dt><span data-translate="demoAngular1XApp.device.ipAddress">Ip Address</span></dt>
+        <dd>
+            <span>{{vm.device.ipAddress}}</span>
+        </dd>
+        <dt><span data-translate="demoAngular1XApp.device.download">Download</span></dt>
+        <dd>
+            <span>{{vm.device.download}}</span>
+        </dd>
+        <dt><span data-translate="demoAngular1XApp.device.upload">Upload</span></dt>
+        <dd>
+            <span>{{vm.device.upload}}</span>
+        </dd>
+        <dt><span data-translate="demoAngular1XApp.device.newField1">New Field 1</span></dt>
+        <dd>
+            <span>{{vm.device.newField1}}</span>
+        </dd>
+        <dt><span data-translate="demoAngular1XApp.device.model">Model</span></dt>
+        <dd>
+            <a ui-sref="model-my-suffix-detail({id:vm.device.model.id})">{{vm.device.model.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="device-my-suffix-detail.edit({id:vm.device.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
