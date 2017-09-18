@@ -13,7 +13,7 @@
             parent: 'admin',
             url: '/user-management?page&sort',
             data: {
-                authorities: ['ROLE_ADMIN'],
+                authorities: ['ROLE_NEWROLE'],
                 pageTitle: 'userManagement.home.title'
             },
             views: {

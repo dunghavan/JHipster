@@ -10,6 +10,7 @@
     function WLANGroupMySuffixController(WLANGroup, ParseLinks, AlertService, paginationConstants) {
 
         var vm = this;
+        console.log("------------this--: ", this);
 
         vm.wLANGroups = [];
         vm.loadPage = loadPage;

@@ -81,7 +81,10 @@ public class TokenProvider {
 
         User principal = new User(claims.getSubject(), "", authorities);
 
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        UsernamePasswordAuthenticationToken jwt = new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        log.debug("------MYLOG----------token parameter: " + token); //Dung
+        //return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        return jwt;
     }
 
     public boolean validateToken(String authToken) {

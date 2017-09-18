@@ -26,6 +26,8 @@
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.transition = transition;
 
+        console.log("---UserManagementController");
+
         vm.loadAll();
         JhiLanguageService.getAll().then(function (languages) {
             vm.languages = languages;
@@ -36,11 +38,13 @@
 
         function setActive (user, isActivated) {
             user.activated = isActivated;
+            console.log("---UserManagementController.setActive(): ", isActivated);
             User.update(user, function () {
                 vm.loadAll();
                 vm.clear();
             });
         }
+
 
         function loadAll () {
             User.query({
@@ -48,6 +52,8 @@
                 size: vm.itemsPerPage,
                 sort: sort()
             }, onSuccess, onError);
+
+            console.log("---UserManagementController.loadAll()");
         }
 
         function onSuccess(data, headers) {
