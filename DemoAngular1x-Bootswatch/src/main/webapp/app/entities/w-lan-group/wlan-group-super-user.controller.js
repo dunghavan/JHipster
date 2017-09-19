@@ -3,11 +3,11 @@
 
     angular
         .module('demoAngular1XApp')
-        .controller('WLANGroupMySuffixController', WLANGroupMySuffixController);
+        .controller('WLANGroupSuperUserController', WLANGroupSuperUserController);
 
-    WLANGroupMySuffixController.$inject = ['WLANGroup', 'ParseLinks', 'AlertService', 'paginationConstants'];
+    WLANGroupSuperUserController.$inject = ['WLANGroup', 'ParseLinks', 'AlertService', 'paginationConstants'];
 
-    function WLANGroupMySuffixController(WLANGroup, ParseLinks, AlertService, paginationConstants) {
+    function WLANGroupSuperUserController(WLANGroup, ParseLinks, AlertService, paginationConstants) {
 
         var vm = this;
         console.log("------------this--: ", this);
@@ -25,10 +25,10 @@
 
 
         loadAll();
+        console.log("------------WLANGroupSuperUserController----: ", this);
 
         function loadAll () {
-            //WLANGroup.query({
-                WLANGroup.getByUserId({
+            WLANGroup.query({
                 page: vm.page,
                 size: vm.itemsPerPage,
                 sort: sort()

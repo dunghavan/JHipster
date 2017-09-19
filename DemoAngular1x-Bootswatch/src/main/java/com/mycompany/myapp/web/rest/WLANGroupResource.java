@@ -5,6 +5,7 @@ import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.domain.WLANGroup;
 
 import com.mycompany.myapp.repository.WLANGroupRepository;
+import com.mycompany.myapp.security.AuthoritiesConstants;
 import com.mycompany.myapp.service.UserService;
 import com.mycompany.myapp.service.dto.UserDTO;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -166,12 +168,12 @@ public class WLANGroupResource {
      */
     @GetMapping("/w-lan-groups")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<List<WLANGroup>> getAllWLANGroups(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of WLANGroups");
         Page<WLANGroup> page = wLANGroupRepository.findAll(pageable);
 
         log.debug("----------------_Content of WLANGroup page: " + page.getContent());
-        //wLANGroupRepository.
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/w-lan-groups");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

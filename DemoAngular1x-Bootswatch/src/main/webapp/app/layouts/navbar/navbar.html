@@ -48,6 +48,14 @@
                                     <span data-translate="global.menu.entities.wlanGroupMySuffix">Wlan Group My Suffix</span>
                                 </a>
                             </li>
+
+                        <li ui-sref-active="active">
+                            <a ui-sref="wlan-group-super-user" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span data-translate="global.menu.entities.wlanGroupSuperUser">All Wlan Group</span>
+                            </a>
+                        </li>
+
                         <li ui-sref-active="active">
                                 <a ui-sref="wlan-config-my-suffix" ng-click="vm.collapseNavbar()">
                                     <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
@@ -100,7 +108,7 @@
                         </li>
                     </ul>
                 </li>
-                <li ng-class="{active: vm.$state.includes('newrole')}"  ng-switch-when="true" has-authority="ROLE_NEWROLE" uib-dropdown dropdown>
+                <li ng-class="{active: vm.$state.includes('admin')}"  ng-switch-when="true" has-any-authority="ROLE_SUPERUSER, ROLE_ADMIN, ROLE_USER" uib-dropdown dropdown>
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="admin-menu">
                         <span>
                             <span class="glyphicon glyphicon-tower"></span>

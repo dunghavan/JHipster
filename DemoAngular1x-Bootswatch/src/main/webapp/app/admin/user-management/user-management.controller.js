@@ -9,8 +9,8 @@
 
     function UserManagementController(Principal, User, ParseLinks, AlertService, $state, pagingParams, paginationConstants, JhiLanguageService) {
         var vm = this;
-
-        vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+// @Dung Add: comment vm.authorities (chua biet cach su dung)
+        //vm.authorities = ['ROLE_SUPERUSER', 'ROLE_ADMIN'];
         vm.currentAccount = null;
         vm.languages = null;
         vm.loadAll = loadAll;
@@ -27,6 +27,7 @@
         vm.transition = transition;
 
         console.log("---UserManagementController");
+        //console.log("-------authorities in UserManagementController--------: ", vm.authorities);
 
         vm.loadAll();
         JhiLanguageService.getAll().then(function (languages) {
@@ -62,6 +63,8 @@
             vm.queryCount = vm.totalItems;
             vm.page = pagingParams.page;
             vm.users = data;
+            console.log("---UserManagementController.onSuccess()__vm.users: ", vm.users);
+            //console.log("-------authorities in UserManagementController__vm.authorities: ", vm.authorities);
         }
 
         function onError(error) {

@@ -13,12 +13,12 @@
             parent: 'entity',
             url: '/wlan-group-my-suffix',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_SUPERUSER'],
                 pageTitle: 'demoAngular1XApp.wLANGroup.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/w-lan-group/w-lan-groupsmySuffix.html',
+                    templateUrl: 'app/entities/w-lan-group/w-lan-groups-my-Suffix.html',
                     controller: 'WLANGroupMySuffixController',
                     controllerAs: 'vm'
                 }

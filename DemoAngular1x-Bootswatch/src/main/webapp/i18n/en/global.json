@@ -10,6 +10,7 @@
                 "modelMySuffix": "Model",
                 "deviceMySuffix": "Device",
                 "wlanGroupMySuffix": "WLAN Group",
+                "wlanGroupSuperUser": "All Wlan Group (SUPER USER)",
                 "wlanConfigMySuffix": "WLAN Config",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
