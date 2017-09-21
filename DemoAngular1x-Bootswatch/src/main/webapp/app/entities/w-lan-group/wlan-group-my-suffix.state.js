@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/wlan-group-my-suffix',
             data: {
-                authorities: ['ROLE_USER', 'ROLE_SUPERUSER'],
+                authorities: ['ROLE_ADMIN', 'ROLE_SUPERUSER'],
                 pageTitle: 'demoAngular1XApp.wLANGroup.home.title'
             },
             views: {
@@ -35,7 +35,7 @@
             parent: 'wlan-group-my-suffix',
             url: '/wlan-group-my-suffix/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPERUSER'],
                 pageTitle: 'demoAngular1XApp.wLANGroup.detail.title'
             },
             views: {
@@ -67,7 +67,7 @@
             parent: 'wlan-group-my-suffix-detail',
             url: '/detail/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_SUPERUSER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -92,7 +92,7 @@
             parent: 'wlan-group-my-suffix',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_SUPERUSER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -161,7 +161,7 @@
             parent: 'wlan-group-my-suffix',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_SUPERUSER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -175,12 +175,11 @@
                             var v = WLANGroup.get({id : $stateParams.id}).$promise;
                             console.log('Struct of WLANGroup resource: ', v);
                             return v;
-                            //WLANGroup.get({id : $stateParams.id}).$promise;
                         }]
                         //@Dung Add:
-                        // user: ['User', function(User) {
-                        //     return User.getCurrentUser().$promise;
-                        // }]
+                        // ,entity2: function(){
+                        //     return 'ROLE_SUPERUSER';
+                        // }
                     }
                 }).result.then(function() {
                     $state.go('wlan-group-my-suffix', null, { reload: 'wlan-group-my-suffix' });
@@ -193,7 +192,7 @@
             parent: 'wlan-group-my-suffix',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_SUPERUSER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

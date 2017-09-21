@@ -117,6 +117,7 @@ public class WLANGroupResource {
      */
     @PostMapping("/w-lan-groups")
     @Timed
+    @Secured(AuthoritiesConstants.SUPERUSER)
     public ResponseEntity<WLANGroup> createWLANGroup(@RequestBody WLANGroup wLANGroup) throws URISyntaxException {
         log.debug("REST request to save WLANGroup : {}", wLANGroup);
         if (wLANGroup.getId() != null) {
@@ -144,6 +145,7 @@ public class WLANGroupResource {
      */
     @PutMapping("/w-lan-groups")
     @Timed
+    @Secured(AuthoritiesConstants.SUPERUSER)
     public ResponseEntity<WLANGroup> updateWLANGroup(@RequestBody WLANGroup wLANGroup) throws URISyntaxException {
         log.debug("REST request to update WLANGroup : {}", wLANGroup);
         if (wLANGroup.getId() == null) {
@@ -168,7 +170,7 @@ public class WLANGroupResource {
      */
     @GetMapping("/w-lan-groups")
     @Timed
-    @Secured(AuthoritiesConstants.ADMIN)
+    @Secured({AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN})
     public ResponseEntity<List<WLANGroup>> getAllWLANGroups(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of WLANGroups");
         Page<WLANGroup> page = wLANGroupRepository.findAll(pageable);
@@ -202,6 +204,7 @@ public class WLANGroupResource {
      */
     @DeleteMapping("/w-lan-groups/{id}")
     @Timed
+    @Secured(AuthoritiesConstants.SUPERUSER)
     public ResponseEntity<Void> deleteWLANGroup(@PathVariable Long id) {
         log.debug("REST request to delete WLANGroup : {}", id);
         wLANGroupRepository.delete(id);

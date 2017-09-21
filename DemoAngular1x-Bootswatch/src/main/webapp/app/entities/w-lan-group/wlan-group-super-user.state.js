@@ -13,7 +13,7 @@
                 parent: 'entity',
                 url: '/wlan-group-super-user',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_SUPERUSER', 'ROLE_ADMIN'],
                     pageTitle: 'demoAngular1XApp.wLANGroup.home.title'
                 },
                 views: {
