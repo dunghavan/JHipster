@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/wlan-config-my-suffix?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_SUPERUSER'],
                 pageTitle: 'demoAngular1XApp.wLANConfig.home.title'
             },
             views: {

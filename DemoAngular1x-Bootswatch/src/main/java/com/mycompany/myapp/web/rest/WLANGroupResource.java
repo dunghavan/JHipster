@@ -96,18 +96,6 @@ public class WLANGroupResource {
         return wLANGroupRepository.getUserIdByUserLogin(username);
     }
 
-//
-//    UserService userService;
-//    public ResponseEntity<UserDTO> getCurrentUserLoggin() {
-//        log.debug("REST request to get current user");
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String username = auth.getName();
-//
-//        return ResponseUtil.wrapOrNotFound(userService.getUserWithAuthoritiesByLogin(username)
-//            .map(UserDTO::new));
-//    }
-
-
     /**
      * POST  /w-lan-groups : Create a new wLANGroup.
      *
