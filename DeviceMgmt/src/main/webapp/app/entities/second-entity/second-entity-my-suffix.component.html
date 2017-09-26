@@ -1,0 +1,64 @@
+<div>
+    <h2>
+        <span jhiTranslate="deviceMgmtApp.secondEntity.home.title">Second Entities</span>
+        <button class="btn btn-primary float-right jh-create-entity create-second-entity-my-suffix" [routerLink]="['/', { outlets: { popup: ['second-entity-my-suffix-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="deviceMgmtApp.secondEntity.home.createLabel">
+            Create new Second Entity
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="secondEntities">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="deviceMgmtApp.secondEntity.secondEntityfield1">Second Entityfield 1</span></th>
+            <th><span jhiTranslate="deviceMgmtApp.secondEntity.secondEntityfield2">Second Entityfield 2</span></th>
+            <th><span jhiTranslate="deviceMgmtApp.secondEntity.firstEntity">First Entity</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let secondEntity of secondEntities ;trackBy: trackId">
+                <td><a [routerLink]="['../second-entity-my-suffix', secondEntity.id ]">{{secondEntity.id}}</a></td>
+                <td>{{secondEntity.secondEntityfield1}}</td>
+                <td>{{secondEntity.secondEntityfield2}}</td>
+                <td>
+                    <div *ngIf="secondEntity.firstEntity">
+                        <a [routerLink]="['../first-entity-my-suffix', secondEntity.firstEntity?.id ]" >{{secondEntity.firstEntity?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../second-entity-my-suffix', secondEntity.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'second-entity-my-suffix/'+ secondEntity.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'second-entity-my-suffix/'+ secondEntity.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

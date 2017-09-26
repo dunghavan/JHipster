@@ -1,0 +1,15 @@
+entity FirstEntity{
+	firstEntity_field1 String,
+	firstEntity_field2 String
+}
+
+entity SecondEntity{
+	secondEntity_field1 String,
+	secondEntity_field2 String
+}
+
+relationship OneToMany{
+	FirstEntity{secondEntity} to SecondEntity{firstEntity}	
+}
+
+angularSuffix * with mySuffix

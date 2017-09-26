@@ -1,0 +1,31 @@
+{
+    "hubCamApp": {
+        "camera" : {
+            "home": {
+                "title": "Cameras",
+                "createLabel": "Thêm mới một Camera",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Camera"
+            },
+            "created": "Một Camera mới được tạo với định danh {{ param }}",
+            "updated": "Một Camera cập nhật với định danh {{ param }}",
+            "deleted": "Một Camera đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Camera {{ id }}?"
+            },
+            "detail": {
+                "title": "Camera"
+            },
+            "alias": "Alias",
+            "lng": "Lng",
+            "lat": "Lat",
+            "icon": "Icon",
+            "iconcluster": "Iconcluster",
+            "mainstream": "Mainstream",
+            "substream": "Substream",
+            "address": "Address",
+            "uid": "Uid",
+            "hub": "Hub",
+            "region": "Region"
+        }
+    }
+}

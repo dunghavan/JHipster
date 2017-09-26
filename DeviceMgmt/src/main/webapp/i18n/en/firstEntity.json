@@ -1,0 +1,23 @@
+{
+    "deviceMgmtApp": {
+        "firstEntity" : {
+            "home": {
+                "title": "First Entities",
+                "createLabel": "Create a new First Entity",
+                "createOrEditLabel": "Create or edit a First Entity"
+            },
+            "created": "A new First Entity is created with identifier {{ param }}",
+            "updated": "A First Entity is updated with identifier {{ param }}",
+            "deleted": "A First Entity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete First Entity {{ id }}?"
+            },
+            "detail": {
+                "title": "First Entity"
+            },
+            "firstEntityfield1": "First Entityfield 1",
+            "firstEntityfield2": "First Entityfield 2",
+            "secondEntity": "Second Entity"
+        }
+    }
+}

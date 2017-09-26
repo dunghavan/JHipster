@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "firstEntity",
+            "otherEntityName": "firstEntity",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "secondEntityfield1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "secondEntityfield2",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170821072216",
+    "entityTableName": "second_entity",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

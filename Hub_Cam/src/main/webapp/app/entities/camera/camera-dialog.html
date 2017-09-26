@@ -1,0 +1,158 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myCameraLabel" data-translate="hubCamApp.camera.home.createOrEditLabel">Create or edit a Camera</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.camera.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.camera.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.camera.alias" for="field_alias">Alias</label>
+            <input type="text" class="form-control" name="alias" id="field_alias"
+                    ng-model="vm.camera.alias"
+                    required ng-maxlength="255"/>
+            <div ng-show="editForm.alias.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.alias.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.alias.$error.maxlength" data-translate="entity.validation.maxlength" translate-value-max="255">
+                    This field cannot be longer than 255 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.camera.lng" for="field_lng">Lng</label>
+            <input type="text" class="form-control" name="lng" id="field_lng"
+                    ng-model="vm.camera.lng"
+                    ng-maxlength="45"/>
+            <div ng-show="editForm.lng.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.lng.$error.maxlength" data-translate="entity.validation.maxlength" translate-value-max="45">
+                    This field cannot be longer than 45 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.camera.lat" for="field_lat">Lat</label>
+            <input type="text" class="form-control" name="lat" id="field_lat"
+                    ng-model="vm.camera.lat"
+                    ng-maxlength="45"/>
+            <div ng-show="editForm.lat.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.lat.$error.maxlength" data-translate="entity.validation.maxlength" translate-value-max="45">
+                    This field cannot be longer than 45 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.camera.icon" for="field_icon">Icon</label>
+            <input type="text" class="form-control" name="icon" id="field_icon"
+                    ng-model="vm.camera.icon"
+                    ng-maxlength="255"/>
+            <div ng-show="editForm.icon.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.icon.$error.maxlength" data-translate="entity.validation.maxlength" translate-value-max="255">
+                    This field cannot be longer than 255 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.camera.iconcluster" for="field_iconcluster">Iconcluster</label>
+            <input type="text" class="form-control" name="iconcluster" id="field_iconcluster"
+                    ng-model="vm.camera.iconcluster"
+                    ng-maxlength="45"/>
+            <div ng-show="editForm.iconcluster.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.iconcluster.$error.maxlength" data-translate="entity.validation.maxlength" translate-value-max="45">
+                    This field cannot be longer than 45 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.camera.mainstream" for="field_mainstream">Mainstream</label>
+            <input type="number" class="form-control" name="mainstream" id="field_mainstream"
+                    ng-model="vm.camera.mainstream"
+                    max="11"/>
+            <div ng-show="editForm.mainstream.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.mainstream.$error.max" data-translate="entity.validation.max" translate-value-max="11">
+                    This field cannot be more than 11.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.mainstream.$error.number" data-translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.camera.substream" for="field_substream">Substream</label>
+            <input type="number" class="form-control" name="substream" id="field_substream"
+                    ng-model="vm.camera.substream"
+                    max="11"/>
+            <div ng-show="editForm.substream.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.substream.$error.max" data-translate="entity.validation.max" translate-value-max="11">
+                    This field cannot be more than 11.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.substream.$error.number" data-translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.camera.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                    ng-model="vm.camera.address"
+                    ng-maxlength="255"/>
+            <div ng-show="editForm.address.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.address.$error.maxlength" data-translate="entity.validation.maxlength" translate-value-max="255">
+                    This field cannot be longer than 255 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.camera.uid" for="field_uid">Uid</label>
+            <input type="text" class="form-control" name="uid" id="field_uid"
+                    ng-model="vm.camera.uid"
+                    ng-maxlength="45"/>
+            <div ng-show="editForm.uid.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.uid.$error.maxlength" data-translate="entity.validation.maxlength" translate-value-max="45">
+                    This field cannot be longer than 45 characters.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label data-translate="hubCamApp.camera.hub" for="field_hub">Hub</label>
+            <select class="form-control" id="field_hub" name="hub" ng-model="vm.camera.hub" ng-options="hub as hub.id for hub in vm.hubs track by hub.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="hubCamApp.camera.region" for="field_region">Region</label>
+            <select class="form-control" id="field_region" name="region" ng-model="vm.camera.region" ng-options="region as region.id for region in vm.regions track by region.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

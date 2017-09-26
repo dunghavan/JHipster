@@ -1,0 +1,69 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myHubLabel" jhiTranslate="deviceMgmtApp.hub.home.createOrEditLabel">Create or edit a Hub</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!hub.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="hub.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="deviceMgmtApp.hub.uid" for="field_uid">Uid</label>
+            <input type="number" class="form-control" name="uid" id="field_uid"
+                [(ngModel)]="hub.uid" max="11" />
+            <div [hidden]="!(editForm.controls.uid?.dirty && editForm.controls.uid?.invalid)">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.uid?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 11 }">
+                    This field cannot be more than 11.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.uid?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="deviceMgmtApp.hub.alias" for="field_alias">Alias</label>
+            <input type="text" class="form-control" name="alias" id="field_alias"
+                [(ngModel)]="hub.alias" maxlength="45" />
+            <div [hidden]="!(editForm.controls.alias?.dirty && editForm.controls.alias?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.alias?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 45 }">
+                   This field cannot be longer than 45 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="deviceMgmtApp.hub.uuid" for="field_uuid">Uuid</label>
+            <input type="text" class="form-control" name="uuid" id="field_uuid"
+                [(ngModel)]="hub.uuid" maxlength="45" />
+            <div [hidden]="!(editForm.controls.uuid?.dirty && editForm.controls.uuid?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.uuid?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 45 }">
+                   This field cannot be longer than 45 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="deviceMgmtApp.hub.lastactive" for="field_lastactive">Lastactive</label>
+            <div class="d-flex">
+                <input id="field_lastactive" type="datetime-local" class="form-control" name="lastactive" [(ngModel)]="hub.lastactive"
+                  />
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

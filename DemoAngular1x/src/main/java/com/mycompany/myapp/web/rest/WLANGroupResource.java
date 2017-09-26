@@ -5,6 +5,7 @@ import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.domain.WLANGroup;
 
 import com.mycompany.myapp.repository.WLANGroupRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.UserService;
 import com.mycompany.myapp.service.dto.UserDTO;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.Console;
 import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -89,9 +91,9 @@ public class WLANGroupResource {
     //Method get current userId:
     public Long getCurrentUserId(){
         // Get username logged in via Authenticate:
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        return wLANGroupRepository.getUserIdByUserLogin(username);
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String username = auth.getName();
+        return wLANGroupRepository.getUserIdByUserLogin(SecurityUtils.getCurrentUserLogin());
     }
 
 //

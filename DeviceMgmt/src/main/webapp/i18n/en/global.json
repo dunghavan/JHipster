@@ -9,6 +9,9 @@
                 "main": "Entities",
                 "modelMySuffix": "Model",
                 "deviceMySuffix": "Device",
+                "firstEntityMySuffix": "First Entity",
+                "secondEntityMySuffix": "Second Entity",
+                "hub": "Hub",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

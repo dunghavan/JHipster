@@ -1,0 +1,45 @@
+entity Hub{
+  Uid Integer max(11),
+  Alias String maxlength(45),
+  Uuid String maxlength(45),
+  Last_active ZonedDateTime
+}
+
+entity Camera{
+  Id Integer required max(11),
+  Alias String required maxlength(255),
+  Lng String maxlength(45),
+  Lat String maxlength(45),
+  Icon String maxlength(255),
+  Icon_cluster String maxlength(45),
+  Main_stream Integer max(11),
+  Sub_stream Integer max(11),
+  Address String maxlength(255),
+  Uid String maxlength(45)
+}
+
+entity Organization{
+  Id Integer required max(11),
+    Name String maxlength(45)
+}
+
+entity Region{
+  Id Integer required max(11),
+    Name String maxlength(45)
+}
+
+relationship OneToMany {
+  Hub{camera} to Camera{hub}
+}
+
+relationship OneToMany {
+  Organization{hub} to Hub{organization}
+}
+
+relationship OneToMany{
+  Region{camera} to Camera{region}
+}
+
+relationship OneToMany {
+  Organization{region} to Region{organization}
+}

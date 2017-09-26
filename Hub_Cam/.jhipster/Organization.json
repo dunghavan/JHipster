@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "hub",
+            "otherEntityName": "hub",
+            "otherEntityRelationshipName": "organization"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "region",
+            "otherEntityName": "region",
+            "otherEntityRelationshipName": "organization"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 45
+        }
+    ],
+    "changelogDate": "20170926075045",
+    "entityTableName": "organization",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

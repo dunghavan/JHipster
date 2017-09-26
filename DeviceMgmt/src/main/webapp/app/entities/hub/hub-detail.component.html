@@ -1,0 +1,37 @@
+
+<div *ngIf="hub">
+    <h2><span jhiTranslate="deviceMgmtApp.hub.detail.title">Hub</span> {{hub.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="deviceMgmtApp.hub.uid">Uid</span></dt>
+        <dd>
+            <span>{{hub.uid}}</span>
+        </dd>
+        <dt><span jhiTranslate="deviceMgmtApp.hub.alias">Alias</span></dt>
+        <dd>
+            <span>{{hub.alias}}</span>
+        </dd>
+        <dt><span jhiTranslate="deviceMgmtApp.hub.uuid">Uuid</span></dt>
+        <dd>
+            <span>{{hub.uuid}}</span>
+        </dd>
+        <dt><span jhiTranslate="deviceMgmtApp.hub.lastactive">Lastactive</span></dt>
+        <dd>
+            <span>{{hub.lastactive | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'hub/'+ hub.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

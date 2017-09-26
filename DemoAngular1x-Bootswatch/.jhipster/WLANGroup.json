@@ -1,0 +1,35 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "wlanConfig",
+            "otherEntityName": "wLANConfig",
+            "otherEntityRelationshipName": "wlanGroup"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "alias",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ssid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "encryption",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "passphase",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170822074141",
+    "entityTableName": "wlan_group",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

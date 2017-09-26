@@ -1,0 +1,82 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myHubLabel" data-translate="hubCamApp.hub.home.createOrEditLabel">Create or edit a Hub</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.hub.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.hub.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.hub.uid" for="field_uid">Uid</label>
+            <input type="number" class="form-control" name="uid" id="field_uid"
+                    ng-model="vm.hub.uid"
+                    max="11"/>
+            <div ng-show="editForm.uid.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.uid.$error.max" data-translate="entity.validation.max" translate-value-max="11">
+                    This field cannot be more than 11.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.uid.$error.number" data-translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.hub.alias" for="field_alias">Alias</label>
+            <input type="text" class="form-control" name="alias" id="field_alias"
+                    ng-model="vm.hub.alias"
+                    ng-maxlength="45"/>
+            <div ng-show="editForm.alias.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.alias.$error.maxlength" data-translate="entity.validation.maxlength" translate-value-max="45">
+                    This field cannot be longer than 45 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.hub.uuid" for="field_uuid">Uuid</label>
+            <input type="text" class="form-control" name="uuid" id="field_uuid"
+                    ng-model="vm.hub.uuid"
+                    ng-maxlength="45"/>
+            <div ng-show="editForm.uuid.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.uuid.$error.maxlength" data-translate="entity.validation.maxlength" translate-value-max="45">
+                    This field cannot be longer than 45 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="hubCamApp.hub.lastactive" for="field_lastactive">Lastactive</label>
+                <div class="input-group">
+                    <input id="field_lastactive" type="text" class="form-control" name="lastactive" datetime-picker="{{dateformat}}" ng-model="vm.hub.lastactive" is-open="vm.datePickerOpenStatus.lastactive"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('lastactive')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label data-translate="hubCamApp.hub.organization" for="field_organization">Organization</label>
+            <select class="form-control" id="field_organization" name="organization" ng-model="vm.hub.organization" ng-options="organization as organization.id for organization in vm.organizations track by organization.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

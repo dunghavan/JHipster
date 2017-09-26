@@ -29,6 +29,7 @@
                 password: credentials.password,
                 rememberMe: credentials.rememberMe
             };
+            console.log('4-----------------login in auth.jwt.service.js file');
             return $http.post('api/authenticate', data).success(authenticateSuccess);
 
             function authenticateSuccess (data, status, headers) {

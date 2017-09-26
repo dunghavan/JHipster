@@ -1,0 +1,43 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "wlanGroup",
+            "otherEntityName": "wLANGroup",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "alias",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "chanel",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "maxAssoc",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "htMode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "txPower",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "maxInactivity",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170822074142",
+    "entityTableName": "wlan_config",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

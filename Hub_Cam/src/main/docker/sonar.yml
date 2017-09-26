@@ -1,0 +1,7 @@
+version: '2'
+services:
+    hub_cam-sonar:
+        image: sonarqube:6.4-alpine
+        ports:
+            - 9000:9000
+            - 9092:9092

@@ -1,0 +1,26 @@
+{
+    "hubCamApp": {
+        "hub" : {
+            "home": {
+                "title": "Hubs",
+                "createLabel": "Create a new Hub",
+                "createOrEditLabel": "Create or edit a Hub"
+            },
+            "created": "A new Hub is created with identifier {{ param }}",
+            "updated": "A Hub is updated with identifier {{ param }}",
+            "deleted": "A Hub is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Hub {{ id }}?"
+            },
+            "detail": {
+                "title": "Hub"
+            },
+            "uid": "Uid",
+            "alias": "Alias",
+            "uuid": "Uuid",
+            "lastactive": "Lastactive",
+            "camera": "Camera",
+            "organization": "Organization"
+        }
+    }
+}

@@ -7,10 +7,12 @@
 
     LoginService.$inject = ['$uibModal'];
 
+    console.log('----------------- login.service.js file');
     function LoginService ($uibModal) {
         var service = {
             open: open
         };
+        console.log('-----------------Run constructor LoginService in login.service.js');
 
         var modalInstance = null;
         var resetModal = function () {
@@ -33,6 +35,8 @@
                     }]
                 }
             });
+
+            console.log('2-----------------function open() in login.service.js file');
             modalInstance.result.then(
                 resetModal,
                 resetModal

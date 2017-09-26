@@ -10,6 +10,7 @@
     function LoginController ($rootScope, $state, $timeout, Auth, $uibModalInstance) {
         var vm = this;
 
+        console.log('-----------------Run file login.controller.js');
         vm.authenticationError = false;
         vm.cancel = cancel;
         vm.credentials = {};
@@ -34,6 +35,7 @@
 
         function login (event) {
             event.preventDefault();
+            console.log('1-----------------login() in login.controller.js file');
             Auth.login({
                 username: vm.username,
                 password: vm.password,

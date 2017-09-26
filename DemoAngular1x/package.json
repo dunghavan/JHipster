@@ -64,5 +64,8 @@
   },
   "scripts": {
     "test": "gulp test"
+  },
+  "dependencies": {
+    "generator-jhipster-bootstrap-material-design": "^3.5.1"
   }
 }

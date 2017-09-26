@@ -1,0 +1,35 @@
+
+<div *ngIf="secondEntity">
+    <h2><span jhiTranslate="deviceMgmtApp.secondEntity.detail.title">Second Entity</span> {{secondEntity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="deviceMgmtApp.secondEntity.secondEntityfield1">Second Entityfield 1</span></dt>
+        <dd>
+            <span>{{secondEntity.secondEntityfield1}}</span>
+        </dd>
+        <dt><span jhiTranslate="deviceMgmtApp.secondEntity.secondEntityfield2">Second Entityfield 2</span></dt>
+        <dd>
+            <span>{{secondEntity.secondEntityfield2}}</span>
+        </dd>
+        <dt><span jhiTranslate="deviceMgmtApp.secondEntity.firstEntity">First Entity</span></dt>
+        <dd>
+            <div *ngIf="secondEntity.firstEntity">
+                <a [routerLink]="['/first-entity-my-suffix', secondEntity.firstEntity?.id]">{{secondEntity.firstEntity?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'second-entity-my-suffix/'+ secondEntity.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

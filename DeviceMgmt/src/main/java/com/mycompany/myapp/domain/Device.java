@@ -131,7 +131,7 @@ public class Device implements Serializable {
 
     @Override
     public String toString() {
-        return "Device{" +ode
+        return "Device{" +
             "id=" + getId() +
             ", deviceName='" + getDeviceName() + "'" +
             ", ipAddress='" + getIpAddress() + "'" +

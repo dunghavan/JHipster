@@ -1,0 +1,63 @@
+
+<div>
+    <h2><span data-translate="hubCamApp.camera.detail.title">Camera</span> {{vm.camera.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="hubCamApp.camera.alias">Alias</span></dt>
+        <dd>
+            <span>{{vm.camera.alias}}</span>
+        </dd>
+        <dt><span data-translate="hubCamApp.camera.lng">Lng</span></dt>
+        <dd>
+            <span>{{vm.camera.lng}}</span>
+        </dd>
+        <dt><span data-translate="hubCamApp.camera.lat">Lat</span></dt>
+        <dd>
+            <span>{{vm.camera.lat}}</span>
+        </dd>
+        <dt><span data-translate="hubCamApp.camera.icon">Icon</span></dt>
+        <dd>
+            <span>{{vm.camera.icon}}</span>
+        </dd>
+        <dt><span data-translate="hubCamApp.camera.iconcluster">Iconcluster</span></dt>
+        <dd>
+            <span>{{vm.camera.iconcluster}}</span>
+        </dd>
+        <dt><span data-translate="hubCamApp.camera.mainstream">Mainstream</span></dt>
+        <dd>
+            <span>{{vm.camera.mainstream}}</span>
+        </dd>
+        <dt><span data-translate="hubCamApp.camera.substream">Substream</span></dt>
+        <dd>
+            <span>{{vm.camera.substream}}</span>
+        </dd>
+        <dt><span data-translate="hubCamApp.camera.address">Address</span></dt>
+        <dd>
+            <span>{{vm.camera.address}}</span>
+        </dd>
+        <dt><span data-translate="hubCamApp.camera.uid">Uid</span></dt>
+        <dd>
+            <span>{{vm.camera.uid}}</span>
+        </dd>
+        <dt><span data-translate="hubCamApp.camera.hub">Hub</span></dt>
+        <dd>
+            <a ui-sref="hub-detail({id:vm.camera.hub.id})">{{vm.camera.hub.id}}</a>
+        </dd>
+        <dt><span data-translate="hubCamApp.camera.region">Region</span></dt>
+        <dd>
+            <a ui-sref="region-detail({id:vm.camera.region.id})">{{vm.camera.region.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="camera-detail.edit({id:vm.camera.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,7 @@
+entity Hub{
+	Id Integer required max(11),
+    Uid Integer max(11),
+  Alias String maxlength(45),
+  Uuid String maxlength(45),
+  Last_active ZonedDateTime
+}

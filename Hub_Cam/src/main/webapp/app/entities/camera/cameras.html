@@ -1,0 +1,80 @@
+<div>
+    <h2 data-translate="hubCamApp.camera.home.title">Cameras</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="camera.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="hubCamApp.camera.home.createLabel">
+                        Create new Camera
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="hubCamApp.camera.alias">Alias</span></th>
+                    <th><span data-translate="hubCamApp.camera.lng">Lng</span></th>
+                    <th><span data-translate="hubCamApp.camera.lat">Lat</span></th>
+                    <th><span data-translate="hubCamApp.camera.icon">Icon</span></th>
+                    <th><span data-translate="hubCamApp.camera.iconcluster">Iconcluster</span></th>
+                    <th><span data-translate="hubCamApp.camera.mainstream">Mainstream</span></th>
+                    <th><span data-translate="hubCamApp.camera.substream">Substream</span></th>
+                    <th><span data-translate="hubCamApp.camera.address">Address</span></th>
+                    <th><span data-translate="hubCamApp.camera.uid">Uid</span></th>
+                    <th><span data-translate="hubCamApp.camera.hub">Hub</span></th>
+                    <th><span data-translate="hubCamApp.camera.region">Region</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="camera in vm.cameras track by camera.id">
+                    <td><a ui-sref="camera-detail({id:camera.id})">{{camera.id}}</a></td>
+                    <td>{{camera.alias}}</td>
+                    <td>{{camera.lng}}</td>
+                    <td>{{camera.lat}}</td>
+                    <td>{{camera.icon}}</td>
+                    <td>{{camera.iconcluster}}</td>
+                    <td>{{camera.mainstream}}</td>
+                    <td>{{camera.substream}}</td>
+                    <td>{{camera.address}}</td>
+                    <td>{{camera.uid}}</td>
+                    <td>
+                        <a ui-sref="hub-detail({id:camera.hub.id})">{{camera.hub.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="region-detail({id:camera.region.id})">{{camera.region.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="camera-detail({id:camera.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="camera.edit({id:camera.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="camera.delete({id:camera.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

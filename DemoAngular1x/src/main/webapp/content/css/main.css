@@ -15,8 +15,8 @@ Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak
 Development Ribbon
 ========================================================================== */
 .ribbon {
-    background-color: #a00;
-    box-shadow: 0 0 10px #888;
+    background-color: #20aa1e;
+    box-shadow: 0 0 10px #090a88;
     left: -3.5em;
     moz-box-shadow: 0 0 10px #888;
     moz-transform: rotate(-45deg);
@@ -36,7 +36,7 @@ Development Ribbon
 
 .ribbon a {
     border: 1px solid #faa;
-    color: #fff;
+    color: #e5ff09;
     display: block;
     font: bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: 1px 0;
@@ -52,14 +52,14 @@ Version number in navbar
 ========================================================================== */
 .navbar-version {
     font-size: 10px;
-    color: #444;
+    color: #ff0f43;
 }
 
 /* ==========================================================================
 navbar text
 ========================================================================== */
 .navbar-default .navbar-brand {
-    color: #444;
+    color: #25ff3c;
 }
 
 /* ==========================================================================
@@ -338,5 +338,12 @@ ui bootstrap tweaks
 
 
 
+
+/* ==========================================================================
+Fix error field display
+========================================================================== */
+.form-group .help-block {
+    position: static;
+}
 
 /* jhipster-needle-css-add-main JHipster will add new css style */

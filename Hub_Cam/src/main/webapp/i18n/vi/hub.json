@@ -1,0 +1,26 @@
+{
+    "hubCamApp": {
+        "hub" : {
+            "home": {
+                "title": "Hubs",
+                "createLabel": "Thêm mới một Hub",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Hub"
+            },
+            "created": "Một Hub mới được tạo với định danh {{ param }}",
+            "updated": "Một Hub cập nhật với định danh {{ param }}",
+            "deleted": "Một Hub đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Hub {{ id }}?"
+            },
+            "detail": {
+                "title": "Hub"
+            },
+            "uid": "Uid",
+            "alias": "Alias",
+            "uuid": "Uuid",
+            "lastactive": "Lastactive",
+            "camera": "Camera",
+            "organization": "Organization"
+        }
+    }
+}

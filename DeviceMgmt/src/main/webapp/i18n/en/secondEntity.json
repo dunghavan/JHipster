@@ -1,0 +1,23 @@
+{
+    "deviceMgmtApp": {
+        "secondEntity" : {
+            "home": {
+                "title": "Second Entities",
+                "createLabel": "Create a new Second Entity",
+                "createOrEditLabel": "Create or edit a Second Entity"
+            },
+            "created": "A new Second Entity is created with identifier {{ param }}",
+            "updated": "A Second Entity is updated with identifier {{ param }}",
+            "deleted": "A Second Entity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Second Entity {{ id }}?"
+            },
+            "detail": {
+                "title": "Second Entity"
+            },
+            "secondEntityfield1": "Second Entityfield 1",
+            "secondEntityfield2": "Second Entityfield 2",
+            "firstEntity": "First Entity"
+        }
+    }
+}

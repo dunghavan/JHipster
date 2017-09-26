@@ -13,10 +13,13 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.css">
     <!-- endinject -->
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
     <link rel="stylesheet" href="content/css/main.css">
+    <link rel="stylesheet" href="" id="bootswatch-css" title="Default">
     <!-- endbuild -->
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="manifest" href="manifest.webapp" />
@@ -32,9 +35,29 @@
             <!-- Angular views -->
         </div>
 
-        <div class="footer" ng-cloak>
-            <p data-translate="footer">This is your footer</p>
+        <!--<div class="footer" ng-cloak>-->
+            <!--<p data-translate="footer">This is your footer</p>-->
+        <!--</div>-->
+
+        <!--@Dung Add:-->
+        <div class="footer">
+            <p translate="footer" class="pull-left">This is your footer</p>
+            <div ng-controller="BootswatchController" class="dropup pull-right">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-adjust"></span>
+                    <span class="hidden-tablet" translate="global.menu.theme">Theme</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="theme-link" ng-repeat="theme in themes">
+
+                        <a href="" jh-switch-theme="theme">{{theme.name}}</a>
+
+                    </li>
+                </ul>
+            </div>
         </div>
+        <!--End Add-->
     </div>
     <noscript>
         <h1>You must enable javascript to view this page.</h1>
@@ -63,6 +86,8 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/messageformat/messageformat.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
+    <script src="bower_components/arrive/src/arrive.js"></script>
+    <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -81,6 +106,8 @@
     <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+    <script src="bower_components/bootstrap-material-design/dist/js/material.js"></script>
+    <script src="bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -153,6 +180,9 @@
     <script src="app/components/form/pagination.constants.js"></script>
     <script src="app/components/form/minbytes.directive.js"></script>
     <script src="app/components/form/maxbytes.directive.js"></script>
+    <script src="app/components/bootswatch/bootswatch.service.js"></script>
+    <script src="app/components/bootswatch/bootswatch.directive.js"></script>
+    <script src="app/components/bootswatch/bootswatch.controller.js"></script>
     <script src="app/components/alert/alert-error.directive.js"></script>
     <script src="app/components/alert/alert.service.js"></script>
     <script src="app/components/alert/alert.directive.js"></script>
@@ -169,6 +199,7 @@
     <script src="app/blocks/config/localstorage.config.js"></script>
     <script src="app/blocks/config/http.config.js"></script>
     <script src="app/blocks/config/compile.config.js"></script>
+    <script src="app/blocks/config/bootstrap-material.config.js"></script>
     <script src="app/blocks/config/alert.config.js"></script>
     <script src="app/app.state.js"></script>
     <script src="app/app.constants.js"></script>
@@ -212,6 +243,16 @@
     <script src="app/account/account.state.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
+
+<!--@Dung Add:-->
+    <!-- build:js({.tmp,src/main/webapp}) scripts/app.js -->
+
+    ...
+
+    <!--<script src="scripts/components/util/bootswatch.controller.js"></script>-->
+    <!--<script src="scripts/components/util/bootswatch.directive.js"></script>-->
+    <!--<script src="scripts/components/util/bootswatch.service.js"></script>-->
+<!--End Add-->
 
 </body>
 </html>

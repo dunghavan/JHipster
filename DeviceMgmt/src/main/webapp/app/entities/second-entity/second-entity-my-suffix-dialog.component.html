@@ -1,0 +1,42 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="mySecondEntityLabel" jhiTranslate="deviceMgmtApp.secondEntity.home.createOrEditLabel">Create or edit a Second Entity</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!secondEntity.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="secondEntity.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="deviceMgmtApp.secondEntity.secondEntityfield1" for="field_secondEntityfield1">Second Entityfield 1</label>
+            <input type="text" class="form-control" name="secondEntityfield1" id="field_secondEntityfield1"
+                [(ngModel)]="secondEntity.secondEntityfield1"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="deviceMgmtApp.secondEntity.secondEntityfield2" for="field_secondEntityfield2">Second Entityfield 2</label>
+            <input type="text" class="form-control" name="secondEntityfield2" id="field_secondEntityfield2"
+                [(ngModel)]="secondEntity.secondEntityfield2"  />
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="deviceMgmtApp.secondEntity.firstEntity" for="field_firstEntity">First Entity</label>
+            <select class="form-control" id="field_firstEntity" name="firstEntity" [(ngModel)]="secondEntity.firstEntity" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="firstEntityOption.id === secondEntity.firstEntity?.id ? secondEntity.firstEntity : firstEntityOption" *ngFor="let firstEntityOption of firstentities; trackBy: trackFirstEntityById">{{firstEntityOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

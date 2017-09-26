@@ -103,6 +103,7 @@
         function login (credentials, callback) {
             var cb = callback || angular.noop;
             var deferred = $q.defer();
+            console.log('3-----------------login in auth.service.js file');
 
             AuthServerProvider.login(credentials)
                 .then(loginThen)
