@@ -18,6 +18,7 @@
         function load(login) {
             User.get({login: login}, function(result) {
                 vm.user = result;
+                console.log('------loaded user: ', vm.user);
             });
         }
     }

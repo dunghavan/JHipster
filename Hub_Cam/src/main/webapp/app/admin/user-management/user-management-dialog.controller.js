@@ -36,11 +36,14 @@
 
         function save () {
             vm.isSaving = true;
+            //@Dung Add:
+            vm.user.organization_id = 2;
             if (vm.user.id !== null) {
                 User.update(vm.user, onSaveSuccess, onSaveError);
             } else {
                 User.save(vm.user, onSaveSuccess, onSaveError);
             }
+            console.log('-------vm.user.organization_id: ', vm.user.organization_id);
         }
     }
 })();

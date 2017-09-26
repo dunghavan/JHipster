@@ -86,6 +86,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @ManyToOne
     private Organization organization;
 
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(

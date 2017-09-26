@@ -1,6 +1,7 @@
 package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.domain.Authority;
+import com.mycompany.myapp.domain.Organization;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.AuthorityRepository;
 import com.mycompany.myapp.config.Constants;
@@ -108,11 +109,17 @@ public class UserService {
 
     public User createUser(UserDTO userDTO) {
         User user = new User();
+        log.debug("-----------userDTO from form: ", userDTO.toString());
         user.setLogin(userDTO.getLogin());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setImageUrl(userDTO.getImageUrl());
+
+        //@Dung Add:
+        Organization organization = new Organization();
+        organization.setId(userDTO.getOrganization().getId());
+
         if (userDTO.getLangKey() == null) {
             user.setLangKey("en"); // default language
         } else {

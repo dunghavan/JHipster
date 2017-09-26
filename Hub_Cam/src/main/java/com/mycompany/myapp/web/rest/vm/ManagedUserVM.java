@@ -1,5 +1,6 @@
 package com.mycompany.myapp.web.rest.vm;
 
+import com.mycompany.myapp.domain.Organization;
 import com.mycompany.myapp.service.dto.UserDTO;
 import javax.validation.constraints.Size;
 
@@ -25,10 +26,10 @@ public class ManagedUserVM extends UserDTO {
     public ManagedUserVM(Long id, String login, String password, String firstName, String lastName,
                          String email, boolean activated, String imageUrl, String langKey,
                          String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-                        Set<String> authorities) {
+                         Set<String> authorities, Organization organization) {
 
         super(id, login, firstName, lastName, email, activated, imageUrl, langKey,
-            createdBy, createdDate, lastModifiedBy, lastModifiedDate,  authorities);
+            createdBy, createdDate, lastModifiedBy, lastModifiedDate,  authorities, organization);
 
         this.password = password;
     }

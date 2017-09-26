@@ -3,6 +3,7 @@ package com.mycompany.myapp.service.dto;
 import com.mycompany.myapp.config.Constants;
 
 import com.mycompany.myapp.domain.Authority;
+import com.mycompany.myapp.domain.Organization;
 import com.mycompany.myapp.domain.User;
 
 import org.hibernate.validator.constraints.Email;
@@ -53,6 +54,17 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    //@Dung Add:
+    private Organization organization;
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -62,13 +74,13 @@ public class UserDTO {
             user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
             user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
             user.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()));
+                .collect(Collectors.toSet()), user.getOrganization());
     }
 
     public UserDTO(Long id, String login, String firstName, String lastName,
         String email, boolean activated, String imageUrl, String langKey,
         String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-        Set<String> authorities) {
+        Set<String> authorities, Organization organization) {
 
         this.id = id;
         this.login = login;
@@ -83,6 +95,7 @@ public class UserDTO {
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
         this.authorities = authorities;
+        this.organization = organization;
     }
 
     public Long getId() {
@@ -164,6 +177,7 @@ public class UserDTO {
             ", lastModifiedBy='" + lastModifiedBy + '\'' +
             ", lastModifiedDate=" + lastModifiedDate +
             ", authorities=" + authorities +
+            ", organization_id=" + organization +
             "}";
     }
 }
