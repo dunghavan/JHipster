@@ -5,9 +5,9 @@
         .module('hubCamApp')
         .controller('UserManagementDialogController',UserManagementDialogController);
 
-    UserManagementDialogController.$inject = ['$stateParams', '$uibModalInstance', 'entity', 'User', 'JhiLanguageService'];
+    UserManagementDialogController.$inject = ['$stateParams', '$uibModalInstance', 'entity', 'User', 'Organization', 'JhiLanguageService'];
 
-    function UserManagementDialogController ($stateParams, $uibModalInstance, entity, User, JhiLanguageService) {
+    function UserManagementDialogController ($stateParams, $uibModalInstance, entity, User, Organization, JhiLanguageService) {
         var vm = this;
 
         vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
@@ -15,6 +15,9 @@
         vm.languages = null;
         vm.save = save;
         vm.user = entity;
+
+        //@Dung Add:
+        vm.organizations = Organization.query();
 
 
         JhiLanguageService.getAll().then(function (languages) {
@@ -36,14 +39,12 @@
 
         function save () {
             vm.isSaving = true;
-            //@Dung Add:
-            vm.user.organization_id = 2;
             if (vm.user.id !== null) {
                 User.update(vm.user, onSaveSuccess, onSaveError);
             } else {
+                console.log('------User to save: ', vm.user);
                 User.save(vm.user, onSaveSuccess, onSaveError);
             }
-            console.log('-------vm.user.organization_id: ', vm.user.organization_id);
         }
     }
 })();

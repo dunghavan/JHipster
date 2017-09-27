@@ -119,6 +119,7 @@ public class UserService {
         //@Dung Add:
         Organization organization = new Organization();
         organization.setId(userDTO.getOrganization().getId());
+        user.setOrganization(organization);
 
         if (userDTO.getLangKey() == null) {
             user.setLangKey("en"); // default language

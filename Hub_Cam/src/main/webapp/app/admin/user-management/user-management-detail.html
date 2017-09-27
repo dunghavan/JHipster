@@ -17,6 +17,11 @@
         <dd>{{vm.user.lastName}}</dd>
         <dt><span data-translate="userManagement.email">Email</span></dt>
         <dd>{{vm.user.email}}</dd>
+
+        <dt><span data-translate="userManagement.organization">Organization</span></dt>
+        <dd>{{vm.user.organization.name}}</dd>
+        <!--<td><a ui-sref="organization-detail({id:vm.user.organization.id})">{{vm.user.organization.id}}</a></td>-->
+
         <dt><span data-translate="userManagement.langKey">Lang Key</span></dt>
         <dd>{{vm.user.langKey}}</dd>
         <dt><span data-translate="userManagement.createdBy">Created By</span></dt>

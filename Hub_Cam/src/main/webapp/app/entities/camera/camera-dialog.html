@@ -136,13 +136,13 @@
 
         <div class="form-group">
             <label data-translate="hubCamApp.camera.hub" for="field_hub">Hub</label>
-            <select class="form-control" id="field_hub" name="hub" ng-model="vm.camera.hub" ng-options="hub as hub.id for hub in vm.hubs track by hub.id">
+            <select class="form-control" id="field_hub" name="hub" ng-model="vm.camera.hub" ng-options="hub as hub.alias for hub in vm.hubs track by hub.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
             <label data-translate="hubCamApp.camera.region" for="field_region">Region</label>
-            <select class="form-control" id="field_region" name="region" ng-model="vm.camera.region" ng-options="region as region.id for region in vm.regions track by region.id">
+            <select class="form-control" id="field_region" name="region" ng-model="vm.camera.region" ng-options="region as region.name for region in vm.regions track by region.id">
                 <option value=""></option>
             </select>
         </div>

@@ -95,6 +95,8 @@ public class UserDTO {
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
         this.authorities = authorities;
+
+        //@Dung add:
         this.organization = organization;
     }
 
@@ -177,7 +179,7 @@ public class UserDTO {
             ", lastModifiedBy='" + lastModifiedBy + '\'' +
             ", lastModifiedDate=" + lastModifiedDate +
             ", authorities=" + authorities +
-            ", organization_id=" + organization +
+            ", organization=" + organization +
             "}";
     }
 }

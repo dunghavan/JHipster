@@ -88,6 +88,13 @@
         </div>
 
         <div class="form-group">
+            <label data-translate="">Organization</label>
+            <select class="form-control" name="organization" ng-model="vm.user.organization"
+                    ng-options="organization as organization.id for organization in vm.organizations track by organization.id">
+            </select>
+        </div>
+
+        <div class="form-group">
             <label data-translate="userManagement.langKey">Lang Key</label>
             <select class="form-control" name="langKey" ng-model="vm.user.langKey"
                     ng-options="language as language for language in vm.languages track by language">

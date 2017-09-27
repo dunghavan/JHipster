@@ -29,6 +29,7 @@
             if (vm.camera.id !== null) {
                 Camera.update(vm.camera, onSaveSuccess, onSaveError);
             } else {
+                console.log('------Camera to save: ', vm.camera);
                 Camera.save(vm.camera, onSaveSuccess, onSaveError);
             }
         }

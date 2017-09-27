@@ -41,13 +41,21 @@
             <span>{{vm.camera.uid}}</span>
         </dd>
         <dt><span data-translate="hubCamApp.camera.hub">Hub</span></dt>
+        <!--<dd>-->
+            <!--<a ui-sref="hub-detail({id:vm.camera.hub.id})">{{vm.camera.hub.id}}</a>-->
+        <!--</dd>-->
         <dd>
-            <a ui-sref="hub-detail({id:vm.camera.hub.id})">{{vm.camera.hub.id}}</a>
+            <a ui-sref="">{{vm.camera.hub.alias}}</a>
         </dd>
+
         <dt><span data-translate="hubCamApp.camera.region">Region</span></dt>
+        <!--<dd>-->
+            <!--<a ui-sref="region-detail({id:vm.camera.region.id})">{{vm.camera.region.id}}</a>-->
+        <!--</dd>-->
         <dd>
-            <a ui-sref="region-detail({id:vm.camera.region.id})">{{vm.camera.region.id}}</a>
+            <a ui-sref="">{{vm.camera.region.name}}</a>
         </dd>
+
     </dl>
 
     <button type="submit"
