@@ -33,6 +33,17 @@ public final class SecurityUtils {
         return userName;
     }
 
+    //@Dung Add:
+    public static String getCurrentUserOrganization() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        String userName = null;
+        if (authentication != null) {
+            System.out.print(authentication.getDetails());
+        }
+        return userName;
+    }
+
     /**
      * Get the JWT of the current user.
      *

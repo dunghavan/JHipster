@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Camera;
 
 import com.mycompany.myapp.repository.CameraRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -86,6 +87,7 @@ public class CameraResource {
     @Timed
     public List<Camera> getAllCameras() {
         log.debug("REST request to get all Cameras");
+        SecurityUtils.getCurrentUserOrganization();
         return cameraRepository.findAll();
     }
 
