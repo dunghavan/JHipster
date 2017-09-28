@@ -45,15 +45,13 @@
                     <td>{{camera.substream}}</td>
                     <td>{{camera.address}}</td>
                     <td>{{camera.uid}}</td>
-                    <!--<td>-->
-                        <!--<a ui-sref="hub-detail({id:camera.hub.id})">{{camera.hub.id}}</a>-->
-                    <!--</td>-->
-                    <td>{{camera.hub.alias}}</td>
+                    <td>
+                        <a ui-sref="hub-detail({id:camera.hub.id})">{{camera.hub.alias}}</a>
+                    </td>
 
-                    <!--<td>-->
-                        <!--<a ui-sref="region-detail({id:camera.region.id})">{{camera.region.id}}</a>-->
-                    <!--</td>-->
-                    <td>{{camera.region.name}}</td>
+                    <td>
+                        <a ui-sref="region-detail({id:camera.region.id})">{{camera.region.name}}</a>
+                    </td>
 
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

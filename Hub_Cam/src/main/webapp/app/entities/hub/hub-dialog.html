@@ -66,7 +66,7 @@
 
         <div class="form-group">
             <label data-translate="hubCamApp.hub.organization" for="field_organization">Organization</label>
-            <select class="form-control" id="field_organization" name="organization" ng-model="vm.hub.organization" ng-options="organization as organization.id for organization in vm.organizations track by organization.id">
+            <select class="form-control" id="field_organization" name="organization" ng-model="vm.hub.organization" ng-options="organization as organization.name for organization in vm.organizations track by organization.id">
                 <option value=""></option>
             </select>
         </div>
