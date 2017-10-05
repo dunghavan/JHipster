@@ -1,9 +1,13 @@
 package com.mycompany.myapp.security;
 
+import com.mycompany.myapp.domain.MyUser;
+import com.mycompany.myapp.domain.MyUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import static org.reflections.Reflections.log;
 
 /**
  * Utility class for Spring Security.
@@ -21,10 +25,13 @@ public final class SecurityUtils {
     public static String getCurrentUserLogin() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
+        authentication.getDetails();
+
+        Object object = authentication.getPrincipal();
         String userName = null;
         if (authentication != null) {
-            if (authentication.getPrincipal() instanceof UserDetails) {
-                UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
+            if (authentication.getPrincipal() instanceof MyUserDetails) {
+                MyUserDetails springSecurityUser = (MyUserDetails) authentication.getPrincipal();
                 userName = springSecurityUser.getUsername();
             } else if (authentication.getPrincipal() instanceof String) {
                 userName = (String) authentication.getPrincipal();
@@ -34,14 +41,15 @@ public final class SecurityUtils {
     }
 
     //@Dung Add:
-    public static String getCurrentUserOrganization() {
+    public static Long getCurrentUserOrganizationId() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
-        String userName = null;
+        Long organizationId = null;
         if (authentication != null) {
-            System.out.print(authentication.getDetails());
+            MyUserDetails springSecurityUser = (MyUserDetails) authentication.getPrincipal();
+            organizationId = springSecurityUser.getOrganization().getId();
         }
-        return userName;
+        return organizationId;
     }
 
     /**

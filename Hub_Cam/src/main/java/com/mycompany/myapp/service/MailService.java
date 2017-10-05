@@ -1,6 +1,6 @@
 package com.mycompany.myapp.service;
 
-import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.domain.MyUser;
 
 import io.github.jhipster.config.JHipsterProperties;
 
@@ -74,7 +74,7 @@ public class MailService {
     }
 
     @Async
-    public void sendEmailFromTemplate(User user, String templateName, String titleKey) {
+    public void sendEmailFromTemplate(MyUser user, String templateName, String titleKey) {
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
         context.setVariable(USER, user);
@@ -86,19 +86,19 @@ public class MailService {
     }
 
     @Async
-    public void sendActivationEmail(User user) {
+    public void sendActivationEmail(MyUser user) {
         log.debug("Sending activation email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "activationEmail", "email.activation.title");
     }
 
     @Async
-    public void sendCreationEmail(User user) {
+    public void sendCreationEmail(MyUser user) {
         log.debug("Sending creation email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "creationEmail", "email.activation.title");
     }
 
     @Async
-    public void sendPasswordResetMail(User user) {
+    public void sendPasswordResetMail(MyUser user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "passwordResetEmail", "email.reset.title");
     }

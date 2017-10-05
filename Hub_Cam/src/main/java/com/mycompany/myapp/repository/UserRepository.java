@@ -1,6 +1,6 @@
 package com.mycompany.myapp.repository;
 
-import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.domain.MyUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -14,23 +14,23 @@ import java.time.Instant;
  * Spring Data JPA repository for the User entity.
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<MyUser, Long> {
 
-    Optional<User> findOneByActivationKey(String activationKey);
+    Optional<MyUser> findOneByActivationKey(String activationKey);
 
-    List<User> findAllByActivatedIsFalseAndCreatedDateBefore(Instant dateTime);
+    List<MyUser> findAllByActivatedIsFalseAndCreatedDateBefore(Instant dateTime);
 
-    Optional<User> findOneByResetKey(String resetKey);
+    Optional<MyUser> findOneByResetKey(String resetKey);
 
-    Optional<User> findOneByEmail(String email);
+    Optional<MyUser> findOneByEmail(String email);
 
-    Optional<User> findOneByLogin(String login);
-
-    @EntityGraph(attributePaths = "authorities")
-    User findOneWithAuthoritiesById(Long id);
+    Optional<MyUser> findOneByLogin(String login);
 
     @EntityGraph(attributePaths = "authorities")
-    Optional<User> findOneWithAuthoritiesByLogin(String login);
+    MyUser findOneWithAuthoritiesById(Long id);
 
-    Page<User> findAllByLoginNot(Pageable pageable, String login);
+    @EntityGraph(attributePaths = "authorities")
+    Optional<MyUser> findOneWithAuthoritiesByLogin(String login);
+
+    Page<MyUser> findAllByLoginNot(Pageable pageable, String login);
 }

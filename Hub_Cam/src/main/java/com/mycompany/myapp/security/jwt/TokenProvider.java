@@ -1,5 +1,8 @@
 package com.mycompany.myapp.security.jwt;
 
+import com.mycompany.myapp.domain.Authority;
+import com.mycompany.myapp.domain.MyUser;
+import com.mycompany.myapp.domain.Organization;
 import io.github.jhipster.config.JHipsterProperties;
 
 import java.util.*;
@@ -48,9 +51,16 @@ public class TokenProvider {
     }
 
     public String createToken(Authentication authentication, Boolean rememberMe) {
-        String authorities = authentication.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority)
-            .collect(Collectors.joining(","));
+        MyUser myUser = (MyUser)authentication.getPrincipal();
+        Set<Authority> setAuthority = myUser.getUserAuthorities();
+
+        String authorities = "ROLE_ADMIN,ROLE_USER";
+        Long organizationId = myUser.getOrganization().getId();
+
+
+//        String authorities = myUser.getAuthorities().stream()
+//            .map(GrantedAuthority::getAuthority)
+//            .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
         Date validity;
@@ -63,10 +73,13 @@ public class TokenProvider {
         return Jwts.builder()
             .setSubject(authentication.getName())
             .claim(AUTHORITIES_KEY, authorities)
+            .claim("ORG_KEY", organizationId)
             .signWith(SignatureAlgorithm.HS512, secretKey)
             .setExpiration(validity)
             .compact();
     }
+
+    //------------------------------------------------------------------------------------------------------------------
 
     public Authentication getAuthentication(String token) {
         Claims claims = Jwts.parser()
@@ -79,7 +92,9 @@ public class TokenProvider {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", authorities);
+        Long orgId = ((Number)claims.get("ORG_KEY")).longValue();
+
+        MyUser principal = new MyUser(claims.getSubject(), "", authorities, orgId);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }

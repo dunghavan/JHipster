@@ -6,16 +6,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.security.core.CredentialsContainer;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.SpringSecurityCoreVersion;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.time.Instant;
 
 /**
@@ -24,7 +27,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "jhi_user")
 
-public class User extends AbstractAuditingEntity implements Serializable {
+public class MyUser extends AbstractAuditingEntity implements  MyUserDetails, CredentialsContainer {
 
     private static final long serialVersionUID = 1L;
 
@@ -86,6 +89,52 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @ManyToOne
     private Organization organization;
 
+
+    public MyUser(String username, String password,
+                Collection<? extends GrantedAuthority> authorities) {
+        this.login = username;
+        this.password = password;
+        List<Authority> list = new ArrayList(authorities);
+        Set<Authority> set = new HashSet<Authority>(list);
+        this.authorities = set;
+        activated = true;
+    }
+    public MyUser(String username, String password,
+                  Collection<? extends GrantedAuthority> authorities, Long orgId) {
+        this.login = username;
+        this.password = password;
+        List<Authority> list = new ArrayList(authorities);
+        Set<Authority> set = new HashSet<Authority>(list);
+        this.authorities = set;
+        activated = true;
+        this.organization = new Organization();
+        this.organization.setId(orgId);
+    }
+
+    public MyUser(String login, String password, String firstName, String lastName, String email, boolean activated, String langKey, String imageUrl, String activationKey, String resetKey, Instant resetDate, Organization organization, Set<Authority> authorities) {
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.activated = activated;
+        this.langKey = langKey;
+        this.imageUrl = imageUrl;
+        this.activationKey = activationKey;
+        this.resetKey = resetKey;
+        this.resetDate = resetDate;
+        this.organization = organization;
+        this.authorities = authorities;
+    }
+
+    public MyUser(){
+
+    }
+
+    public void eraseCredentials() {
+        password = null;
+    }
+
     public Organization getOrganization() {
         return organization;
     }
@@ -124,6 +173,38 @@ public class User extends AbstractAuditingEntity implements Serializable {
     public String getPassword() {
         return password;
     }
+
+    // -------------------------- implement method of AbstractAuditingEntity class --------------------
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 
     public void setPassword(String password) {
         this.password = password;
@@ -200,25 +281,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.langKey = langKey;
     }
 
-    public Set<Authority> getAuthorities() {
+    public Set<Authority> getUserAuthorities() {
         return authorities;
     }
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        User user = (User) o;
-        return !(user.getId() == null || getId() == null) && Objects.equals(getId(), user.getId());
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
-import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.domain.MyUser;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.MailService;
@@ -21,12 +21,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.*;
+
+import static org.reflections.Reflections.log;
 
 /**
  * REST controller for managing the current user's account.
@@ -74,7 +78,7 @@ public class AccountResource {
             .orElseGet(() -> userRepository.findOneByEmail(managedUserVM.getEmail())
                 .map(user -> new ResponseEntity<>("email address already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
                 .orElseGet(() -> {
-                    User user = userService
+                    MyUser user = userService
                         .createUser(managedUserVM.getLogin(), managedUserVM.getPassword(),
                             managedUserVM.getFirstName(), managedUserVM.getLastName(),
                             managedUserVM.getEmail().toLowerCase(), managedUserVM.getImageUrl(),
@@ -121,10 +125,9 @@ public class AccountResource {
     @GetMapping("/account")
     @Timed
     public ResponseEntity<UserDTO> getAccount() {
-        User user = userService.getUserWithAuthorities();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        ((UsernamePasswordAuthenticationToken)authentication).setDetails("123");
-        log.debug("---------MYLOG_userr: " + user.getOrganization());
+        MyUser user = userService.getUserWithAuthorities();
+
+        //log.debug("---------MYLOG_userr: " + user.getOrganization());
         return Optional.ofNullable(user)
             .map(u -> new ResponseEntity<>(new UserDTO(u), HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -140,7 +143,7 @@ public class AccountResource {
     @Timed
     public ResponseEntity saveAccount(@Valid @RequestBody UserDTO userDTO) {
         final String userLogin = SecurityUtils.getCurrentUserLogin();
-        Optional<User> existingUser = userRepository.findOneByEmail(userDTO.getEmail());
+        Optional<MyUser> existingUser = userRepository.findOneByEmail(userDTO.getEmail());
         if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userLogin))) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("user-management", "emailexists", "Email already in use")).body(null);
         }

@@ -1,12 +1,17 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.MyUser;
 import com.mycompany.myapp.security.jwt.JWTConfigurer;
 import com.mycompany.myapp.security.jwt.TokenProvider;
+import com.mycompany.myapp.service.UserService;
+import com.mycompany.myapp.service.dto.UserDTO;
+import com.mycompany.myapp.service.mapper.UserMapper;
 import com.mycompany.myapp.web.rest.vm.LoginVM;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.hibernate.service.spi.InjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,6 +23,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Collections;
@@ -35,6 +41,9 @@ public class UserJWTController {
 
     private final AuthenticationManager authenticationManager;
 
+    @Inject
+    private UserService userService;
+
     public UserJWTController(TokenProvider tokenProvider, AuthenticationManager authenticationManager) {
         this.tokenProvider = tokenProvider;
         this.authenticationManager = authenticationManager;
@@ -51,6 +60,7 @@ public class UserJWTController {
             Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
             boolean rememberMe = (loginVM.isRememberMe() == null) ? false : loginVM.isRememberMe();
             String jwt = tokenProvider.createToken(authentication, rememberMe);
             response.addHeader(JWTConfigurer.AUTHORIZATION_HEADER, "Bearer " + jwt);

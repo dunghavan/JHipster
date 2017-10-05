@@ -2,9 +2,10 @@ package com.mycompany.myapp.service.dto;
 
 import com.mycompany.myapp.config.Constants;
 
+import com.mycompany.myapp.domain.AbstractAuditingEntity;
 import com.mycompany.myapp.domain.Authority;
+import com.mycompany.myapp.domain.MyUser;
 import com.mycompany.myapp.domain.Organization;
-import com.mycompany.myapp.domain.User;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -69,11 +70,11 @@ public class UserDTO {
         // Empty constructor needed for Jackson.
     }
 
-    public UserDTO(User user) {
+    public UserDTO(MyUser user) {
         this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
             user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
             user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
-            user.getAuthorities().stream().map(Authority::getName)
+            user.getUserAuthorities().stream().map(Authority::getName)
                 .collect(Collectors.toSet()), user.getOrganization());
     }
 

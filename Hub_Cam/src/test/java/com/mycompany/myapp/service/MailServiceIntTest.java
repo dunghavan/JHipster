@@ -1,7 +1,7 @@
 package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.HubCamApp;
-import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.domain.MyUser;
 import io.github.jhipster.config.JHipsterProperties;
 import org.junit.Before;
 import org.junit.Test;
@@ -118,7 +118,7 @@ public class MailServiceIntTest {
 
     @Test
     public void testSendEmailFromTemplate() throws Exception {
-        User user = new User();
+        MyUser user = new MyUser();
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
         user.setLangKey("en");
@@ -134,7 +134,7 @@ public class MailServiceIntTest {
 
     @Test
     public void testSendActivationEmail() throws Exception {
-        User user = new User();
+        MyUser user = new MyUser();
         user.setLangKey("en");
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
@@ -149,7 +149,7 @@ public class MailServiceIntTest {
 
     @Test
     public void testCreationEmail() throws Exception {
-        User user = new User();
+        MyUser user = new MyUser();
         user.setLangKey("en");
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
@@ -164,7 +164,7 @@ public class MailServiceIntTest {
 
     @Test
     public void testSendPasswordResetMail() throws Exception {
-        User user = new User();
+        MyUser user = new MyUser();
         user.setLangKey("en");
         user.setLogin("john");
         user.setEmail("john.doe@example.com");

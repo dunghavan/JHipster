@@ -2,7 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.config.Constants;
 import com.codahale.metrics.annotation.Timed;
-import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.domain.MyUser;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.security.AuthoritiesConstants;
 import com.mycompany.myapp.service.MailService;
@@ -107,7 +107,7 @@ public class UserResource {
                 .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "emailexists", "Email already in use"))
                 .body(null);
         } else {
-            User newUser = userService.createUser(managedUserVM);
+            MyUser newUser = userService.createUser(managedUserVM);
             mailService.sendCreationEmail(newUser);
             return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
                 .headers(HeaderUtil.createAlert( "userManagement.created", newUser.getLogin()))
@@ -128,7 +128,7 @@ public class UserResource {
     @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody ManagedUserVM managedUserVM) {
         log.debug("REST request to update User : {}", managedUserVM);
-        Optional<User> existingUser = userRepository.findOneByEmail(managedUserVM.getEmail());
+        Optional<MyUser> existingUser = userRepository.findOneByEmail(managedUserVM.getEmail());
         if (existingUser.isPresent() && (!existingUser.get().getId().equals(managedUserVM.getId()))) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "emailexists", "Email already in use")).body(null);
         }

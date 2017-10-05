@@ -1,0 +1,14 @@
+1. Tạo relationship giữa User và Organization
+- Sau khi gen xong Project bằng Jhipster, thêm Entity Organization vào project
+- Thêm các fields và annotation vào Entity User và Organization để tạo relationship giữa 2 bảng
+
+2. Effect các thay đổi xuống Database
+- Trên Intellij, chọn View->Tool Windows->Maven Project. Trên cửa sổ Maven Project mới hiện ra nhấn vào "Tên Project" -> plugin -> liquibase rồi nhấn đúp chuột vào "liquibase:diff". Tại cửa sổ Debug sẽ thấy có file xml mới được tạo ra, file này nằm trong /src/main/resources/config/liquibase/changelog/
+-  Mở file "master.xml" trong /src/main/resources/config/liquibase/ lên và include file xml mới được gen ở bước trên vào, build lại project để effect các thay đổi xuống DB (có thể sẽ phải run lại nếu build ko có tác dụng).
+
+3. Add organizationId và Token
+- Tạo interface MyUserDetails tương ứng với interface UserDetail của Spring (tuơng ứng nghĩa là MyUserDetails cũng sẽ extend và implement các interface, class và Override các phuơng thức lớp cha giống như UserDetails, chỉ thêm các method cần thêm)
+- Sửa file DomainUserDetailsService để nó return về User của mình (thay vì return về User của Spring)
+- Mở file TokenProvider sửa method createToken để thêm organizationId vào token. Khi thay User mặc định bằng User của mình thì thuộc tính authorities không còn phù hợp, nên đang test bằng dữ liệu authorities tạm.
+- Sửa tiếp method getAuthentication để parse lại thông tin từ token. Ở dòng 97 thì principal sẽ được gán bằng User mới, thay vì User của Spring, chỗ này bây giờ gọi constructos có chứa orgId, constructor phải tự viết thêm ở bên class User.
+- Tạo thêm 1 method ở lớp SecurityUtils để getOrganizationId

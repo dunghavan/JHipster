@@ -1,7 +1,7 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.HubCamApp;
-import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.domain.MyUser;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.security.jwt.TokenProvider;
 import com.mycompany.myapp.web.rest.vm.LoginVM;
@@ -54,7 +54,7 @@ public class UserJWTControllerIntTest {
     @Test
     @Transactional
     public void testAuthorize() throws Exception {
-        User user = new User();
+        MyUser user = new MyUser();
         user.setLogin("user-jwt-controller");
         user.setEmail("user-jwt-controller@example.com");
         user.setActivated(true);
@@ -76,7 +76,7 @@ public class UserJWTControllerIntTest {
     @Test
     @Transactional
     public void testAuthorizeWithRememberMe() throws Exception {
-        User user = new User();
+        MyUser user = new MyUser();
         user.setLogin("user-jwt-controller-remember-me");
         user.setEmail("user-jwt-controller-remember-me@example.com");
         user.setActivated(true);

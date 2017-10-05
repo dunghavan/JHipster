@@ -2,7 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.HubCamApp;
 import com.mycompany.myapp.domain.Authority;
-import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.domain.MyUser;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.security.AuthoritiesConstants;
 import com.mycompany.myapp.service.MailService;
@@ -99,7 +99,7 @@ public class UserResourceIntTest {
 
     private MockMvc restUserMockMvc;
 
-    private User user;
+    private MyUser user;
 
     @Before
     public void setup() {
@@ -118,8 +118,8 @@ public class UserResourceIntTest {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which has a required relationship to the User entity.
      */
-    public static User createEntity(EntityManager em) {
-        User user = new User();
+    public static MyUser createEntity(EntityManager em) {
+        MyUser user = new MyUser();
         user.setLogin(DEFAULT_LOGIN);
         user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
@@ -167,9 +167,9 @@ public class UserResourceIntTest {
             .andExpect(status().isCreated());
 
         // Validate the User in the database
-        List<User> userList = userRepository.findAll();
+        List<MyUser> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeCreate + 1);
-        User testUser = userList.get(userList.size() - 1);
+        MyUser testUser = userList.get(userList.size() - 1);
         assertThat(testUser.getLogin()).isEqualTo(DEFAULT_LOGIN);
         assertThat(testUser.getFirstName()).isEqualTo(DEFAULT_FIRSTNAME);
         assertThat(testUser.getLastName()).isEqualTo(DEFAULT_LASTNAME);
@@ -209,7 +209,7 @@ public class UserResourceIntTest {
             .andExpect(status().isBadRequest());
 
         // Validate the User in the database
-        List<User> userList = userRepository.findAll();
+        List<MyUser> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeCreate);
     }
 
@@ -246,7 +246,7 @@ public class UserResourceIntTest {
             .andExpect(status().isBadRequest());
 
         // Validate the User in the database
-        List<User> userList = userRepository.findAll();
+        List<MyUser> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeCreate);
     }
 
@@ -283,7 +283,7 @@ public class UserResourceIntTest {
             .andExpect(status().isBadRequest());
 
         // Validate the User in the database
-        List<User> userList = userRepository.findAll();
+        List<MyUser> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeCreate);
     }
 
@@ -339,7 +339,7 @@ public class UserResourceIntTest {
         int databaseSizeBeforeUpdate = userRepository.findAll().size();
 
         // Update the user
-        User updatedUser = userRepository.findOne(user.getId());
+        MyUser updatedUser = userRepository.findOne(user.getId());
 
         Set<String> authorities = new HashSet<>();
         authorities.add("ROLE_USER");
@@ -366,9 +366,9 @@ public class UserResourceIntTest {
             .andExpect(status().isOk());
 
         // Validate the User in the database
-        List<User> userList = userRepository.findAll();
+        List<MyUser> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeUpdate);
-        User testUser = userList.get(userList.size() - 1);
+        MyUser testUser = userList.get(userList.size() - 1);
         assertThat(testUser.getFirstName()).isEqualTo(UPDATED_FIRSTNAME);
         assertThat(testUser.getLastName()).isEqualTo(UPDATED_LASTNAME);
         assertThat(testUser.getEmail()).isEqualTo(UPDATED_EMAIL);
@@ -384,7 +384,7 @@ public class UserResourceIntTest {
         int databaseSizeBeforeUpdate = userRepository.findAll().size();
 
         // Update the user
-        User updatedUser = userRepository.findOne(user.getId());
+        MyUser updatedUser = userRepository.findOne(user.getId());
 
         Set<String> authorities = new HashSet<>();
         authorities.add("ROLE_USER");
@@ -411,9 +411,9 @@ public class UserResourceIntTest {
             .andExpect(status().isOk());
 
         // Validate the User in the database
-        List<User> userList = userRepository.findAll();
+        List<MyUser> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeUpdate);
-        User testUser = userList.get(userList.size() - 1);
+        MyUser testUser = userList.get(userList.size() - 1);
         assertThat(testUser.getLogin()).isEqualTo(UPDATED_LOGIN);
         assertThat(testUser.getFirstName()).isEqualTo(UPDATED_FIRSTNAME);
         assertThat(testUser.getLastName()).isEqualTo(UPDATED_LASTNAME);
@@ -428,7 +428,7 @@ public class UserResourceIntTest {
         // Initialize the database with 2 users
         userRepository.saveAndFlush(user);
 
-        User anotherUser = new User();
+        MyUser anotherUser = new MyUser();
         anotherUser.setLogin("jhipster");
         anotherUser.setPassword(RandomStringUtils.random(60));
         anotherUser.setActivated(true);
@@ -440,7 +440,7 @@ public class UserResourceIntTest {
         userRepository.saveAndFlush(anotherUser);
 
         // Update the user
-        User updatedUser = userRepository.findOne(user.getId());
+        MyUser updatedUser = userRepository.findOne(user.getId());
 
         Set<String> authorities = new HashSet<>();
         authorities.add("ROLE_USER");
@@ -473,7 +473,7 @@ public class UserResourceIntTest {
         // Initialize the database
         userRepository.saveAndFlush(user);
 
-        User anotherUser = new User();
+        MyUser anotherUser = new MyUser();
         anotherUser.setLogin("jhipster");
         anotherUser.setPassword(RandomStringUtils.random(60));
         anotherUser.setActivated(true);
@@ -485,7 +485,7 @@ public class UserResourceIntTest {
         userRepository.saveAndFlush(anotherUser);
 
         // Update the user
-        User updatedUser = userRepository.findOne(user.getId());
+        MyUser updatedUser = userRepository.findOne(user.getId());
 
         Set<String> authorities = new HashSet<>();
         authorities.add("ROLE_USER");
@@ -525,7 +525,7 @@ public class UserResourceIntTest {
             .andExpect(status().isOk());
 
         // Validate the database is empty
-        List<User> userList = userRepository.findAll();
+        List<MyUser> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeDelete - 1);
     }
 
@@ -544,10 +544,10 @@ public class UserResourceIntTest {
     @Test
     @Transactional
     public void testUserEquals() throws Exception {
-        TestUtil.equalsVerifier(User.class);
-        User user1 = new User();
+        TestUtil.equalsVerifier(MyUser.class);
+        MyUser user1 = new MyUser();
         user1.setId(1L);
-        User user2 = new User();
+        MyUser user2 = new MyUser();
         user2.setId(user1.getId());
         assertThat(user1).isEqualTo(user2);
         user2.setId(2L);
@@ -579,7 +579,7 @@ public class UserResourceIntTest {
             null,
             Stream.of(AuthoritiesConstants.USER).collect(Collectors.toSet()),
             null);
-        User user = userMapper.userDTOToUser(userDTO);
+        MyUser user = userMapper.userDTOToUser(userDTO);
         assertThat(user.getId()).isEqualTo(DEFAULT_ID);
         assertThat(user.getLogin()).isEqualTo(DEFAULT_LOGIN);
         assertThat(user.getFirstName()).isEqualTo(DEFAULT_FIRSTNAME);
@@ -592,7 +592,7 @@ public class UserResourceIntTest {
         assertThat(user.getCreatedDate()).isNotNull();
         assertThat(user.getLastModifiedBy()).isNull();
         assertThat(user.getLastModifiedDate()).isNotNull();
-        assertThat(user.getAuthorities()).extracting("name").containsExactly(AuthoritiesConstants.USER);
+        assertThat(user.getUserAuthorities()).extracting("name").containsExactly(AuthoritiesConstants.USER);
     }
 
     @Test

@@ -1,7 +1,7 @@
 package com.mycompany.myapp.service.mapper;
 
 import com.mycompany.myapp.domain.Authority;
-import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.domain.MyUser;
 import com.mycompany.myapp.service.dto.UserDTO;
 
 import org.springframework.stereotype.Service;
@@ -18,22 +18,22 @@ import java.util.stream.Collectors;
 @Service
 public class UserMapper {
 
-    public UserDTO userToUserDTO(User user) {
+    public UserDTO userToUserDTO(MyUser user) {
         return new UserDTO(user);
     }
 
-    public List<UserDTO> usersToUserDTOs(List<User> users) {
+    public List<UserDTO> usersToUserDTOs(List<MyUser> users) {
         return users.stream()
             .filter(Objects::nonNull)
             .map(this::userToUserDTO)
             .collect(Collectors.toList());
     }
 
-    public User userDTOToUser(UserDTO userDTO) {
+    public MyUser userDTOToUser(UserDTO userDTO) {
         if (userDTO == null) {
             return null;
         } else {
-            User user = new User();
+            MyUser user = new MyUser();
             user.setId(userDTO.getId());
             user.setLogin(userDTO.getLogin());
             user.setFirstName(userDTO.getFirstName());
@@ -50,18 +50,18 @@ public class UserMapper {
         }
     }
 
-    public List<User> userDTOsToUsers(List<UserDTO> userDTOs) {
+    public List<MyUser> userDTOsToUsers(List<UserDTO> userDTOs) {
         return userDTOs.stream()
             .filter(Objects::nonNull)
             .map(this::userDTOToUser)
             .collect(Collectors.toList());
     }
 
-    public User userFromId(Long id) {
+    public MyUser userFromId(Long id) {
         if (id == null) {
             return null;
         }
-        User user = new User();
+        MyUser user = new MyUser();
         user.setId(id);
         return user;
     }

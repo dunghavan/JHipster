@@ -36,7 +36,7 @@ public class Organization implements Serializable {
 
     @OneToMany(mappedBy = "organization")
     @JsonIgnore
-    private Set<User> users = new HashSet<>();
+    private Set<MyUser> users = new HashSet<>();
 
     public Long getId() {
         return id;

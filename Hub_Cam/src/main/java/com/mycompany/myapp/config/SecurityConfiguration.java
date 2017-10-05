@@ -42,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             TokenProvider tokenProvider,
         CorsFilter corsFilter) {
 
-        this.authenticationManagerBuilder = authenticationManagerBuilder;
+            this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDetailsService = userDetailsService;
         this.tokenProvider = tokenProvider;
         this.corsFilter = corsFilter;

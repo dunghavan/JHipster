@@ -87,7 +87,9 @@ public class CameraResource {
     @Timed
     public List<Camera> getAllCameras() {
         log.debug("REST request to get all Cameras");
-        SecurityUtils.getCurrentUserOrganization();
+        Long id = SecurityUtils.getCurrentUserOrganizationId();
+
+        log.debug("----------MYLOG - OrganizationId in CameraResource: " + id);
         return cameraRepository.findAll();
     }
 
