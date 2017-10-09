@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,10 +88,24 @@ public class CameraResource {
     @Timed
     public List<Camera> getAllCameras() {
         log.debug("REST request to get all Cameras");
-        Long id = SecurityUtils.getCurrentUserOrganizationId();
-
-        log.debug("----------MYLOG - OrganizationId in CameraResource: " + id);
         return cameraRepository.findAll();
+    }
+
+    /**
+     * GET  /cameras : get all the cameras by org id.
+     *
+     */
+    @GetMapping("/get-all-cameras-by-org-id")
+    @Timed
+    public List<Camera> getAllCamerasByOrgId() {
+        log.debug("REST request to get Cameras by Organization Id");
+        Long orgId = SecurityUtils.getCurrentUserOrganizationId();
+        List<Long> hubIdList = cameraRepository.getListHubIdByOrgId(orgId);
+        List<Camera> cameraList = new ArrayList<Camera>();
+        for (Long l: hubIdList){
+            cameraList.addAll(cameraRepository.getAllCamerasByHubId(l));
+        }
+        return cameraList;
     }
 
     /**

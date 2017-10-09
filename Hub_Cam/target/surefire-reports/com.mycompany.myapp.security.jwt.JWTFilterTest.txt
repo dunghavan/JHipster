@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------
+Test set: com.mycompany.myapp.security.jwt.JWTFilterTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.053 sec <<< FAILURE! - in com.mycompany.myapp.security.jwt.JWTFilterTest
+testJWTFilter(com.mycompany.myapp.security.jwt.JWTFilterTest)  Time elapsed: 0.01 sec  <<< ERROR!
+java.lang.ClassCastException: java.lang.String cannot be cast to com.mycompany.myapp.domain.MyUser
+	at com.mycompany.myapp.security.jwt.TokenProvider.createToken(TokenProvider.java:54)
+	at com.mycompany.myapp.security.jwt.JWTFilterTest.testJWTFilter(JWTFilterTest.java:44)
+
+testJWTFilterWrongScheme(com.mycompany.myapp.security.jwt.JWTFilterTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.ClassCastException: java.lang.String cannot be cast to com.mycompany.myapp.domain.MyUser
+	at com.mycompany.myapp.security.jwt.TokenProvider.createToken(TokenProvider.java:54)
+	at com.mycompany.myapp.security.jwt.JWTFilterTest.testJWTFilterWrongScheme(JWTFilterTest.java:99)
+

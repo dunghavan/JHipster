@@ -14,12 +14,21 @@
         vm.cameras = [];
 
         loadAll();
+        //loadAllCamerasByOrgId();
 
         function loadAll() {
-            Camera.query(function(result) {
+            Camera.getAllCamerasByOrgId(function(result) {
                 vm.cameras = result;
                 vm.searchQuery = null;
             });
         }
+
+        // function loadAllCamerasByOrgId() {
+        //     Camera.getAllCamerasByOrgId(function(result) {
+        //         vm.cameras = result;
+        //         vm.searchQuery = null;
+        //     });
+        // }
+
     }
 })();

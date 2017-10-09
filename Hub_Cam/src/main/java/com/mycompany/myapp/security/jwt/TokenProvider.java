@@ -1,5 +1,6 @@
 package com.mycompany.myapp.security.jwt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.myapp.domain.Authority;
 import com.mycompany.myapp.domain.MyUser;
 import com.mycompany.myapp.domain.Organization;
@@ -11,6 +12,7 @@ import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.actuate.autoconfigure.ShellProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -52,15 +54,19 @@ public class TokenProvider {
 
     public String createToken(Authentication authentication, Boolean rememberMe) {
         MyUser myUser = (MyUser)authentication.getPrincipal();
-        Set<Authority> setAuthority = myUser.getUserAuthorities();
 
-        String authorities = "ROLE_ADMIN,ROLE_USER";
+        //String authorities = "ROLE_ADMIN,ROLE_USER";
         Long organizationId = myUser.getOrganization().getId();
+        Set<Authority> setAuthorities = myUser.getUserAuthorities();
 
+        StringBuilder stringAuthorities = new StringBuilder("");
+        for (Iterator<Authority> it = setAuthorities.iterator(); it.hasNext(); ) {
+            Authority au = it.next();
+            stringAuthorities.append(au.getName()).append(",");
+        }
+        stringAuthorities.deleteCharAt(stringAuthorities.length() - 1);
 
-//        String authorities = myUser.getAuthorities().stream()
-//            .map(GrantedAuthority::getAuthority)
-//            .collect(Collectors.joining(","));
+        String json = setAuthorities.toString();
 
         long now = (new Date()).getTime();
         Date validity;
@@ -72,7 +78,7 @@ public class TokenProvider {
 
         return Jwts.builder()
             .setSubject(authentication.getName())
-            .claim(AUTHORITIES_KEY, authorities)
+            .claim(AUTHORITIES_KEY, stringAuthorities)
             .claim("ORG_KEY", organizationId)
             .signWith(SignatureAlgorithm.HS512, secretKey)
             .setExpiration(validity)
@@ -87,16 +93,22 @@ public class TokenProvider {
             .parseClaimsJws(token)
             .getBody();
 
-        Collection<? extends GrantedAuthority> authorities =
+        Collection<? extends GrantedAuthority> auth =
             Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+
+        Set<Authority> authorities= new HashSet<>();
+        String s = claims.get(AUTHORITIES_KEY).toString();
+        StringTokenizer st = new StringTokenizer(s, ",");
+        while (st.hasMoreTokens())
+            authorities.add(new Authority(st.nextToken()));
 
         Long orgId = ((Number)claims.get("ORG_KEY")).longValue();
 
         MyUser principal = new MyUser(claims.getSubject(), "", authorities, orgId);
 
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        return new UsernamePasswordAuthenticationToken(principal, token, auth);
     }
 
     public boolean validateToken(String authToken) {

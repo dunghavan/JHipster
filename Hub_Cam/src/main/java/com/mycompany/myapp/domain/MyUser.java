@@ -111,6 +111,16 @@ public class MyUser extends AbstractAuditingEntity implements  MyUserDetails, Cr
         this.organization.setId(orgId);
     }
 
+
+    public MyUser(String username, String password, Set<Authority> authorities, Long orgId) {
+        this.login = username;
+        this.password = password;
+        this.authorities = authorities;
+        activated = true;
+        this.organization = new Organization();
+        this.organization.setId(orgId);
+    }
+
     public MyUser(String login, String password, String firstName, String lastName, String email, boolean activated, String langKey, String imageUrl, String activationKey, String resetKey, Instant resetDate, Organization organization, Set<Authority> authorities) {
         this.login = login;
         this.password = password;
@@ -296,7 +306,7 @@ public class MyUser extends AbstractAuditingEntity implements  MyUserDetails, Cr
 
     @Override
     public String toString() {
-        return "User{" +
+            return "User{" +
             "login='" + login + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +

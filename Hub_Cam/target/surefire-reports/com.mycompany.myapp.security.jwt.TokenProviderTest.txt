@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------
+Test set: com.mycompany.myapp.security.jwt.TokenProviderTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.31 sec <<< FAILURE! - in com.mycompany.myapp.security.jwt.TokenProviderTest
+testReturnFalseWhenJWTisExpired(com.mycompany.myapp.security.jwt.TokenProviderTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.ClassCastException: java.lang.String cannot be cast to com.mycompany.myapp.domain.MyUser
+	at com.mycompany.myapp.security.jwt.TokenProvider.createToken(TokenProvider.java:54)
+	at com.mycompany.myapp.security.jwt.TokenProviderTest.testReturnFalseWhenJWTisExpired(TokenProviderTest.java:59)
+
+testReturnFalseWhenJWTisMalformed(com.mycompany.myapp.security.jwt.TokenProviderTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.ClassCastException: java.lang.String cannot be cast to com.mycompany.myapp.domain.MyUser
+	at com.mycompany.myapp.security.jwt.TokenProvider.createToken(TokenProvider.java:54)
+	at com.mycompany.myapp.security.jwt.TokenProviderTest.testReturnFalseWhenJWTisMalformed(TokenProviderTest.java:47)
+

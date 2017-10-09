@@ -24,6 +24,7 @@ public class JWTFilter extends GenericFilterBean {
 
     private TokenProvider tokenProvider;
     private final Logger log = LoggerFactory.getLogger(JWTFilter.class);
+    private static int n = 0;
 
     public JWTFilter(TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
@@ -41,6 +42,8 @@ public class JWTFilter extends GenericFilterBean {
 //        String body = getBody(servletRequest);
 //        log.debug("---------------MYLOG_servletRequest: " + body);
 
+        n++;
+        log.debug("----------n: " + n);
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

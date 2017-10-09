@@ -20,7 +20,8 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'getAllCamerasByOrgId': {method:'GET', isArray:true, url: resourceUrl + '/get-all-cameras-by-org-id'}
         });
     }
 })();
