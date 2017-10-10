@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Region;
 
 import com.mycompany.myapp.repository.RegionRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -87,6 +88,18 @@ public class RegionResource {
     public List<Region> getAllRegions() {
         log.debug("REST request to get all Regions");
         return regionRepository.findAll();
+    }
+
+    /**
+     * GET  /regions : get Region by OrgId
+     *
+     */
+    @GetMapping("/regions/get-by-org-id")
+    @Timed
+    public List<Region> getRegionsByOrgId() {
+        log.debug("REST request to get Regions by OrgId");
+        Long orgId = SecurityUtils.getCurrentUserOrganizationId();
+        return regionRepository.getRegionByOrgId(orgId);
     }
 
     /**

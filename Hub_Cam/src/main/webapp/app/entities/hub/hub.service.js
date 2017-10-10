@@ -21,7 +21,8 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'getByOrgId': {method: 'GET', isArray: true, url: resourceUrl + '/get-by-org-id'}
         });
     }
 })();

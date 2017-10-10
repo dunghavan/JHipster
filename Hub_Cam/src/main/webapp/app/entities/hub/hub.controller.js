@@ -13,7 +13,8 @@
 
         vm.hubs = [];
 
-        loadAll();
+        //loadAll();
+        loadByOrgId();
 
         function loadAll() {
             Hub.query(function(result) {
@@ -21,5 +22,14 @@
                 vm.searchQuery = null;
             });
         }
+
+        //@Dung Add:
+        function loadByOrgId() {
+            Hub.getByOrgId(function(result) {
+                vm.hubs = result;
+                vm.searchQuery = null;
+            });
+        }
+
     }
 })();

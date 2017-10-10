@@ -13,10 +13,18 @@
 
         vm.regions = [];
 
-        loadAll();
+        //loadAll();
+        loadByOrgId();
 
         function loadAll() {
             Region.query(function(result) {
+                vm.regions = result;
+                vm.searchQuery = null;
+            });
+        }
+
+        function loadByOrgId() {
+            Region.getByOrgId(function(result) {
                 vm.regions = result;
                 vm.searchQuery = null;
             });

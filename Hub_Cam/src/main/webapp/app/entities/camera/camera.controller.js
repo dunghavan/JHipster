@@ -13,22 +13,23 @@
 
         vm.cameras = [];
 
-        loadAll();
-        //loadAllCamerasByOrgId();
+        //loadAll();
+        loadAllCamerasByOrgId();
 
         function loadAll() {
-            Camera.getAllCamerasByOrgId(function(result) {
+            Camera.query(function(result) {
                 vm.cameras = result;
                 vm.searchQuery = null;
             });
         }
 
-        // function loadAllCamerasByOrgId() {
-        //     Camera.getAllCamerasByOrgId(function(result) {
-        //         vm.cameras = result;
-        //         vm.searchQuery = null;
-        //     });
-        // }
+        //@Dung Add:
+        function loadAllCamerasByOrgId() {
+            Camera.getAllCamerasByOrgId(function(result) {
+                vm.cameras = result;
+                vm.searchQuery = null;
+            });
+        }
 
     }
 })();

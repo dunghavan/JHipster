@@ -116,6 +116,7 @@ public class UserService {
         myUser.setEmail(userDTO.getEmail());
         myUser.setImageUrl(userDTO.getImageUrl());
 
+
         //@Dung Add:
         Organization organization = new Organization();
         organization.setId(userDTO.getOrganization().getId());

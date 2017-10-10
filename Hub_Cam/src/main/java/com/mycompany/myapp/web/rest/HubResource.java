@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Hub;
 
 import com.mycompany.myapp.repository.HubRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -88,6 +89,19 @@ public class HubResource {
         log.debug("REST request to get all Hubs");
         return hubRepository.findAll();
     }
+
+
+    /**
+     * GET  /hubs : get the hubs by orgId
+     */
+    @GetMapping("/hubs/get-by-org-id")
+    @Timed
+    public List<Hub> getHubsByOrgId() {
+        log.debug("REST request to get Hubs by Org Id");
+        Long orgId = SecurityUtils.getCurrentUserOrganizationId();
+        return hubRepository.getHubsByOrgId(orgId);
+    }
+
 
     /**
      * GET  /hubs/:id : get the "id" hub.

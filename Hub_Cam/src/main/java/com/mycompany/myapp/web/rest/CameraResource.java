@@ -95,7 +95,7 @@ public class CameraResource {
      * GET  /cameras : get all the cameras by org id.
      *
      */
-    @GetMapping("/get-all-cameras-by-org-id")
+    @GetMapping("/cameras/get-all-cameras-by-org-id")
     @Timed
     public List<Camera> getAllCamerasByOrgId() {
         log.debug("REST request to get Cameras by Organization Id");
