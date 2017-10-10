@@ -1,0 +1,14 @@
+version: '2'
+services:
+    sociallogin-app:
+        image: sociallogin
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://sociallogin-mysql:3306/sociallogin?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        ports:
+            - 8080:8080
+    sociallogin-mysql:
+        extends:
+            file: mysql.yml
+            service: sociallogin-mysql
