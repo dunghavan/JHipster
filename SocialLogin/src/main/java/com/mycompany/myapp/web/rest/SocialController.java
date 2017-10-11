@@ -31,6 +31,7 @@ public class SocialController {
     public RedirectView signUp(WebRequest webRequest, @CookieValue(name = "NG_TRANSLATE_LANG_KEY", required = false, defaultValue = "\"en\"") String langKey) {
         try {
             Connection<?> connection = providerSignInUtils.getConnectionFromSession(webRequest);
+            String s = connection.toString();
             socialService.createSocialUser(connection, langKey.replace("\"", ""));
             return new RedirectView(URIBuilder.fromUri("/#/social-register/" + connection.getKey().getProviderId())
                 .queryParam("success", "true")

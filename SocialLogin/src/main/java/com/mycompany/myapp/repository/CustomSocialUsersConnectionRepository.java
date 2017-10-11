@@ -43,6 +43,9 @@ public class CustomSocialUsersConnectionRepository implements UsersConnectionRep
         if (userId == null) {
             throw new IllegalArgumentException("userId cannot be null");
         }
-        return new CustomSocialConnectionRepository(userId, socialUserConnectionRepository, connectionFactoryLocator);
+        CustomSocialConnectionRepository c = new CustomSocialConnectionRepository(userId, socialUserConnectionRepository, connectionFactoryLocator);
+        //return new CustomSocialConnectionRepository(userId, socialUserConnectionRepository, connectionFactoryLocator);
+
+        return c;
     }
 }
