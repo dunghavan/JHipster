@@ -1,7 +1,10 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.security.jwt.JWTConfigurer;
 import com.mycompany.myapp.security.jwt.TokenProvider;
+import com.mycompany.myapp.service.UserService;
 import com.mycompany.myapp.web.rest.vm.LoginVM;
 
 import com.codahale.metrics.annotation.Timed;
@@ -18,9 +21,12 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Collections;
+
+import static org.reflections.Reflections.log;
 
 /**
  * Controller to authenticate users.
@@ -46,10 +52,18 @@ public class UserJWTController {
 
         UsernamePasswordAuthenticationToken authenticationToken =
             new UsernamePasswordAuthenticationToken(loginVM.getUsername(), loginVM.getPassword());
+        authenticationToken.setDetails("123");
+
 
         try {
             Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
+            log.debug("---------getDetails: " + authentication.getDetails());
+
+            Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            Authentication authentication2 = SecurityContextHolder.getContext().getAuthentication();
+
             boolean rememberMe = (loginVM.isRememberMe() == null) ? false : loginVM.isRememberMe();
             String jwt = tokenProvider.createToken(authentication, rememberMe);
             response.addHeader(JWTConfigurer.AUTHORIZATION_HEADER, "Bearer " + jwt);

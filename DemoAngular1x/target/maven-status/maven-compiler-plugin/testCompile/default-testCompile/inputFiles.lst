@@ -1,12 +1,16 @@
 /home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/web/rest/LogsResourceIntTest.java
 /home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/web/rest/errors/ExceptionTranslatorTestController.java
 /home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/web/rest/errors/ExceptionTranslatorIntTest.java
+/home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/web/rest/DeviceResourceIntTest.java
+/home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/web/rest/WLANGroupResourceIntTest.java
 /home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/repository/CustomAuditEventRepositoryIntTest.java
 /home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/web/rest/util/PaginationUtilUnitTest.java
 /home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/web/rest/UserJWTControllerIntTest.java
 /home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/security/jwt/JWTFilterTest.java
 /home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/config/WebConfigurerTestController.java
+/home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/web/rest/WLANConfigResourceIntTest.java
 /home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/security/SecurityUtilsUnitTest.java
+/home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/web/rest/ModelResourceIntTest.java
 /home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/web/rest/UserResourceIntTest.java
 /home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/service/UserServiceIntTest.java
 /home/dunghv/Project/DemoAngular1x/src/test/java/com/mycompany/myapp/web/rest/ProfileInfoResourceIntTest.java

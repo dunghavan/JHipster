@@ -6,6 +6,7 @@ import com.mycompany.myapp.domain.WLANGroup;
 
 import com.mycompany.myapp.repository.WLANGroupRepository;
 import com.mycompany.myapp.security.AuthoritiesConstants;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.UserService;
 import com.mycompany.myapp.service.dto.UserDTO;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
@@ -160,6 +161,7 @@ public class WLANGroupResource {
     @Timed
     @Secured({AuthoritiesConstants.SUPERUSER, AuthoritiesConstants.ADMIN})
     public ResponseEntity<List<WLANGroup>> getAllWLANGroups(@ApiParam Pageable pageable) {
+        SecurityUtils.getCurrentUserLogin();
         log.debug("REST request to get a page of WLANGroups");
         Page<WLANGroup> page = wLANGroupRepository.findAll(pageable);
 

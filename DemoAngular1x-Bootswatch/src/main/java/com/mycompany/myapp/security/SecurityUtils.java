@@ -5,6 +5,8 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import static org.reflections.Reflections.log;
+
 /**
  * Utility class for Spring Security.
  */
@@ -21,6 +23,11 @@ public final class SecurityUtils {
     public static String getCurrentUserLogin() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
+
+        Object object = authentication.getPrincipal();
+
+        log.debug("---------getDetails: " + authentication.getDetails());
+
         String userName = null;
         if (authentication != null) {
             if (authentication.getPrincipal() instanceof UserDetails) {
