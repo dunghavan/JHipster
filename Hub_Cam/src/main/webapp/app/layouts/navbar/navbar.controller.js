@@ -23,6 +23,7 @@
         vm.toggleNavbar = toggleNavbar;
         vm.collapseNavbar = collapseNavbar;
         vm.$state = $state;
+        console.log('-----------vm.$state.includes(\'admin\'): ', vm.$state.includes('admin'));
 
         function login() {
             collapseNavbar();

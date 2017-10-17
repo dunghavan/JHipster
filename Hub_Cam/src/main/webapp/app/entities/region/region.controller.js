@@ -15,6 +15,7 @@
 
         //loadAll();
         loadByOrgId();
+        console.log('region: ', vm.regions);
 
         function loadAll() {
             Region.query(function(result) {
@@ -27,6 +28,7 @@
             Region.getByOrgId(function(result) {
                 vm.regions = result;
                 vm.searchQuery = null;
+                console.log('region in function: ', vm.regions);
             });
         }
     }

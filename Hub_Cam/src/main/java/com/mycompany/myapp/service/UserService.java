@@ -119,7 +119,7 @@ public class UserService {
 
         //@Dung Add:
         Organization organization = new Organization();
-        organization.setId(userDTO.getOrganization().getId());
+        organization.setId(SecurityUtils.getCurrentUserOrganizationId());
         myUser.setOrganization(organization);
 
         if (userDTO.getLangKey() == null) {
@@ -210,6 +210,12 @@ public class UserService {
     @Transactional(readOnly = true)
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
+    }
+
+    //@Dung add:
+    @Transactional(readOnly = true)
+    public Page<UserDTO> getUsersByOrgId(Pageable pageable, Long orgId) {
+        return userRepository.getUsersByOrgId(pageable, orgId).map(UserDTO::new);
     }
 
     @Transactional(readOnly = true)

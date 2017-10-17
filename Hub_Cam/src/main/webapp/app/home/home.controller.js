@@ -18,14 +18,19 @@
             getAccount();
         });
 
+        console.log('before getAccount(): ', vm.account);
         getAccount();
+        console.log('after getAccount()',  vm.account);
 
         function getAccount() {
             Principal.identity().then(function(account) {
                 vm.account = account;
                 vm.isAuthenticated = Principal.isAuthenticated;
+                console.log('getAccount(): ', vm.account);
             });
         }
+        console.log('last declare: ', vm.account);
+
         function register () {
             $state.go('register');
         }

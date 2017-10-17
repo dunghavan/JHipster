@@ -5,6 +5,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.MyUser;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.security.AuthoritiesConstants;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.MailService;
 import com.mycompany.myapp.service.UserService;
 import com.mycompany.myapp.service.dto.UserDTO;
@@ -152,6 +153,22 @@ public class UserResource {
     @Timed
     public ResponseEntity<List<UserDTO>> getAllUsers(@ApiParam Pageable pageable) {
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
+//        for (UserDTO u : page) {
+//            log.debug("\n---------MyLog: " + u.toString());
+//        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /users : get users by orgId.
+     *
+     */
+    @GetMapping("/users/get-by-org-id")
+    @Timed
+    public ResponseEntity<List<UserDTO>> getUsersByOrgId(@ApiParam Pageable pageable) {
+        Long orgId = SecurityUtils.getCurrentUserOrganizationId();
+        final Page<UserDTO> page = userService.getUsersByOrgId(pageable, orgId);
         for (UserDTO u : page) {
             log.debug("\n---------MyLog: " + u.toString());
         }

@@ -3,18 +3,17 @@
 
     angular
         .module('hubCamApp')
-        .controller('UserManagementController', UserManagementController);
+        .controller('UserManagementSuperAdminController', UserManagementSuperAdminController);
 
-    UserManagementController.$inject = ['Principal', 'User', 'ParseLinks', 'AlertService', '$state', 'pagingParams', 'paginationConstants', 'JhiLanguageService'];
+    UserManagementSuperAdminController.$inject = ['Principal', 'User', 'ParseLinks', 'AlertService', '$state', 'pagingParams', 'paginationConstants', 'JhiLanguageService'];
 
-    function UserManagementController(Principal, User, ParseLinks, AlertService, $state, pagingParams, paginationConstants, JhiLanguageService) {
+    function UserManagementSuperAdminController(Principal, User, ParseLinks, AlertService, $state, pagingParams, paginationConstants, JhiLanguageService) {
         var vm = this;
 
         vm.authorities = 'ROLE_ADMIN';
         vm.currentAccount = null;
         vm.languages = null;
         vm.loadAll = loadAll;
-        vm.getByOrgId = getByOrgId;
         vm.setActive = setActive;
         vm.users = [];
         vm.page = 1;
@@ -27,7 +26,7 @@
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.transition = transition;
 
-        vm.getByOrgId();
+        vm.loadAll();
         JhiLanguageService.getAll().then(function (languages) {
             vm.languages = languages;
         });
@@ -38,7 +37,7 @@
         function setActive (user, isActivated) {
             user.activated = isActivated;
             User.update(user, function () {
-                vm.getByOrgId();
+                vm.loadAll();
                 vm.clear();
             });
         }
@@ -49,15 +48,7 @@
                 size: vm.itemsPerPage,
                 sort: sort()
             }, onSuccess, onError);
-        }
-
-        //@Dung Add:
-        function getByOrgId() {
-            User.getByOrgId({
-                page: pagingParams.page - 1,
-                size: vm.itemsPerPage,
-                sort: sort()
-            }, onSuccess, onError);
+            console.log('function loadAll()');
         }
 
         function onSuccess(data, headers) {
@@ -66,7 +57,7 @@
             vm.queryCount = vm.totalItems;
             vm.page = pagingParams.page;
             vm.users = data;
-            console.log('vm.users: ', vm.users);
+            console.log('loadAll(): ', vm.users);
         }
 
         function onError(error) {

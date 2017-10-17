@@ -19,7 +19,8 @@
             },
             'save': { method:'POST' },
             'update': { method:'PUT' },
-            'delete':{ method:'DELETE'}
+            'delete':{ method:'DELETE'},
+            'getByOrgId': {method: 'GET', isArray: true, url: '/api/users/get-by-org-id'}
         });
 
         return service;
