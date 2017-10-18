@@ -77,6 +77,26 @@ public class UserResource {
         this.userService = userService;
     }
 
+    //@Dung add ---------------------------------------------------
+
+    /**
+     * POST  /users  : Invite a new user.
+     *
+     */
+    @PostMapping("/users/invite")
+    @Timed
+    //@Secured(AuthoritiesConstants.ADMIN)
+    public ResponseEntity inviteUser(@Valid @RequestBody ManagedUserVM managedUserVM) throws URISyntaxException {
+        log.debug("REST request to invite User : {}", managedUserVM);
+
+        MyUser newUser = userService.createUser(managedUserVM);
+        mailService.sendCreationEmail(newUser);
+        return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
+            .headers(HeaderUtil.createAlert( "userManagement.created", newUser.getLogin()))
+            .body(newUser);
+    }
+
+    //--------------------------------End add--------------------------------------------
     /**
      * POST  /users  : Creates a new user.
      * <p>

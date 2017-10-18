@@ -20,7 +20,8 @@
             'save': { method:'POST' },
             'update': { method:'PUT' },
             'delete':{ method:'DELETE'},
-            'getByOrgId': {method: 'GET', isArray: true, url: '/api/users/get-by-org-id'}
+            'getByOrgId': {method: 'GET', isArray: true, url: '/api/users/get-by-org-id'},
+            'invite': {method:'POST', url: '/api/users/invite'}
         });
 
         return service;

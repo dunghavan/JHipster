@@ -20,7 +20,7 @@ management:
     context-path: /management
     health:
         mail:
-            enabled: false # When using the MailService, configure an SMTP server and set this to true
+            enabled: true # When using the MailService, configure an SMTP server and set this to true
 spring:
     application:
         name: Hub_Cam
@@ -79,7 +79,7 @@ jhipster:
         #allow-credentials: true
         #max-age: 1800
     mail:
-        from: Hub_Cam@localhost
+        from: dunghavan472@gmail.com
     swagger:
         default-include-pattern: /api/.*
         title: Hub_Cam API

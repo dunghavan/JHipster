@@ -94,7 +94,8 @@
             "edit": "Edit",
             "open": "Open",
             "save": "Save",
-            "view": "View"
+            "view": "View",
+            "invite": "Invite"
         },
         "detail": {
             "field": "Field",
