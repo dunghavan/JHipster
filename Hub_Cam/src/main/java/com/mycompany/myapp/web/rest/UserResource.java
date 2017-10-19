@@ -6,18 +6,24 @@ import com.mycompany.myapp.domain.MyUser;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.security.AuthoritiesConstants;
 import com.mycompany.myapp.security.SecurityUtils;
+import com.mycompany.myapp.security.jwt.JWTConfigurer;
+import com.mycompany.myapp.security.jwt.TokenProvider;
 import com.mycompany.myapp.service.MailService;
 import com.mycompany.myapp.service.UserService;
 import com.mycompany.myapp.service.dto.UserDTO;
 import com.mycompany.myapp.web.rest.vm.ManagedUserVM;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
+import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.ApiParam;
 
 import jdk.nashorn.internal.objects.NativeArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +32,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -69,12 +76,18 @@ public class UserResource {
 
     private final UserService userService;
 
+    private final JHipsterProperties jHipsterProperties;
+
+    private String secretKey;
+
     public UserResource(UserRepository userRepository, MailService mailService,
             UserService userService) {
 
         this.userRepository = userRepository;
         this.mailService = mailService;
         this.userService = userService;
+        this.jHipsterProperties = new JHipsterProperties();
+        secretKey = jHipsterProperties.getSecurity().getAuthentication().getJwt().getSecret();
     }
 
     //@Dung add ---------------------------------------------------
@@ -86,14 +99,20 @@ public class UserResource {
     @PostMapping("/users/invite")
     @Timed
     //@Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity inviteUser(@Valid @RequestBody ManagedUserVM managedUserVM) throws URISyntaxException {
+    public ResponseEntity inviteUser(@Valid @RequestBody ManagedUserVM managedUserVM, HttpServletResponse response) throws URISyntaxException {
         log.debug("REST request to invite User : {}", managedUserVM);
 
-        MyUser newUser = userService.createUser(managedUserVM);
-        mailService.sendCreationEmail(newUser);
-        return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
-            .headers(HeaderUtil.createAlert( "userManagement.created", newUser.getLogin()))
-            .body(newUser);
+        String jwt = Jwts.builder()
+            .setSubject(managedUserVM.getEmail())
+            .claim("ORG_KEY", managedUserVM.getOrganization().getId())
+            .claim("LANG_KEY", managedUserVM.getLangKey())
+            .signWith(SignatureAlgorithm.HS512, "mySecretKey")
+            .compact();
+
+        MyUser user = new MyUser(managedUserVM.getEmail(), managedUserVM.getOrganization().getId(), managedUserVM.getLangKey());
+        mailService.sendInvitationEmail(user, jwt);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
     }
 
     //--------------------------------End add--------------------------------------------

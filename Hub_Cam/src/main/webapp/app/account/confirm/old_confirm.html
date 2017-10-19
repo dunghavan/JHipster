@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form set password</title>
+</head>
+<body>
+<form>
+    <p>Type a password: <input type="text" name="password"></p>
+    <p>Re-enter password: <input type="text" name="confirm" id="confirm"></p>
+    <p id="text">123</p>
+</form>
+
+<script language="JavaScript">
+
+    function addComment()
+    {
+        var parameters = location.search.substring(1).split("&");
+        console.log(parameters);
+
+        var temp = parameters[0].split("=");
+
+        console.log(temp[1]);
+
+        document.getElementById("text").innerHTML = temp[1];
+    }
+    addComment();
+
+</script>
+
+</body>
+</html>

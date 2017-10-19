@@ -8,9 +8,9 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('register', {
+        $stateProvider.state('confirm', {
             parent: 'account',
-            url: '/register',
+            url: '/confirm',
             data: {
                 authorities: [],
                 pageTitle: 'register.title'
@@ -24,7 +24,7 @@
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('register');
+                    $translatePartialLoader.addPart('confirm');
                     return $translate.refresh();
                 }]
             }

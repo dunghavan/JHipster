@@ -32,6 +32,9 @@ public class MailService {
 
     private static final String BASE_URL = "baseUrl";
 
+    //dunghv
+    private static final String JWT = "jwt";
+
     private final JHipsterProperties jHipsterProperties;
 
     private final JavaMailSender javaMailSender;
@@ -84,6 +87,27 @@ public class MailService {
         String subject = messageSource.getMessage(titleKey, null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
 
+    }
+
+    //@dunghv
+    @Async
+    public void sendInvitationEmailFromTemplate(MyUser user, String jwt, String templateName, String titleKey) {
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable(USER, user);
+        context.setVariable(JWT, jwt);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(user.getEmail(), subject, content, false, true);
+
+    }
+
+    //@dunghv
+    @Async
+    public void sendInvitationEmail(MyUser user, String jwt) {
+        log.debug("Sending invitation email to '{}'", user.getEmail());
+        sendInvitationEmailFromTemplate(user, jwt, "invitationEmail", "email.invitation.title");
     }
 
     @Async

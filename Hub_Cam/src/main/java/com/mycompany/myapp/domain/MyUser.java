@@ -99,6 +99,15 @@ public class MyUser extends AbstractAuditingEntity implements  MyUserDetails, Cr
         this.authorities = set;
         activated = true;
     }
+
+    public MyUser(String email, Long orgId, String langKey) {
+        this.email = email;
+        Organization organization = new Organization();
+        organization.setId(orgId);
+        this.organization = organization;
+        this.langKey = langKey;
+    }
+
     public MyUser(String username, String password,
                   Collection<? extends GrantedAuthority> authorities, Long orgId) {
         this.login = username;

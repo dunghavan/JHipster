@@ -52,6 +52,7 @@ public class TokenProvider {
             1000 * jHipsterProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSecondsForRememberMe();
     }
 
+
     public String createToken(Authentication authentication, Boolean rememberMe) {
         MyUser myUser = (MyUser)authentication.getPrincipal();
 

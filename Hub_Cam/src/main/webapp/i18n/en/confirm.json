@@ -1,0 +1,7 @@
+{
+    "confirm": {
+        "title": "Set Password",
+        "warning": "The password set key is missing",
+        "choosePassword": "Choose a password"
+    }
+}
