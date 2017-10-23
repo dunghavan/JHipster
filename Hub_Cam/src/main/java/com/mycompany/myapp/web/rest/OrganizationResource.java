@@ -4,10 +4,12 @@ import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Organization;
 
 import com.mycompany.myapp.repository.OrganizationRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +37,17 @@ public class OrganizationResource {
         this.organizationRepository = organizationRepository;
     }
 
+    //@dunghv:
+    @GetMapping("/organizations/get-org-id-of-admin-logged-in")
+    @Timed
+    public ResponseEntity<Organization> getOrgIdOfAdminLoggedIn(){
+        Long orgId = SecurityUtils.getCurrentUserOrganizationId();
+        Organization result = new Organization(orgId);
+
+//        return ResponseEntity.created(new URI("/api/organizations/" + result.getId()))
+//            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+//            .body(result);
+    }
     /**
      * POST  /organizations : Create a new organization.
      *

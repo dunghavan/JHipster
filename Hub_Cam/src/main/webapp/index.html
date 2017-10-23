@@ -20,6 +20,24 @@
     <!-- endbuild -->
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="manifest" href="manifest.webapp" />
+
+    <script type="text/javascript" language="JavaScript">
+
+        function getUserToken()
+        {
+            var query = window.location.search.substring(1);
+            console.log('p: ', query);
+            var parameters = window.location.search.substring(1).split("&");
+            console.log(parameters);
+
+            var temp = parameters[0].split("=");
+
+            console.log('Token: ', temp[1]);
+
+            //document.getElementById("token1").innerHTML = temp[1];
+        }
+        //window.onload = getUserToken;
+    </script>
 </head>
 <body ng-app="hubCamApp" ng-strict-di>
     <!--[if lt IE 9]>

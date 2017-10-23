@@ -20,7 +20,8 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'getOrgIdOfAdminLoggedIn': {method: 'GET', Url: resourceUrl + '/get-org-id-of-admin-logged-in'}
         });
     }
 })();

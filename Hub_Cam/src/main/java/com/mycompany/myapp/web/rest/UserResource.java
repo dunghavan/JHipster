@@ -14,10 +14,10 @@ import com.mycompany.myapp.service.dto.UserDTO;
 import com.mycompany.myapp.web.rest.vm.ManagedUserVM;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
+import com.mycompany.myapp.web.rest.vm.PassWordAndTokenVM;
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.web.util.ResponseUtil;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.swagger.annotations.ApiParam;
 
 import jdk.nashorn.internal.objects.NativeArray;
@@ -78,7 +78,7 @@ public class UserResource {
 
     private final JHipsterProperties jHipsterProperties;
 
-    private String secretKey;
+    private String secretKey = "oja[godfgogdkpsjf";
 
     public UserResource(UserRepository userRepository, MailService mailService,
             UserService userService) {
@@ -87,7 +87,7 @@ public class UserResource {
         this.mailService = mailService;
         this.userService = userService;
         this.jHipsterProperties = new JHipsterProperties();
-        secretKey = jHipsterProperties.getSecurity().getAuthentication().getJwt().getSecret();
+        //secretKey = jHipsterProperties.getSecurity().getAuthentication().getJwt().getSecret();
     }
 
     //@Dung add ---------------------------------------------------
@@ -106,7 +106,7 @@ public class UserResource {
             .setSubject(managedUserVM.getEmail())
             .claim("ORG_KEY", managedUserVM.getOrganization().getId())
             .claim("LANG_KEY", managedUserVM.getLangKey())
-            .signWith(SignatureAlgorithm.HS512, "mySecretKey")
+            .signWith(SignatureAlgorithm.HS512, secretKey)
             .compact();
 
         MyUser user = new MyUser(managedUserVM.getEmail(), managedUserVM.getOrganization().getId(), managedUserVM.getLangKey());
@@ -117,43 +117,83 @@ public class UserResource {
 
     //--------------------------------End add--------------------------------------------
     /**
-     * POST  /users  : Creates a new user.
-     * <p>
-     * Creates a new user if the login and email are not already used, and sends an
-     * mail with an activation link.
-     * The user needs to be activated on creation.
-     *
-     * @param managedUserVM the user to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new user, or with status 400 (Bad Request) if the login or email is already in use
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * POST  /users  : Validate to
      */
     @PostMapping("/users")
     @Timed
     //@Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity createUser(@Valid @RequestBody ManagedUserVM managedUserVM) throws URISyntaxException {
-        log.debug("REST request to save User : {}", managedUserVM);
+    public ResponseEntity confirmAndCreateUser(@Valid @RequestBody PassWordAndTokenVM model) throws URISyntaxException {
+        log.debug("REST request to confirm User : {}", model);
+        if(validateInviteToken(model.getToken())){
+            Claims claims = Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(model.getToken())
+                .getBody();
 
-        if (managedUserVM.getId() != null) {
-            return ResponseEntity.badRequest()
-                .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new user cannot already have an ID"))
+            String email = claims.getSubject();
+            Long orgId = ((Number)claims.get("ORG_KEY")).longValue();
+            String langKey = claims.get("LANG_KEY").toString();
+
+            MyUser user = userService.createUser(email, model.getPassword(), email, langKey, orgId);
+
+            return ResponseEntity.created(new URI("/"))
+                .headers(HeaderUtil.createAlert( "userManagement.created", user.getLogin()))
                 .body(null);
-        // Lowercase the user login before comparing with database
-        } else if (userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase()).isPresent()) {
-            return ResponseEntity.badRequest()
-                .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "userexists", "Login already in use"))
-                .body(null);
-        } else if (userRepository.findOneByEmail(managedUserVM.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest()
-                .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "emailexists", "Email already in use"))
-                .body(null);
-        } else {
-            MyUser newUser = userService.createUser(managedUserVM);
-            mailService.sendCreationEmail(newUser);
-            return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
-                .headers(HeaderUtil.createAlert( "userManagement.created", newUser.getLogin()))
-                .body(newUser);
         }
+        return ResponseEntity.badRequest()
+            .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "invalidToken", "Token not valid!"))
+            .body(null);
+
+
+
+
+//        if (managedUserVM.getId() != null) {
+//            return ResponseEntity.badRequest()
+//                .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new user cannot already have an ID"))
+//                .body(null);
+//        // Lowercase the user login before comparing with database
+//        } else if (userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase()).isPresent()) {
+//            return ResponseEntity.badRequest()
+//                .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "userexists", "Login already in use"))
+//                .body(null);
+//        } else if (userRepository.findOneByEmail(managedUserVM.getEmail()).isPresent()) {
+//            return ResponseEntity.badRequest()
+//                .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "emailexists", "Email already in use"))
+//                .body(null);
+//        } else {
+//            MyUser newUser = userService.createUser(managedUserVM);
+//            mailService.sendCreationEmail(newUser);
+//            return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
+//                .headers(HeaderUtil.createAlert( "userManagement.created", newUser.getLogin()))
+//                .body(newUser);
+//        }
+//
+//        return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    public boolean validateInviteToken(String authToken) {
+        try {
+            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(authToken);
+            return true;
+        } catch (SignatureException e) {
+            log.info("Invalid JWT signature.");
+            log.trace("Invalid JWT signature trace: {}", e);
+        } catch (MalformedJwtException e) {
+            log.info("Invalid JWT token.");
+            log.trace("Invalid JWT token trace: {}", e);
+        } catch (ExpiredJwtException e) {
+            log.info("Expired JWT token.");
+            log.trace("Expired JWT token trace: {}", e);
+        } catch (UnsupportedJwtException e) {
+            log.info("Unsupported JWT token.");
+            log.trace("Unsupported JWT token trace: {}", e);
+        } catch (IllegalArgumentException e) {
+            log.info("JWT token compact of handler are invalid.");
+            log.trace("JWT token compact of handler are invalid trace: {}", e);
+        }
+        return false;
+    }
+
 
     /**
      * PUT  /users : Updates an existing User.

@@ -13,12 +13,12 @@
             url: '/confirm',
             data: {
                 authorities: [],
-                pageTitle: 'register.title'
+                pageTitle: 'confirm.title'
             },
             views: {
                 'content@': {
                     templateUrl: 'app/account/confirm/confirm.html',
-                    controller: 'RegisterController',
+                    controller: 'ConfirmController',
                     controllerAs: 'vm'
                 }
             },

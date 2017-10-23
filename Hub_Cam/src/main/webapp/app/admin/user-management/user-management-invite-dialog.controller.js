@@ -18,7 +18,7 @@
         vm.user = entity;
 
         //@Dung Add:
-        vm.organizations = Organization.query();
+        vm.organizations = Organization.getOrgIdOfAdminLoggedIn();
         vm.exist_users = [];
         vm.exist_users = User.query();
 

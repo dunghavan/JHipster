@@ -13,8 +13,8 @@
             Your JHipster account has been created, please click on the URL below to access it:
         </p>
         <p>
-          <a th:href="@{|${baseUrl}/confirm.html?token=${jwt}|}"
-             th:text="@{|${baseUrl}/confirm.html?token=${jwt}|}">Confirm link</a>
+          <a th:href="@{|${baseUrl}/#/confirm?token=${jwt}|}"
+             th:text="@{|${baseUrl}/#/confirm?token=${jwt}|}">Confirm link</a>
         </p>
         <p>
             <span th:text="#{email.invitation.text2}">Regards, </span>

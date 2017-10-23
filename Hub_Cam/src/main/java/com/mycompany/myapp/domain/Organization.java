@@ -54,6 +54,13 @@ public class Organization implements Serializable {
         this.name = name;
         return this;
     }
+    public Organization () {
+    }
+
+    public Organization (Long id) {
+        this.id = id;
+        this.name = "";
+    }
 
     public void setName(String name) {
         this.name = name;

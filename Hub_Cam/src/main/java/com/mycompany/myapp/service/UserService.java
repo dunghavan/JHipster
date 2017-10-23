@@ -80,6 +80,30 @@ public class UserService {
                 return myUser;
             });
     }
+    public MyUser createUser(String login, String password, String email, String langKey, Long orgId) {
+
+        MyUser newUser = new MyUser();
+        Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
+        Set<Authority> authorities = new HashSet<>();
+        String encryptedPassword = passwordEncoder.encode(password);
+        newUser.setLogin(login);
+        // new user gets initially a generated password
+        newUser.setPassword(encryptedPassword);
+        newUser.setEmail(email);
+        newUser.setLangKey(langKey);
+        // new user is not active
+        newUser.setActivated(true);
+        // new user gets registration key
+        authorities.add(authority);
+        newUser.setAuthorities(authorities);
+
+        Organization organization = new Organization(orgId);
+        newUser.setOrganization(organization);
+
+        userRepository.save(newUser);
+        log.debug("Created Information for User: {}", newUser);
+        return newUser;
+    }
 
     public MyUser createUser(String login, String password, String firstName, String lastName, String email,
         String imageUrl, String langKey) {
@@ -102,6 +126,7 @@ public class UserService {
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
         newUser.setAuthorities(authorities);
+
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -118,8 +143,7 @@ public class UserService {
 
 
         //@Dung Add:
-        Organization organization = new Organization();
-        organization.setId(SecurityUtils.getCurrentUserOrganizationId());
+        Organization organization = new Organization(SecurityUtils.getCurrentUserOrganizationId());
         myUser.setOrganization(organization);
 
         if (userDTO.getLangKey() == null) {

@@ -18,10 +18,11 @@
         vm.register = register;
         vm.registerAccount = {};
         vm.success = null;
+        console.log('Register Controller running!');
 
         $timeout(function (){angular.element('#login').focus();});
-
         function register () {
+            console.log('register() method running in register controller!');
             if (vm.registerAccount.password !== vm.confirmPassword) {
                 vm.doNotMatch = 'ERROR';
             } else {

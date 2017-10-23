@@ -102,8 +102,7 @@ public class MyUser extends AbstractAuditingEntity implements  MyUserDetails, Cr
 
     public MyUser(String email, Long orgId, String langKey) {
         this.email = email;
-        Organization organization = new Organization();
-        organization.setId(orgId);
+        Organization organization = new Organization(orgId);
         this.organization = organization;
         this.langKey = langKey;
     }
@@ -116,8 +115,7 @@ public class MyUser extends AbstractAuditingEntity implements  MyUserDetails, Cr
         Set<Authority> set = new HashSet<Authority>(list);
         this.authorities = set;
         activated = true;
-        this.organization = new Organization();
-        this.organization.setId(orgId);
+        this.organization = new Organization(orgId);
     }
 
 
@@ -126,8 +124,7 @@ public class MyUser extends AbstractAuditingEntity implements  MyUserDetails, Cr
         this.password = password;
         this.authorities = authorities;
         activated = true;
-        this.organization = new Organization();
-        this.organization.setId(orgId);
+        this.organization = new Organization(orgId);
     }
 
     public MyUser(String login, String password, String firstName, String lastName, String email, boolean activated, String langKey, String imageUrl, String activationKey, String resetKey, Instant resetDate, Organization organization, Set<Authority> authorities) {

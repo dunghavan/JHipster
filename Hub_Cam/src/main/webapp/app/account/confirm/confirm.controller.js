@@ -3,47 +3,55 @@
 
     angular
         .module('hubCamApp')
-        .controller('RegisterController', RegisterController);
+        .controller('ConfirmController', ConfirmController);
 
 
-    RegisterController.$inject = ['$translate', '$timeout', 'Auth', 'LoginService'];
+    ConfirmController.$inject = ['$translate', '$timeout', 'Auth', 'LoginService', 'User', '$location'];
 
-    function RegisterController ($translate, $timeout, Auth, LoginService) {
+    function ConfirmController ($translate, $timeout, Auth, LoginService, User, $scope, $location) {
         var vm = this;
 
         vm.doNotMatch = null;
         vm.error = null;
         vm.errorUserExists = null;
         vm.login = LoginService.open;
-        vm.register = register;
+        vm.confirm = confirm;
+        vm.getUserToken = getUserToken;
         vm.registerAccount = {};
         vm.success = null;
+        console.log('Confirm Controller running!');
 
-        $timeout(function (){angular.element('#login').focus();});
+        $timeout(function (){angular.element('#password').focus();});
 
-        function register () {
+        function confirm () {
             if (vm.registerAccount.password !== vm.confirmPassword) {
                 vm.doNotMatch = 'ERROR';
             } else {
-                vm.registerAccount.langKey = $translate.use();
-                vm.doNotMatch = null;
-                vm.error = null;
-                vm.errorUserExists = null;
-                vm.errorEmailExists = null;
-
-                Auth.createAccount(vm.registerAccount).then(function () {
-                    vm.success = 'OK';
-                }).catch(function (response) {
-                    vm.success = null;
-                    if (response.status === 400 && response.data === 'login already in use') {
-                        vm.errorUserExists = 'ERROR';
-                    } else if (response.status === 400 && response.data === 'email address already in use') {
-                        vm.errorEmailExists = 'ERROR';
-                    } else {
-                        vm.error = 'ERROR';
-                    }
-                });
+                getUserToken();
+                User.save(vm.registerAccount, onSaveSuccess, onSaveError());
             }
+        }
+
+        function onSaveSuccess (result) {
+            console.log('onSaveSuccess!');
+        }
+
+        function onSaveError () {
+            console.log('onSaveError!');
+        }
+
+        function getUserToken()
+        {
+            var query = window.location.search.substring(1);
+            console.log('query: ', query);
+            var parameters = window.location.href.substring(1).split("&");
+            console.log(parameters);
+
+            var temp = parameters[0].split("=");
+
+            console.log('Token: ', temp[1]);
+            vm.registerAccount.token = temp[1];
+            //document.getElementById("token1").innerHTML = temp[1];
         }
     }
 })();
