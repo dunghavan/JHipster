@@ -18,7 +18,8 @@
         vm.user = entity;
 
         //@Dung Add:
-        vm.organizations = Organization.getOrgIdOfAdminLoggedIn();
+        vm.user.organization = Organization.getOrgIdOfAdminLoggedIn();
+        console.log('vm.organizations: ', vm.user.organization);
         vm.exist_users = [];
         vm.exist_users = User.query();
 
@@ -40,13 +41,13 @@
             vm.isInviting = false;
         }
 
-        var conflic_email = false;
         function invite () {
+            var conflic_email = false;
             console.log('call invite method()!');
             vm.user = { id: null, login: vm.user.email, firstName: null, lastName: null, email: vm.user.email,
                 activated: true, langKey: vm.user.langKey, createdBy: null, createdDate: null,
                 lastModifiedBy: null, lastModifiedDate: null, resetDate: null,
-                resetKey: null, authorities: vm.user.authorities , organization: vm.user.organization};
+                resetKey: null, authorities: vm.user.authorities , organization: vm.user.organization.id};
 
             vm.isInviting = true;
             // check email:

@@ -33,9 +33,7 @@
 
         <div class="form-group">
             <label data-translate="">Organization</label>
-            <select class="form-control" name="organization" ng-model="vm.user.organization"
-                    ng-options="organization as organization.id for organization in vm.organizations track by organization.id">
-            </select>
+            <input type="text" class="form-control" name="organization" ng-model="vm.user.organization.id" readonly>
         </div>
 
         <div class="form-group">

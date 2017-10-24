@@ -40,13 +40,11 @@ public class OrganizationResource {
     //@dunghv:
     @GetMapping("/organizations/get-org-id-of-admin-logged-in")
     @Timed
-    public ResponseEntity<Organization> getOrgIdOfAdminLoggedIn(){
+    public Organization getOrgIdOfAdminLoggedIn(){
         Long orgId = SecurityUtils.getCurrentUserOrganizationId();
         Organization result = new Organization(orgId);
 
-//        return ResponseEntity.created(new URI("/api/organizations/" + result.getId()))
-//            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-//            .body(result);
+        return result;
     }
     /**
      * POST  /organizations : Create a new organization.

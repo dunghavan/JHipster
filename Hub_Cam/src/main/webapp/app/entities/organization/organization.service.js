@@ -21,7 +21,7 @@
                 }
             },
             'update': { method:'PUT' },
-            'getOrgIdOfAdminLoggedIn': {method: 'GET', Url: resourceUrl + '/get-org-id-of-admin-logged-in'}
+            'getOrgIdOfAdminLoggedIn': {method: 'GET', isArray: false, url: resourceUrl + '/get-org-id-of-admin-logged-in'}
         });
     }
 })();
