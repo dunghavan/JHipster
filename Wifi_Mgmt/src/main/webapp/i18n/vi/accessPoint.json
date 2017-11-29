@@ -1,0 +1,26 @@
+{
+    "wifiMgmtApp": {
+        "accessPoint" : {
+            "home": {
+                "title": "Access Points",
+                "createLabel": "Thêm mới một Access Point",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Access Point",
+                "search": "Tìm Access Point"
+            },
+            "created": "Một Access Point mới được tạo với định danh {{ param }}",
+            "updated": "Một Access Point cập nhật với định danh {{ param }}",
+            "deleted": "Một Access Point đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Access Point {{ id }}?"
+            },
+            "detail": {
+                "title": "Access Point"
+            },
+            "mac": "Mac",
+            "description": "Description",
+            "status": "Status",
+            "lastActive": "Last Active",
+            "location": "Location"
+        }
+    }
+}

@@ -1,0 +1,59 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "loginType",
+            "otherEntityName": "loginType",
+            "otherEntityRelationshipName": "landingPage"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "theme",
+            "otherEntityName": "theme",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "org",
+            "otherEntityName": "organization",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "text1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "text2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "text3",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "image1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "image2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "image3",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20171129103733",
+    "entityTableName": "landing_page",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

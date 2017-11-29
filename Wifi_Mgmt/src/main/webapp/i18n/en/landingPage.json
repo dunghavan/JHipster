@@ -1,0 +1,31 @@
+{
+    "wifiMgmtApp": {
+        "landingPage" : {
+            "home": {
+                "title": "Landing Pages",
+                "createLabel": "Create a new Landing Page",
+                "createOrEditLabel": "Create or edit a Landing Page",
+                "search": "Search for Landing Page"
+            },
+            "created": "A new Landing Page is created with identifier {{ param }}",
+            "updated": "A Landing Page is updated with identifier {{ param }}",
+            "deleted": "A Landing Page is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Landing Page {{ id }}?"
+            },
+            "detail": {
+                "title": "Landing Page"
+            },
+            "name": "Name",
+            "text1": "Text 1",
+            "text2": "Text 2",
+            "text3": "Text 3",
+            "image1": "Image 1",
+            "image2": "Image 2",
+            "image3": "Image 3",
+            "loginType": "Login Type",
+            "theme": "Theme",
+            "org": "Org"
+        }
+    }
+}

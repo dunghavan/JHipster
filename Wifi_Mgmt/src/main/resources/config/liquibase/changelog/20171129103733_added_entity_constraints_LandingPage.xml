@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity LandingPage.
+    -->
+    <changeSet id="20171129103733-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="theme_id"
+                                 baseTableName="landing_page"
+                                 constraintName="fk_landing_page_theme_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="theme"/>
+
+        <addForeignKeyConstraint baseColumnNames="org_id"
+                                 baseTableName="landing_page"
+                                 constraintName="fk_landing_page_org_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="organization"/>
+
+    </changeSet>
+</databaseChangeLog>

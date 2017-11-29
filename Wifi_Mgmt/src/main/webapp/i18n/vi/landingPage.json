@@ -1,0 +1,31 @@
+{
+    "wifiMgmtApp": {
+        "landingPage" : {
+            "home": {
+                "title": "Landing Pages",
+                "createLabel": "Thêm mới một Landing Page",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Landing Page",
+                "search": "Tìm Landing Page"
+            },
+            "created": "Một Landing Page mới được tạo với định danh {{ param }}",
+            "updated": "Một Landing Page cập nhật với định danh {{ param }}",
+            "deleted": "Một Landing Page đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Landing Page {{ id }}?"
+            },
+            "detail": {
+                "title": "Landing Page"
+            },
+            "name": "Name",
+            "text1": "Text 1",
+            "text2": "Text 2",
+            "text3": "Text 3",
+            "image1": "Image 1",
+            "image2": "Image 2",
+            "image3": "Image 3",
+            "loginType": "Login Type",
+            "theme": "Theme",
+            "org": "Org"
+        }
+    }
+}

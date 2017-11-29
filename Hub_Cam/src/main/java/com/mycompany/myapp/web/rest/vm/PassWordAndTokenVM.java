@@ -1,4 +1,5 @@
 package com.mycompany.myapp.web.rest.vm;
+    //--------------------------------End add--------------------------------------------
 
 public class PassWordAndTokenVM {
     private String password;

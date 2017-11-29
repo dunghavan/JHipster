@@ -1,0 +1,23 @@
+{
+    "wifiMgmtApp": {
+        "loginType" : {
+            "home": {
+                "title": "Login Types",
+                "createLabel": "Thêm mới một Login Type",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Login Type",
+                "search": "Tìm Login Type"
+            },
+            "created": "Một Login Type mới được tạo với định danh {{ param }}",
+            "updated": "Một Login Type cập nhật với định danh {{ param }}",
+            "deleted": "Một Login Type đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Login Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Login Type"
+            },
+            "name": "Name",
+            "landingPage": "Landing Page"
+        }
+    }
+}

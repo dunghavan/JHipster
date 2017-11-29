@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "landingPage",
+            "otherEntityName": "landingPage",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20171129103736",
+    "entityTableName": "login_type",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

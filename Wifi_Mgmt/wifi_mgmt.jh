@@ -1,0 +1,67 @@
+entity Organization {
+	name String
+}
+
+entity Location {
+	streetAddress String,
+	province String,
+	city String,
+	longtitude String,
+    latitude String,
+    status Boolean,
+    redirectUrl String
+}
+
+entity LandingPage {
+	name String,
+    text1 String,
+    text2 String,
+    text3 String,
+    image1 String,
+    image2 String,
+    image3 String
+}
+entity Theme {
+	name String,
+    data String
+}
+
+entity AccessPoint {
+	mac String,
+	description String,
+    status Boolean,
+    lastActive LocalDate
+}
+//entity LandingPage_LoginType {
+//}
+entity LoginType {
+  name String
+}
+relationship ManyToOne {
+	Location{org} to Organization
+}
+//enum{CLICK, ZALO, FACEBOOK, GOOGLE}
+relationship ManyToOne {
+	AccessPoint{location} to Location
+}
+
+relationship ManyToOne {
+	Location{landingPage} to LandingPage,
+    LandingPage{theme} to Theme,
+    LandingPage{org} to Organization
+}
+
+relationship OneToMany {
+    LandingPage{loginType} to LoginType
+}
+
+// Set pagination options
+paginate * with infinite-scroll
+//paginate Job with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+//service all with serviceImpl except Employee, Job
+// Set an angular suffix
+angularSuffix * with mySuffix

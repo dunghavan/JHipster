@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span data-translate="wifiMgmtApp.accessPoint.detail.title">Access Point</span> {{vm.accessPoint.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="wifiMgmtApp.accessPoint.mac">Mac</span></dt>
+        <dd>
+            <span>{{vm.accessPoint.mac}}</span>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.accessPoint.description">Description</span></dt>
+        <dd>
+            <span>{{vm.accessPoint.description}}</span>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.accessPoint.status">Status</span></dt>
+        <dd>
+            <span>{{vm.accessPoint.status}}</span>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.accessPoint.lastActive">Last Active</span></dt>
+        <dd>
+            <span>{{vm.accessPoint.lastActive | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.accessPoint.location">Location</span></dt>
+        <dd>
+            <a ui-sref="location-my-suffix-detail({id:vm.accessPoint.locationId})">{{vm.accessPoint.locationId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="access-point-my-suffix-detail.edit({id:vm.accessPoint.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

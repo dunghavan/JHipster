@@ -1,0 +1,30 @@
+{
+    "wifiMgmtApp": {
+        "location" : {
+            "home": {
+                "title": "Locations",
+                "createLabel": "Create a new Location",
+                "createOrEditLabel": "Create or edit a Location",
+                "search": "Search for Location"
+            },
+            "created": "A new Location is created with identifier {{ param }}",
+            "updated": "A Location is updated with identifier {{ param }}",
+            "deleted": "A Location is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Location {{ id }}?"
+            },
+            "detail": {
+                "title": "Location"
+            },
+            "streetAddress": "Street Address",
+            "province": "Province",
+            "city": "City",
+            "longtitude": "Longtitude",
+            "latitude": "Latitude",
+            "status": "Status",
+            "redirectUrl": "Redirect Url",
+            "org": "Org",
+            "landingPage": "Landing Page"
+        }
+    }
+}

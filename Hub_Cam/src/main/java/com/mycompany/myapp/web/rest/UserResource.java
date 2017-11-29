@@ -117,7 +117,7 @@ public class UserResource {
 
     //--------------------------------End add--------------------------------------------
     /**
-     * POST  /users  : Validate to
+     * POST  /users  : Validate to confirm
      */
     @PostMapping("/users")
     @Timed

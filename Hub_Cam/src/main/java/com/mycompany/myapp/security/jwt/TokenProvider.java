@@ -56,7 +56,6 @@ public class TokenProvider {
     public String createToken(Authentication authentication, Boolean rememberMe) {
         MyUser myUser = (MyUser)authentication.getPrincipal();
 
-        //String authorities = "ROLE_ADMIN,ROLE_USER";
         Long organizationId = myUser.getOrganization().getId();
         Set<Authority> setAuthorities = myUser.getUserAuthorities();
 
@@ -67,7 +66,7 @@ public class TokenProvider {
         }
         stringAuthorities.deleteCharAt(stringAuthorities.length() - 1);
 
-        String json = setAuthorities.toString();
+        //String json = setAuthorities.toString();
 
         long now = (new Date()).getTime();
         Date validity;
