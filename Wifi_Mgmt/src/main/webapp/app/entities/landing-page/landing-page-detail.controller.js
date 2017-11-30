@@ -5,9 +5,9 @@
         .module('wifiMgmtApp')
         .controller('LandingPageDetailController', LandingPageDetailController);
 
-    LandingPageDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'LandingPage', 'LoginType', 'Theme', 'Organization'];
+    LandingPageDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'LandingPage', 'Theme', 'Organization', 'LoginType'];
 
-    function LandingPageDetailController($scope, $rootScope, $stateParams, previousState, entity, LandingPage, LoginType, Theme, Organization) {
+    function LandingPageDetailController($scope, $rootScope, $stateParams, previousState, entity, LandingPage, Theme, Organization, LoginType) {
         var vm = this;
 
         vm.landingPage = entity;

@@ -28,6 +28,7 @@
                     <th><span data-translate="wifiMgmtApp.landingPage.image3">Image 3</span></th>
                     <th><span data-translate="wifiMgmtApp.landingPage.theme">Theme</span></th>
                     <th><span data-translate="wifiMgmtApp.landingPage.org">Org</span></th>
+                    <th><span data-translate="wifiMgmtApp.landingPage.loginType">Login Type</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -42,10 +43,15 @@
                     <td>{{landingPage.image2}}</td>
                     <td>{{landingPage.image3}}</td>
                     <td>
-                        <a ui-sref="theme-detail({id:landingPage.theme.id})">{{landingPage.theme.id}}</a>
+                        <a ui-sref="theme-detail({id:landingPage.theme.id})">{{landingPage.theme.name}}</a>
                     </td>
                     <td>
-                        <a ui-sref="organization-detail({id:landingPage.org.id})">{{landingPage.org.id}}</a>
+                        <a ui-sref="organization-detail({id:landingPage.org.id})">{{landingPage.org.name}}</a>
+                    </td>
+                    <td>
+                        <span ng-repeat="loginType in landingPage.loginTypes">
+                            <a class="form-control-static" ui-sref="login-type-detail({id: loginType.id})">{{loginType.name}}</a>{{$last ? '' : ', '}}
+                        </span>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

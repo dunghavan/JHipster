@@ -38,21 +38,21 @@ entity LoginType {
   name String
 }
 relationship ManyToOne {
-	Location{org} to Organization
+	Location{org(name)} to Organization
 }
 //enum{CLICK, ZALO, FACEBOOK, GOOGLE}
 relationship ManyToOne {
-	AccessPoint{location} to Location
+	AccessPoint{location(streetAddress)} to Location
 }
 
 relationship ManyToOne {
-	Location{landingPage} to LandingPage,
-    LandingPage{theme} to Theme,
-    LandingPage{org} to Organization
+	Location{landingPage(name)} to LandingPage,
+    LandingPage{theme(name)} to Theme,
+    LandingPage{org(name)} to Organization
 }
 
-relationship OneToMany {
-    LandingPage{loginType} to LoginType
+relationship ManyToMany {
+    LandingPage{loginType(name)} to LoginType
 }
 
 // Set pagination options

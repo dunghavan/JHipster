@@ -20,7 +20,6 @@
                 <tr>
                     <th><span data-translate="global.field.id">ID</span></th>
                     <th><span data-translate="wifiMgmtApp.loginType.name">Name</span></th>
-                    <th><span data-translate="wifiMgmtApp.loginType.landingPage">Landing Page</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -28,9 +27,6 @@
                 <tr ng-repeat="loginType in vm.loginTypes track by loginType.id">
                     <td><a ui-sref="login-type-detail({id:loginType.id})">{{loginType.id}}</a></td>
                     <td>{{loginType.name}}</td>
-                    <td>
-                        <a ui-sref="landing-page-detail({id:loginType.landingPage.id})">{{loginType.landingPage.id}}</a>
-                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

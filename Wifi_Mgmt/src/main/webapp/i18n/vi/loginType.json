@@ -15,8 +15,7 @@
             "detail": {
                 "title": "Login Type"
             },
-            "name": "Name",
-            "landingPage": "Landing Page"
+            "name": "Name"
         }
     }
 }

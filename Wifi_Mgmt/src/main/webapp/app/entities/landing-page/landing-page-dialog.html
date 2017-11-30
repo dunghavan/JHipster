@@ -58,15 +58,19 @@
 
         <div class="form-group">
             <label data-translate="wifiMgmtApp.landingPage.theme" for="field_theme">Theme</label>
-            <select class="form-control" id="field_theme" name="theme" ng-model="vm.landingPage.theme" ng-options="theme as theme.id for theme in vm.themes track by theme.id">
+            <select class="form-control" id="field_theme" name="theme" ng-model="vm.landingPage.theme" ng-options="theme as theme.name for theme in vm.themes track by theme.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
             <label data-translate="wifiMgmtApp.landingPage.org" for="field_org">Org</label>
-            <select class="form-control" id="field_org" name="org" ng-model="vm.landingPage.org" ng-options="organization as organization.id for organization in vm.organizations track by organization.id">
+            <select class="form-control" id="field_org" name="org" ng-model="vm.landingPage.org" ng-options="organization as organization.name for organization in vm.organizations track by organization.id">
                 <option value=""></option>
             </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="wifiMgmtApp.landingPage.loginType" for="field_loginType">Login Type</label>
+            <select class="form-control" id="field_loginType" multiple name="loginType" ng-model="vm.landingPage.loginTypes" ng-options="loginType as loginType.name for loginType in vm.logintypes track by loginType.id"></select>
         </div>
     </div>
     <div class="modal-footer">

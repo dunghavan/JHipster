@@ -5,15 +5,14 @@
         .module('wifiMgmtApp')
         .controller('LoginTypeDialogController', LoginTypeDialogController);
 
-    LoginTypeDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'LoginType', 'LandingPage'];
+    LoginTypeDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'LoginType'];
 
-    function LoginTypeDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, LoginType, LandingPage) {
+    function LoginTypeDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, LoginType) {
         var vm = this;
 
         vm.loginType = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.landingpages = LandingPage.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

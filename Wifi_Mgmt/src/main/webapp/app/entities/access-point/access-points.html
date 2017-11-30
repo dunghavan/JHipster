@@ -35,7 +35,7 @@
                     <td>{{accessPoint.status}}</td>
                         <td>{{accessPoint.lastActive | date:'mediumDate'}}</td>
                     <td>
-                        <a ui-sref="location-detail({id:accessPoint.location.id})">{{accessPoint.location.id}}</a>
+                        <a ui-sref="location-detail({id:accessPoint.location.id})">{{accessPoint.location.streetAddress}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

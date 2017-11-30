@@ -1,6 +1,5 @@
 package com.mycompany.myapp.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -42,15 +41,17 @@ public class LandingPage implements Serializable {
     @Column(name = "image_3")
     private String image3;
 
-    @OneToMany(mappedBy = "landingPage")
-    @JsonIgnore
-    private Set<LoginType> loginTypes = new HashSet<>();
-
     @ManyToOne
     private Theme theme;
 
     @ManyToOne
     private Organization org;
+
+    @ManyToMany
+    @JoinTable(name = "landing_page_login_type",
+               joinColumns = @JoinColumn(name="landing_pages_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="login_types_id", referencedColumnName="id"))
+    private Set<LoginType> loginTypes = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -151,31 +152,6 @@ public class LandingPage implements Serializable {
         this.image3 = image3;
     }
 
-    public Set<LoginType> getLoginTypes() {
-        return loginTypes;
-    }
-
-    public LandingPage loginTypes(Set<LoginType> loginTypes) {
-        this.loginTypes = loginTypes;
-        return this;
-    }
-
-    public LandingPage addLoginType(LoginType loginType) {
-        this.loginTypes.add(loginType);
-        loginType.setLandingPage(this);
-        return this;
-    }
-
-    public LandingPage removeLoginType(LoginType loginType) {
-        this.loginTypes.remove(loginType);
-        loginType.setLandingPage(null);
-        return this;
-    }
-
-    public void setLoginTypes(Set<LoginType> loginTypes) {
-        this.loginTypes = loginTypes;
-    }
-
     public Theme getTheme() {
         return theme;
     }
@@ -200,6 +176,29 @@ public class LandingPage implements Serializable {
 
     public void setOrg(Organization organization) {
         this.org = organization;
+    }
+
+    public Set<LoginType> getLoginTypes() {
+        return loginTypes;
+    }
+
+    public LandingPage loginTypes(Set<LoginType> loginTypes) {
+        this.loginTypes = loginTypes;
+        return this;
+    }
+
+    public LandingPage addLoginType(LoginType loginType) {
+        this.loginTypes.add(loginType);
+        return this;
+    }
+
+    public LandingPage removeLoginType(LoginType loginType) {
+        this.loginTypes.remove(loginType);
+        return this;
+    }
+
+    public void setLoginTypes(Set<LoginType> loginTypes) {
+        this.loginTypes = loginTypes;
     }
 
     @Override

@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity AccessPoint.
     -->
-    <changeSet id="20171130034522-2" author="jhipster">
+    <changeSet id="20171130081327-2" author="jhipster">
         
         <addForeignKeyConstraint baseColumnNames="location_id"
                                  baseTableName="access_point"

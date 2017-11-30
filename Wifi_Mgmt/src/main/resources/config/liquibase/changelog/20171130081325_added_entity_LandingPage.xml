@@ -15,38 +15,42 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity Location.
+        Added the entity LandingPage.
     -->
-    <changeSet id="20171130034519-1" author="jhipster">
-        <createTable tableName="location">
+    <changeSet id="20171130081325-1" author="jhipster">
+        <createTable tableName="landing_page">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="street_address" type="varchar(255)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="province" type="varchar(255)">
+            <column name="text_1" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="city" type="varchar(255)">
+            <column name="text_2" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="longtitude" type="varchar(255)">
+            <column name="text_3" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="latitude" type="varchar(255)">
+            <column name="image_1" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="status" type="bit">
+            <column name="image_2" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="redirect_url" type="varchar(255)">
+            <column name="image_3" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="theme_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
@@ -54,12 +58,19 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="landing_page_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        
+        <createTable tableName="landing_page_login_type">
+            <column name="login_types_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="landing_pages_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="landing_pages_id, login_types_id" tableName="landing_page_login_type"/>
         
     </changeSet>
 </databaseChangeLog>

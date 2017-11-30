@@ -21,9 +21,6 @@ public class LoginType implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    private LandingPage landingPage;
-
     public Long getId() {
         return id;
     }
@@ -43,19 +40,6 @@ public class LoginType implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public LandingPage getLandingPage() {
-        return landingPage;
-    }
-
-    public LoginType landingPage(LandingPage landingPage) {
-        this.landingPage = landingPage;
-        return this;
-    }
-
-    public void setLandingPage(LandingPage landingPage) {
-        this.landingPage = landingPage;
     }
 
     @Override

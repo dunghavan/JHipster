@@ -20,20 +20,32 @@
     <!-- endbuild -->
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="manifest" href="manifest.webapp" />
+
+    <!--dunghv-->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/content/new_ui_content/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/content/new_ui_content/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="/content/new_ui_content/css/styles.css">
+    <script src="/content/new_ui_content/js/jquery.min.js"></script>
+    <script src="/content/new_ui_content/js/bootstrap.min.js"></script>
+    <script src="/content/new_ui_content/js/default.js"></script>
 </head>
 <body ng-app="wifiMgmtApp" ng-strict-di>
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <page-ribbon></page-ribbon>
-    <div ui-view="navbar" ng-cloak></div>
-    <div class="container">
-        <div class="well" ui-view="content">
-            <!-- Angular views -->
-        </div>
+    <div ui-view="parentview">
+        <div ui-view="navbar" ng-cloak></div>
+        <div class="container">
+            <div class="well" ui-view="content">
+                <!-- Angular views -->
+            </div>
 
-        <div class="footer" ng-cloak>
-            <p data-translate="footer">This is your footer</p>
+            <div class="footer" ng-cloak>
+                <p data-translate="footer">This is your footer</p>
+            </div>
         </div>
     </div>
     <noscript>
@@ -104,6 +116,8 @@
     <script src="app/layouts/navbar/navbar.controller.js"></script>
     <script src="app/layouts/navbar/active-menu.directive.js"></script>
     <script src="app/layouts/error/error.state.js"></script>
+    <script src="app/landing/landing.state.js"></script>
+    <script src="app/landing/landing.controller.js"></script>
     <script src="app/home/home.state.js"></script>
     <script src="app/home/home.controller.js"></script>
     <script src="app/entities/theme/theme-dialog.controller.js"></script>
@@ -154,6 +168,8 @@
     <script src="app/components/util/data-util.service.js"></script>
     <script src="app/components/util/capitalize.filter.js"></script>
     <script src="app/components/util/base64.service.js"></script>
+    <script src="app/components/login/new_login.state.js"></script>
+    <script src="app/components/login/new_login.controller.js"></script>
     <script src="app/components/login/login.service.js"></script>
     <script src="app/components/login/login.controller.js"></script>
     <script src="app/components/language/language.service.js"></script>

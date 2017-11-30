@@ -34,11 +34,17 @@
         </dd>
         <dt><span data-translate="wifiMgmtApp.landingPage.theme">Theme</span></dt>
         <dd>
-            <a ui-sref="theme-detail({id:vm.landingPage.theme.id})">{{vm.landingPage.theme.id}}</a>
+            <a ui-sref="theme-detail({id:vm.landingPage.theme.id})">{{vm.landingPage.theme.name}}</a>
         </dd>
         <dt><span data-translate="wifiMgmtApp.landingPage.org">Org</span></dt>
         <dd>
-            <a ui-sref="organization-detail({id:vm.landingPage.org.id})">{{vm.landingPage.org.id}}</a>
+            <a ui-sref="organization-detail({id:vm.landingPage.org.id})">{{vm.landingPage.org.name}}</a>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.landingPage.loginType">Login Type</span></dt>
+        <dd>
+            <span ng-repeat="loginType in vm.landingPage.loginTypes">
+                <a ui-sref="login-type-detail({id: loginType.id})">{{loginType.name}}</a>{{$last ? '' : ', '}}
+            </span>
         </dd>
     </dl>
 

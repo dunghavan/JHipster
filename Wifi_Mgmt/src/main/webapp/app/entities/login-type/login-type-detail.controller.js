@@ -5,9 +5,9 @@
         .module('wifiMgmtApp')
         .controller('LoginTypeDetailController', LoginTypeDetailController);
 
-    LoginTypeDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'LoginType', 'LandingPage'];
+    LoginTypeDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'LoginType'];
 
-    function LoginTypeDetailController($scope, $rootScope, $stateParams, previousState, entity, LoginType, LandingPage) {
+    function LoginTypeDetailController($scope, $rootScope, $stateParams, previousState, entity, LoginType) {
         var vm = this;
 
         vm.loginType = entity;

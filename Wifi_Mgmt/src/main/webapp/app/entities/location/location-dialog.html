@@ -57,13 +57,13 @@
 
         <div class="form-group">
             <label data-translate="wifiMgmtApp.location.org" for="field_org">Org</label>
-            <select class="form-control" id="field_org" name="org" ng-model="vm.location.org" ng-options="organization as organization.id for organization in vm.organizations track by organization.id">
+            <select class="form-control" id="field_org" name="org" ng-model="vm.location.org" ng-options="organization as organization.name for organization in vm.organizations track by organization.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
             <label data-translate="wifiMgmtApp.location.landingPage" for="field_landingPage">Landing Page</label>
-            <select class="form-control" id="field_landingPage" name="landingPage" ng-model="vm.location.landingPage" ng-options="landingPage as landingPage.id for landingPage in vm.landingpages track by landingPage.id">
+            <select class="form-control" id="field_landingPage" name="landingPage" ng-model="vm.location.landingPage" ng-options="landingPage as landingPage.name for landingPage in vm.landingpages track by landingPage.id">
                 <option value=""></option>
             </select>
         </div>

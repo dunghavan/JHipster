@@ -85,7 +85,7 @@ public class LandingPageResource {
     @Timed
     public List<LandingPage> getAllLandingPages() {
         log.debug("REST request to get all LandingPages");
-        return landingPageRepository.findAll();
+        return landingPageRepository.findAllWithEagerRelationships();
     }
 
     /**
@@ -98,7 +98,7 @@ public class LandingPageResource {
     @Timed
     public ResponseEntity<LandingPage> getLandingPage(@PathVariable Long id) {
         log.debug("REST request to get LandingPage : {}", id);
-        LandingPage landingPage = landingPageRepository.findOne(id);
+        LandingPage landingPage = landingPageRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(landingPage));
     }
 
