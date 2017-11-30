@@ -4,9 +4,6 @@ import com.mycompany.myapp.WifiMgmtApp;
 
 import com.mycompany.myapp.domain.LoginType;
 import com.mycompany.myapp.repository.LoginTypeRepository;
-import com.mycompany.myapp.repository.search.LoginTypeSearchRepository;
-import com.mycompany.myapp.service.dto.LoginTypeDTO;
-import com.mycompany.myapp.service.mapper.LoginTypeMapper;
 import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -47,12 +44,6 @@ public class LoginTypeResourceIntTest {
     private LoginTypeRepository loginTypeRepository;
 
     @Autowired
-    private LoginTypeMapper loginTypeMapper;
-
-    @Autowired
-    private LoginTypeSearchRepository loginTypeSearchRepository;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -71,7 +62,7 @@ public class LoginTypeResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        LoginTypeResource loginTypeResource = new LoginTypeResource(loginTypeRepository, loginTypeMapper, loginTypeSearchRepository);
+        LoginTypeResource loginTypeResource = new LoginTypeResource(loginTypeRepository);
         this.restLoginTypeMockMvc = MockMvcBuilders.standaloneSetup(loginTypeResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -92,7 +83,6 @@ public class LoginTypeResourceIntTest {
 
     @Before
     public void initTest() {
-        loginTypeSearchRepository.deleteAll();
         loginType = createEntity(em);
     }
 
@@ -102,10 +92,9 @@ public class LoginTypeResourceIntTest {
         int databaseSizeBeforeCreate = loginTypeRepository.findAll().size();
 
         // Create the LoginType
-        LoginTypeDTO loginTypeDTO = loginTypeMapper.toDto(loginType);
         restLoginTypeMockMvc.perform(post("/api/login-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loginTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loginType)))
             .andExpect(status().isCreated());
 
         // Validate the LoginType in the database
@@ -113,10 +102,6 @@ public class LoginTypeResourceIntTest {
         assertThat(loginTypeList).hasSize(databaseSizeBeforeCreate + 1);
         LoginType testLoginType = loginTypeList.get(loginTypeList.size() - 1);
         assertThat(testLoginType.getName()).isEqualTo(DEFAULT_NAME);
-
-        // Validate the LoginType in Elasticsearch
-        LoginType loginTypeEs = loginTypeSearchRepository.findOne(testLoginType.getId());
-        assertThat(loginTypeEs).isEqualToComparingFieldByField(testLoginType);
     }
 
     @Test
@@ -126,12 +111,11 @@ public class LoginTypeResourceIntTest {
 
         // Create the LoginType with an existing ID
         loginType.setId(1L);
-        LoginTypeDTO loginTypeDTO = loginTypeMapper.toDto(loginType);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLoginTypeMockMvc.perform(post("/api/login-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loginTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loginType)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -180,18 +164,16 @@ public class LoginTypeResourceIntTest {
     public void updateLoginType() throws Exception {
         // Initialize the database
         loginTypeRepository.saveAndFlush(loginType);
-        loginTypeSearchRepository.save(loginType);
         int databaseSizeBeforeUpdate = loginTypeRepository.findAll().size();
 
         // Update the loginType
         LoginType updatedLoginType = loginTypeRepository.findOne(loginType.getId());
         updatedLoginType
             .name(UPDATED_NAME);
-        LoginTypeDTO loginTypeDTO = loginTypeMapper.toDto(updatedLoginType);
 
         restLoginTypeMockMvc.perform(put("/api/login-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loginTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedLoginType)))
             .andExpect(status().isOk());
 
         // Validate the LoginType in the database
@@ -199,10 +181,6 @@ public class LoginTypeResourceIntTest {
         assertThat(loginTypeList).hasSize(databaseSizeBeforeUpdate);
         LoginType testLoginType = loginTypeList.get(loginTypeList.size() - 1);
         assertThat(testLoginType.getName()).isEqualTo(UPDATED_NAME);
-
-        // Validate the LoginType in Elasticsearch
-        LoginType loginTypeEs = loginTypeSearchRepository.findOne(testLoginType.getId());
-        assertThat(loginTypeEs).isEqualToComparingFieldByField(testLoginType);
     }
 
     @Test
@@ -211,12 +189,11 @@ public class LoginTypeResourceIntTest {
         int databaseSizeBeforeUpdate = loginTypeRepository.findAll().size();
 
         // Create the LoginType
-        LoginTypeDTO loginTypeDTO = loginTypeMapper.toDto(loginType);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restLoginTypeMockMvc.perform(put("/api/login-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loginTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(loginType)))
             .andExpect(status().isCreated());
 
         // Validate the LoginType in the database
@@ -229,7 +206,6 @@ public class LoginTypeResourceIntTest {
     public void deleteLoginType() throws Exception {
         // Initialize the database
         loginTypeRepository.saveAndFlush(loginType);
-        loginTypeSearchRepository.save(loginType);
         int databaseSizeBeforeDelete = loginTypeRepository.findAll().size();
 
         // Get the loginType
@@ -237,28 +213,9 @@ public class LoginTypeResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean loginTypeExistsInEs = loginTypeSearchRepository.exists(loginType.getId());
-        assertThat(loginTypeExistsInEs).isFalse();
-
         // Validate the database is empty
         List<LoginType> loginTypeList = loginTypeRepository.findAll();
         assertThat(loginTypeList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void searchLoginType() throws Exception {
-        // Initialize the database
-        loginTypeRepository.saveAndFlush(loginType);
-        loginTypeSearchRepository.save(loginType);
-
-        // Search the loginType
-        restLoginTypeMockMvc.perform(get("/api/_search/login-types?query=id:" + loginType.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(loginType.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
 
     @Test
@@ -274,28 +231,5 @@ public class LoginTypeResourceIntTest {
         assertThat(loginType1).isNotEqualTo(loginType2);
         loginType1.setId(null);
         assertThat(loginType1).isNotEqualTo(loginType2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(LoginTypeDTO.class);
-        LoginTypeDTO loginTypeDTO1 = new LoginTypeDTO();
-        loginTypeDTO1.setId(1L);
-        LoginTypeDTO loginTypeDTO2 = new LoginTypeDTO();
-        assertThat(loginTypeDTO1).isNotEqualTo(loginTypeDTO2);
-        loginTypeDTO2.setId(loginTypeDTO1.getId());
-        assertThat(loginTypeDTO1).isEqualTo(loginTypeDTO2);
-        loginTypeDTO2.setId(2L);
-        assertThat(loginTypeDTO1).isNotEqualTo(loginTypeDTO2);
-        loginTypeDTO1.setId(null);
-        assertThat(loginTypeDTO1).isNotEqualTo(loginTypeDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(loginTypeMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(loginTypeMapper.fromId(null)).isNull();
     }
 }

@@ -1,0 +1,79 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myLocationLabel" data-translate="wifiMgmtApp.location.home.createOrEditLabel">Create or edit a Location</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.location.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.location.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="wifiMgmtApp.location.streetAddress" for="field_streetAddress">Street Address</label>
+            <input type="text" class="form-control" name="streetAddress" id="field_streetAddress"
+                    ng-model="vm.location.streetAddress"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="wifiMgmtApp.location.province" for="field_province">Province</label>
+            <input type="text" class="form-control" name="province" id="field_province"
+                    ng-model="vm.location.province"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="wifiMgmtApp.location.city" for="field_city">City</label>
+            <input type="text" class="form-control" name="city" id="field_city"
+                    ng-model="vm.location.city"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="wifiMgmtApp.location.longtitude" for="field_longtitude">Longtitude</label>
+            <input type="text" class="form-control" name="longtitude" id="field_longtitude"
+                    ng-model="vm.location.longtitude"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="wifiMgmtApp.location.latitude" for="field_latitude">Latitude</label>
+            <input type="text" class="form-control" name="latitude" id="field_latitude"
+                    ng-model="vm.location.latitude"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="wifiMgmtApp.location.status" for="field_status">Status</label>
+                <input type="checkbox" name="status" id="field_status"
+                          ng-model="vm.location.status"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="wifiMgmtApp.location.redirectUrl" for="field_redirectUrl">Redirect Url</label>
+            <input type="text" class="form-control" name="redirectUrl" id="field_redirectUrl"
+                    ng-model="vm.location.redirectUrl"
+                    />
+        </div>
+
+        <div class="form-group">
+            <label data-translate="wifiMgmtApp.location.org" for="field_org">Org</label>
+            <select class="form-control" id="field_org" name="org" ng-model="vm.location.org" ng-options="organization as organization.id for organization in vm.organizations track by organization.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="wifiMgmtApp.location.landingPage" for="field_landingPage">Landing Page</label>
+            <select class="form-control" id="field_landingPage" name="landingPage" ng-model="vm.location.landingPage" ng-options="landingPage as landingPage.id for landingPage in vm.landingpages track by landingPage.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

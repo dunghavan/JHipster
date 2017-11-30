@@ -7,12 +7,12 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
-                "organizationMySuffix": "Organization",
-                "locationMySuffix": "Location",
-                "landingPageMySuffix": "Landing Page",
-                "themeMySuffix": "Theme",
-                "accessPointMySuffix": "Access Point",
-                "loginTypeMySuffix": "Login Type",
+                "organization": "Organization",
+                "location": "Location",
+                "landingPage": "Landing Page",
+                "theme": "Theme",
+                "accessPoint": "Access Point",
+                "loginType": "Login Type",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

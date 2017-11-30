@@ -5,7 +5,6 @@ import com.mycompany.myapp.domain.Authority;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.AuthorityRepository;
 import com.mycompany.myapp.repository.UserRepository;
-import com.mycompany.myapp.repository.search.UserSearchRepository;
 import com.mycompany.myapp.service.MailService;
 
 import org.junit.Before;
@@ -40,9 +39,6 @@ public class SocialServiceIntTest {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private UserSearchRepository userSearchRepository;
-
 
     @Mock
     private MailService mockMailService;
@@ -63,7 +59,7 @@ public class SocialServiceIntTest {
         when(mockUsersConnectionRepository.createConnectionRepository(anyString())).thenReturn(mockConnectionRepository);
 
         socialService = new SocialService(mockUsersConnectionRepository, authorityRepository,
-                passwordEncoder, userRepository, mockMailService, userSearchRepository);
+                passwordEncoder, userRepository, mockMailService);
     }
 
     @Test

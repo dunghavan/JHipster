@@ -43,14 +43,6 @@ spring:
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
             hibernate.hbm2ddl.auto: validate
-    data:
-        elasticsearch:
-            cluster-name:
-            cluster-nodes:
-            properties:
-                path:
-                    logs: target/elasticsearch/log
-                    data: target/elasticsearch/data
     mail:
         host: localhost
     messages:
@@ -96,7 +88,7 @@ jhipster:
     security:
         authentication:
             jwt:
-                secret: 57a8274f7ace7e7980d11620283277d621a27871
+                secret: 734b7f6fcc1cf74b13938a71b51c88afcbb63c6d
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration

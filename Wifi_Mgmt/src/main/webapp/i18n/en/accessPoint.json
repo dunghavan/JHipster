@@ -4,8 +4,7 @@
             "home": {
                 "title": "Access Points",
                 "createLabel": "Create a new Access Point",
-                "createOrEditLabel": "Create or edit a Access Point",
-                "search": "Search for Access Point"
+                "createOrEditLabel": "Create or edit a Access Point"
             },
             "created": "A new Access Point is created with identifier {{ param }}",
             "updated": "A Access Point is updated with identifier {{ param }}",

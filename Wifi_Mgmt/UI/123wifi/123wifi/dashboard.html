@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<link rel="stylesheet" href="css/simple-sidebar.css">
+<link rel="stylesheet" href="css/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+
+
+<style>body,html {background-color:#f5f5f5;}</style>
+    
+<div id="wrapper">
+
+     <!-- Sidebar -->
+     <div id="sidebar-wrapper">
+          <ul class="sidebar-nav">
+               <li class="sidebar logo">
+                    <a href="#"><img src="images/logo_sidebar.svg" alt=""></a>
+               </li>
+               <hr>
+
+               <li class="active"><a href="dashboard.html"><i class="zmdi zmdi-home zmdi-hc-lg"></i>Dashboard</a></li>
+               <li><a href="device.html"><i class="zmdi zmdi-portable-wifi zmdi-hc-lg"></i>Device Manager</a></li>
+               <li><a href="client.html"><i class="zmdi zmdi-smartphone zmdi-hc-lg"></i>Clients</a></li>
+               <li><a href="config.html"><i class="zmdi zmdi-settings zmdi-hc-lg"></i>Configuration</a></li>
+               <li><a href="statis.html"><i class="zmdi zmdi-chart zmdi-hc-lg"></i>Statistic</a></li>
+          </ul>
+     </div>
+     <!-- /#sidebar-wrapper -->
+
+     <!-- Page Content -->
+     <div id="page-content-wrapper">
+ 		<div id="admin-header">
+         		<div class="row">
+				<div class="col-xs-3">
+					<a href="#menu-toggle" id="menu-toggle"><i class="zmdi zmdi-menu zmdi-hc-lg"></i></a>
+				</div>
+				<div class="col-xs-6 text-center">
+					<a href="#" class="hidden-md hidden-lg logo"><img src="images/logo_sidebar.svg" alt=""></a>
+				</div>
+				<div class="col-xs-3 text-right">
+					<div class="dropdown">
+						<a href="#" class="dropdown-toggle mr15" id="acc-dropdown" data-toggle="dropdown">
+							<i class="zmdi zmdi-account zmdi-hc-lg"></i>
+							<span class="hidden-sm hidden-xs ml5">gbcdemo</span>
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu mt5 mr5 dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+							<li><a class="dropdown-item" href="#popupMyKey" data-toggle="modal"><i class="zmdi zmdi-key mr5"></i>Key</a></li>
+							<li><a class="dropdown-item" href="#"><i class="zmdi zmdi-power mr5"></i>Logout</a></li>
+						</ul>
+					</div>
+				
+				</div>
+			</div>
+          </div>
+                    
+          <div class="container-fluid">
+			<h1 class="page-title">Dashboard</h1>
+         
+         		<div class="row">
+         			<div class="col-xs-12 col-sm-6 col-lg-3">
+         				<a href="#" class="panel only-body">
+         					<div class="panel-body">
+         						<div class="row">
+         							<div class="col-xs-3 col-sm-12">
+         								<div class="mb15 status-icon"><img src="images/db-icon-router.png" alt=""></div>
+         							</div>
+         							<div class="col-xs-9 col-sm-12 status-text">
+         								<div class="num-counter">10</div>
+       								<strong class="title">CMS ROUTERS</strong>
+       							</div>
+         						</div>
+        					</div>
+         				</a>
+         			</div>
+         			<div class="col-xs-12 col-sm-6 col-lg-3">
+         				<a href="#" class="panel only-body">
+         					<div class="panel-body">
+         						<div class="row">
+         							<div class="col-xs-3 col-sm-12">
+									<div class="mb15 status-icon"><img src="images/db-icon-hotspot.png" alt=""></div>
+								</div>
+         							<div class="col-xs-9 col-sm-12 status-text">
+									<div class="num-counter">12/50</div>
+									<strong class="title">HOTSPOT DEVICE</strong>
+       							</div>
+         						</div>
+        					</div>
+         				</a>
+         			</div>
+         			<div class="col-xs-12 col-sm-6 col-lg-3">
+         				<a href="#" class="panel only-body">
+         					<div class="panel-body">
+         						<div class="row">
+         							<div class="col-xs-3 col-sm-12">
+									<div class="mb15 status-icon"><img src="images/db-icon-client.png" alt=""></div>
+								</div>
+         							<div class="col-xs-9 col-sm-12 status-text">
+									<div class="num-counter">88</div>
+									<strong class="title">CLIENTS</strong>
+       							</div>
+         						</div>
+        					</div>
+         				</a>
+         			</div>
+         			<div class="col-xs-12 col-sm-6 col-lg-3">
+         				<a href="#" class="panel only-body">
+         					<div class="panel-body">
+         						<div class="row">
+         							<div class="col-xs-3 col-sm-12">
+									<div class="mb15 status-icon"><img src="images/db-icon-zone.png" alt=""></div>
+								</div>
+         							<div class="col-xs-9 col-sm-12 status-text">
+									<div class="num-counter">20</div>
+									<strong class="title">ZONE</strong>
+       							</div>
+         						</div>
+        					</div>
+         				</a>
+         			</div>
+         		</div>
+         		
+         		<div class="row">
+         			<div class="col-md-12 col-lg-6">
+         				<div class="panel mb-3">
+							<div class="panel-header">MONTHLY BANDWIDTH</div>
+							<div class="panel-body mb20">
+								<img src="images/monthly-chart.png" class="img-responsive" alt="">
+							</div>
+					</div>
+         			</div>
+         			<div class="col-md-12 col-lg-6">
+         				<div class="panel mb-3">
+							<div class="panel-header">YEARLY BANDWIDTH</div>
+							<div class="panel-body mb20">
+								<img src="images/yearly-chart.png" class="img-responsive" alt="">
+							</div>
+					</div>
+         			</div>
+         		</div>
+         		
+         		
+          </div>
+          
+          
+          
+          
+          
+     </div>
+     <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+     
+     
+     
+     
+
+     
+     
+     
+     
+     
+     
+
+     
+<div class="modal fade" tabindex="-1" role="dialog" id="popupMyKey">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        My Key
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-sm-12 mb20">
+				<label class="title">KEY</label>
+				<input type="text" id="" class="form-control input-lg" value="8406d51e1dd2028ea6bfc12db176cfb3e9e03445">
+        	</div>
+        	
+        </div>
+      </div>
+      <div class="modal-footer">
+       	<div class="row">
+       		<div class="col-xs-3 pull-right">
+       			<button type="button" class="btn btn-blue w-100">Close</button>
+       		</div>
+       	</div>
+        
+        
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->     
+     
+     
+
+<script src="js/jquery.min.js"></script> 
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/simple-sidebar.js"></script>
+<script src="js/default.js"></script>
+
+<script>
+
+</script>
+
+
+</body>
+</html>

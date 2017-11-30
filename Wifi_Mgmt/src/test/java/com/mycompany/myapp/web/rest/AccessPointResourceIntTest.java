@@ -4,9 +4,6 @@ import com.mycompany.myapp.WifiMgmtApp;
 
 import com.mycompany.myapp.domain.AccessPoint;
 import com.mycompany.myapp.repository.AccessPointRepository;
-import com.mycompany.myapp.repository.search.AccessPointSearchRepository;
-import com.mycompany.myapp.service.dto.AccessPointDTO;
-import com.mycompany.myapp.service.mapper.AccessPointMapper;
 import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -58,12 +55,6 @@ public class AccessPointResourceIntTest {
     private AccessPointRepository accessPointRepository;
 
     @Autowired
-    private AccessPointMapper accessPointMapper;
-
-    @Autowired
-    private AccessPointSearchRepository accessPointSearchRepository;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -82,7 +73,7 @@ public class AccessPointResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        AccessPointResource accessPointResource = new AccessPointResource(accessPointRepository, accessPointMapper, accessPointSearchRepository);
+        AccessPointResource accessPointResource = new AccessPointResource(accessPointRepository);
         this.restAccessPointMockMvc = MockMvcBuilders.standaloneSetup(accessPointResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -106,7 +97,6 @@ public class AccessPointResourceIntTest {
 
     @Before
     public void initTest() {
-        accessPointSearchRepository.deleteAll();
         accessPoint = createEntity(em);
     }
 
@@ -116,10 +106,9 @@ public class AccessPointResourceIntTest {
         int databaseSizeBeforeCreate = accessPointRepository.findAll().size();
 
         // Create the AccessPoint
-        AccessPointDTO accessPointDTO = accessPointMapper.toDto(accessPoint);
         restAccessPointMockMvc.perform(post("/api/access-points")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(accessPointDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(accessPoint)))
             .andExpect(status().isCreated());
 
         // Validate the AccessPoint in the database
@@ -130,10 +119,6 @@ public class AccessPointResourceIntTest {
         assertThat(testAccessPoint.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testAccessPoint.isStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testAccessPoint.getLastActive()).isEqualTo(DEFAULT_LAST_ACTIVE);
-
-        // Validate the AccessPoint in Elasticsearch
-        AccessPoint accessPointEs = accessPointSearchRepository.findOne(testAccessPoint.getId());
-        assertThat(accessPointEs).isEqualToComparingFieldByField(testAccessPoint);
     }
 
     @Test
@@ -143,12 +128,11 @@ public class AccessPointResourceIntTest {
 
         // Create the AccessPoint with an existing ID
         accessPoint.setId(1L);
-        AccessPointDTO accessPointDTO = accessPointMapper.toDto(accessPoint);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAccessPointMockMvc.perform(post("/api/access-points")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(accessPointDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(accessPoint)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -203,7 +187,6 @@ public class AccessPointResourceIntTest {
     public void updateAccessPoint() throws Exception {
         // Initialize the database
         accessPointRepository.saveAndFlush(accessPoint);
-        accessPointSearchRepository.save(accessPoint);
         int databaseSizeBeforeUpdate = accessPointRepository.findAll().size();
 
         // Update the accessPoint
@@ -213,11 +196,10 @@ public class AccessPointResourceIntTest {
             .description(UPDATED_DESCRIPTION)
             .status(UPDATED_STATUS)
             .lastActive(UPDATED_LAST_ACTIVE);
-        AccessPointDTO accessPointDTO = accessPointMapper.toDto(updatedAccessPoint);
 
         restAccessPointMockMvc.perform(put("/api/access-points")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(accessPointDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedAccessPoint)))
             .andExpect(status().isOk());
 
         // Validate the AccessPoint in the database
@@ -228,10 +210,6 @@ public class AccessPointResourceIntTest {
         assertThat(testAccessPoint.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testAccessPoint.isStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testAccessPoint.getLastActive()).isEqualTo(UPDATED_LAST_ACTIVE);
-
-        // Validate the AccessPoint in Elasticsearch
-        AccessPoint accessPointEs = accessPointSearchRepository.findOne(testAccessPoint.getId());
-        assertThat(accessPointEs).isEqualToComparingFieldByField(testAccessPoint);
     }
 
     @Test
@@ -240,12 +218,11 @@ public class AccessPointResourceIntTest {
         int databaseSizeBeforeUpdate = accessPointRepository.findAll().size();
 
         // Create the AccessPoint
-        AccessPointDTO accessPointDTO = accessPointMapper.toDto(accessPoint);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restAccessPointMockMvc.perform(put("/api/access-points")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(accessPointDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(accessPoint)))
             .andExpect(status().isCreated());
 
         // Validate the AccessPoint in the database
@@ -258,7 +235,6 @@ public class AccessPointResourceIntTest {
     public void deleteAccessPoint() throws Exception {
         // Initialize the database
         accessPointRepository.saveAndFlush(accessPoint);
-        accessPointSearchRepository.save(accessPoint);
         int databaseSizeBeforeDelete = accessPointRepository.findAll().size();
 
         // Get the accessPoint
@@ -266,31 +242,9 @@ public class AccessPointResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean accessPointExistsInEs = accessPointSearchRepository.exists(accessPoint.getId());
-        assertThat(accessPointExistsInEs).isFalse();
-
         // Validate the database is empty
         List<AccessPoint> accessPointList = accessPointRepository.findAll();
         assertThat(accessPointList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void searchAccessPoint() throws Exception {
-        // Initialize the database
-        accessPointRepository.saveAndFlush(accessPoint);
-        accessPointSearchRepository.save(accessPoint);
-
-        // Search the accessPoint
-        restAccessPointMockMvc.perform(get("/api/_search/access-points?query=id:" + accessPoint.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(accessPoint.getId().intValue())))
-            .andExpect(jsonPath("$.[*].mac").value(hasItem(DEFAULT_MAC.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.booleanValue())))
-            .andExpect(jsonPath("$.[*].lastActive").value(hasItem(DEFAULT_LAST_ACTIVE.toString())));
     }
 
     @Test
@@ -306,28 +260,5 @@ public class AccessPointResourceIntTest {
         assertThat(accessPoint1).isNotEqualTo(accessPoint2);
         accessPoint1.setId(null);
         assertThat(accessPoint1).isNotEqualTo(accessPoint2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(AccessPointDTO.class);
-        AccessPointDTO accessPointDTO1 = new AccessPointDTO();
-        accessPointDTO1.setId(1L);
-        AccessPointDTO accessPointDTO2 = new AccessPointDTO();
-        assertThat(accessPointDTO1).isNotEqualTo(accessPointDTO2);
-        accessPointDTO2.setId(accessPointDTO1.getId());
-        assertThat(accessPointDTO1).isEqualTo(accessPointDTO2);
-        accessPointDTO2.setId(2L);
-        assertThat(accessPointDTO1).isNotEqualTo(accessPointDTO2);
-        accessPointDTO1.setId(null);
-        assertThat(accessPointDTO1).isNotEqualTo(accessPointDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(accessPointMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(accessPointMapper.fromId(null)).isNull();
     }
 }

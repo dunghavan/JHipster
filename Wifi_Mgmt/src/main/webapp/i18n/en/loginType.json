@@ -4,8 +4,7 @@
             "home": {
                 "title": "Login Types",
                 "createLabel": "Create a new Login Type",
-                "createOrEditLabel": "Create or edit a Login Type",
-                "search": "Search for Login Type"
+                "createOrEditLabel": "Create or edit a Login Type"
             },
             "created": "A new Login Type is created with identifier {{ param }}",
             "updated": "A Login Type is updated with identifier {{ param }}",

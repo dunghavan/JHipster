@@ -4,8 +4,7 @@
             "home": {
                 "title": "Landing Pages",
                 "createLabel": "Thêm mới một Landing Page",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Landing Page",
-                "search": "Tìm Landing Page"
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Landing Page"
             },
             "created": "Một Landing Page mới được tạo với định danh {{ param }}",
             "updated": "Một Landing Page cập nhật với định danh {{ param }}",

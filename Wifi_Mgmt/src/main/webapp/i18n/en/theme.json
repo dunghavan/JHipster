@@ -4,8 +4,7 @@
             "home": {
                 "title": "Themes",
                 "createLabel": "Create a new Theme",
-                "createOrEditLabel": "Create or edit a Theme",
-                "search": "Search for Theme"
+                "createOrEditLabel": "Create or edit a Theme"
             },
             "created": "A new Theme is created with identifier {{ param }}",
             "updated": "A Theme is updated with identifier {{ param }}",

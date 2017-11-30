@@ -23,7 +23,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mysql://localhost:3306/Wifi_Mgmt?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
-        password: 4321
+        password:
         hikari:
             data-source-properties:
                 cachePrepStmts: true
@@ -39,10 +39,6 @@ spring:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: false
-    data:
-        elasticsearch:
-            cluster-name:
-            cluster-nodes: localhost:9300
     mail:
         host: localhost
         port: 25
@@ -92,7 +88,7 @@ jhipster:
     security:
         authentication:
             jwt:
-                secret: 57a8274f7ace7e7980d11620283277d621a27871
+                secret: 734b7f6fcc1cf74b13938a71b51c88afcbb63c6d
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000

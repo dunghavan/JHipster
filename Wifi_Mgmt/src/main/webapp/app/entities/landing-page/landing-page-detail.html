@@ -1,0 +1,55 @@
+
+<div>
+    <h2><span data-translate="wifiMgmtApp.landingPage.detail.title">Landing Page</span> {{vm.landingPage.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="wifiMgmtApp.landingPage.name">Name</span></dt>
+        <dd>
+            <span>{{vm.landingPage.name}}</span>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.landingPage.text1">Text 1</span></dt>
+        <dd>
+            <span>{{vm.landingPage.text1}}</span>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.landingPage.text2">Text 2</span></dt>
+        <dd>
+            <span>{{vm.landingPage.text2}}</span>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.landingPage.text3">Text 3</span></dt>
+        <dd>
+            <span>{{vm.landingPage.text3}}</span>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.landingPage.image1">Image 1</span></dt>
+        <dd>
+            <span>{{vm.landingPage.image1}}</span>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.landingPage.image2">Image 2</span></dt>
+        <dd>
+            <span>{{vm.landingPage.image2}}</span>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.landingPage.image3">Image 3</span></dt>
+        <dd>
+            <span>{{vm.landingPage.image3}}</span>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.landingPage.theme">Theme</span></dt>
+        <dd>
+            <a ui-sref="theme-detail({id:vm.landingPage.theme.id})">{{vm.landingPage.theme.id}}</a>
+        </dd>
+        <dt><span data-translate="wifiMgmtApp.landingPage.org">Org</span></dt>
+        <dd>
+            <a ui-sref="organization-detail({id:vm.landingPage.org.id})">{{vm.landingPage.org.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="landing-page-detail.edit({id:vm.landingPage.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

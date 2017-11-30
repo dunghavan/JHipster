@@ -4,9 +4,6 @@ import com.mycompany.myapp.WifiMgmtApp;
 
 import com.mycompany.myapp.domain.Theme;
 import com.mycompany.myapp.repository.ThemeRepository;
-import com.mycompany.myapp.repository.search.ThemeSearchRepository;
-import com.mycompany.myapp.service.dto.ThemeDTO;
-import com.mycompany.myapp.service.mapper.ThemeMapper;
 import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -50,12 +47,6 @@ public class ThemeResourceIntTest {
     private ThemeRepository themeRepository;
 
     @Autowired
-    private ThemeMapper themeMapper;
-
-    @Autowired
-    private ThemeSearchRepository themeSearchRepository;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -74,7 +65,7 @@ public class ThemeResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ThemeResource themeResource = new ThemeResource(themeRepository, themeMapper, themeSearchRepository);
+        ThemeResource themeResource = new ThemeResource(themeRepository);
         this.restThemeMockMvc = MockMvcBuilders.standaloneSetup(themeResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -96,7 +87,6 @@ public class ThemeResourceIntTest {
 
     @Before
     public void initTest() {
-        themeSearchRepository.deleteAll();
         theme = createEntity(em);
     }
 
@@ -106,10 +96,9 @@ public class ThemeResourceIntTest {
         int databaseSizeBeforeCreate = themeRepository.findAll().size();
 
         // Create the Theme
-        ThemeDTO themeDTO = themeMapper.toDto(theme);
         restThemeMockMvc.perform(post("/api/themes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(themeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(theme)))
             .andExpect(status().isCreated());
 
         // Validate the Theme in the database
@@ -118,10 +107,6 @@ public class ThemeResourceIntTest {
         Theme testTheme = themeList.get(themeList.size() - 1);
         assertThat(testTheme.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testTheme.getData()).isEqualTo(DEFAULT_DATA);
-
-        // Validate the Theme in Elasticsearch
-        Theme themeEs = themeSearchRepository.findOne(testTheme.getId());
-        assertThat(themeEs).isEqualToComparingFieldByField(testTheme);
     }
 
     @Test
@@ -131,12 +116,11 @@ public class ThemeResourceIntTest {
 
         // Create the Theme with an existing ID
         theme.setId(1L);
-        ThemeDTO themeDTO = themeMapper.toDto(theme);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restThemeMockMvc.perform(post("/api/themes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(themeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(theme)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -187,7 +171,6 @@ public class ThemeResourceIntTest {
     public void updateTheme() throws Exception {
         // Initialize the database
         themeRepository.saveAndFlush(theme);
-        themeSearchRepository.save(theme);
         int databaseSizeBeforeUpdate = themeRepository.findAll().size();
 
         // Update the theme
@@ -195,11 +178,10 @@ public class ThemeResourceIntTest {
         updatedTheme
             .name(UPDATED_NAME)
             .data(UPDATED_DATA);
-        ThemeDTO themeDTO = themeMapper.toDto(updatedTheme);
 
         restThemeMockMvc.perform(put("/api/themes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(themeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedTheme)))
             .andExpect(status().isOk());
 
         // Validate the Theme in the database
@@ -208,10 +190,6 @@ public class ThemeResourceIntTest {
         Theme testTheme = themeList.get(themeList.size() - 1);
         assertThat(testTheme.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testTheme.getData()).isEqualTo(UPDATED_DATA);
-
-        // Validate the Theme in Elasticsearch
-        Theme themeEs = themeSearchRepository.findOne(testTheme.getId());
-        assertThat(themeEs).isEqualToComparingFieldByField(testTheme);
     }
 
     @Test
@@ -220,12 +198,11 @@ public class ThemeResourceIntTest {
         int databaseSizeBeforeUpdate = themeRepository.findAll().size();
 
         // Create the Theme
-        ThemeDTO themeDTO = themeMapper.toDto(theme);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restThemeMockMvc.perform(put("/api/themes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(themeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(theme)))
             .andExpect(status().isCreated());
 
         // Validate the Theme in the database
@@ -238,7 +215,6 @@ public class ThemeResourceIntTest {
     public void deleteTheme() throws Exception {
         // Initialize the database
         themeRepository.saveAndFlush(theme);
-        themeSearchRepository.save(theme);
         int databaseSizeBeforeDelete = themeRepository.findAll().size();
 
         // Get the theme
@@ -246,29 +222,9 @@ public class ThemeResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean themeExistsInEs = themeSearchRepository.exists(theme.getId());
-        assertThat(themeExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Theme> themeList = themeRepository.findAll();
         assertThat(themeList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void searchTheme() throws Exception {
-        // Initialize the database
-        themeRepository.saveAndFlush(theme);
-        themeSearchRepository.save(theme);
-
-        // Search the theme
-        restThemeMockMvc.perform(get("/api/_search/themes?query=id:" + theme.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(theme.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].data").value(hasItem(DEFAULT_DATA.toString())));
     }
 
     @Test
@@ -284,28 +240,5 @@ public class ThemeResourceIntTest {
         assertThat(theme1).isNotEqualTo(theme2);
         theme1.setId(null);
         assertThat(theme1).isNotEqualTo(theme2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ThemeDTO.class);
-        ThemeDTO themeDTO1 = new ThemeDTO();
-        themeDTO1.setId(1L);
-        ThemeDTO themeDTO2 = new ThemeDTO();
-        assertThat(themeDTO1).isNotEqualTo(themeDTO2);
-        themeDTO2.setId(themeDTO1.getId());
-        assertThat(themeDTO1).isEqualTo(themeDTO2);
-        themeDTO2.setId(2L);
-        assertThat(themeDTO1).isNotEqualTo(themeDTO2);
-        themeDTO1.setId(null);
-        assertThat(themeDTO1).isNotEqualTo(themeDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(themeMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(themeMapper.fromId(null)).isNull();
     }
 }

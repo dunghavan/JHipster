@@ -4,8 +4,7 @@
             "home": {
                 "title": "Themes",
                 "createLabel": "Thêm mới một Theme",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Theme",
-                "search": "Tìm Theme"
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Theme"
             },
             "created": "Một Theme mới được tạo với định danh {{ param }}",
             "updated": "Một Theme cập nhật với định danh {{ param }}",

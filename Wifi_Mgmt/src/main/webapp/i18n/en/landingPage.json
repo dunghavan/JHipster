@@ -4,8 +4,7 @@
             "home": {
                 "title": "Landing Pages",
                 "createLabel": "Create a new Landing Page",
-                "createOrEditLabel": "Create or edit a Landing Page",
-                "search": "Search for Landing Page"
+                "createOrEditLabel": "Create or edit a Landing Page"
             },
             "created": "A new Landing Page is created with identifier {{ param }}",
             "updated": "A Landing Page is updated with identifier {{ param }}",

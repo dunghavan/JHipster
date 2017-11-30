@@ -4,8 +4,7 @@
             "home": {
                 "title": "Organizations",
                 "createLabel": "Thêm mới một Organization",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Organization",
-                "search": "Tìm Organization"
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Organization"
             },
             "created": "Một Organization mới được tạo với định danh {{ param }}",
             "updated": "Một Organization cập nhật với định danh {{ param }}",

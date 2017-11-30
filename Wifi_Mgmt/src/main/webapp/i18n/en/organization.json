@@ -4,8 +4,7 @@
             "home": {
                 "title": "Organizations",
                 "createLabel": "Create a new Organization",
-                "createOrEditLabel": "Create or edit a Organization",
-                "search": "Search for Organization"
+                "createOrEditLabel": "Create or edit a Organization"
             },
             "created": "A new Organization is created with identifier {{ param }}",
             "updated": "A Organization is updated with identifier {{ param }}",

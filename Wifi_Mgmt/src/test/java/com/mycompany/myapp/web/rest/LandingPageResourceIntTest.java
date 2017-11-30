@@ -4,9 +4,6 @@ import com.mycompany.myapp.WifiMgmtApp;
 
 import com.mycompany.myapp.domain.LandingPage;
 import com.mycompany.myapp.repository.LandingPageRepository;
-import com.mycompany.myapp.repository.search.LandingPageSearchRepository;
-import com.mycompany.myapp.service.dto.LandingPageDTO;
-import com.mycompany.myapp.service.mapper.LandingPageMapper;
 import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -65,12 +62,6 @@ public class LandingPageResourceIntTest {
     private LandingPageRepository landingPageRepository;
 
     @Autowired
-    private LandingPageMapper landingPageMapper;
-
-    @Autowired
-    private LandingPageSearchRepository landingPageSearchRepository;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -89,7 +80,7 @@ public class LandingPageResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        LandingPageResource landingPageResource = new LandingPageResource(landingPageRepository, landingPageMapper, landingPageSearchRepository);
+        LandingPageResource landingPageResource = new LandingPageResource(landingPageRepository);
         this.restLandingPageMockMvc = MockMvcBuilders.standaloneSetup(landingPageResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -116,7 +107,6 @@ public class LandingPageResourceIntTest {
 
     @Before
     public void initTest() {
-        landingPageSearchRepository.deleteAll();
         landingPage = createEntity(em);
     }
 
@@ -126,10 +116,9 @@ public class LandingPageResourceIntTest {
         int databaseSizeBeforeCreate = landingPageRepository.findAll().size();
 
         // Create the LandingPage
-        LandingPageDTO landingPageDTO = landingPageMapper.toDto(landingPage);
         restLandingPageMockMvc.perform(post("/api/landing-pages")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(landingPageDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(landingPage)))
             .andExpect(status().isCreated());
 
         // Validate the LandingPage in the database
@@ -143,10 +132,6 @@ public class LandingPageResourceIntTest {
         assertThat(testLandingPage.getImage1()).isEqualTo(DEFAULT_IMAGE_1);
         assertThat(testLandingPage.getImage2()).isEqualTo(DEFAULT_IMAGE_2);
         assertThat(testLandingPage.getImage3()).isEqualTo(DEFAULT_IMAGE_3);
-
-        // Validate the LandingPage in Elasticsearch
-        LandingPage landingPageEs = landingPageSearchRepository.findOne(testLandingPage.getId());
-        assertThat(landingPageEs).isEqualToComparingFieldByField(testLandingPage);
     }
 
     @Test
@@ -156,12 +141,11 @@ public class LandingPageResourceIntTest {
 
         // Create the LandingPage with an existing ID
         landingPage.setId(1L);
-        LandingPageDTO landingPageDTO = landingPageMapper.toDto(landingPage);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLandingPageMockMvc.perform(post("/api/landing-pages")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(landingPageDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(landingPage)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -222,7 +206,6 @@ public class LandingPageResourceIntTest {
     public void updateLandingPage() throws Exception {
         // Initialize the database
         landingPageRepository.saveAndFlush(landingPage);
-        landingPageSearchRepository.save(landingPage);
         int databaseSizeBeforeUpdate = landingPageRepository.findAll().size();
 
         // Update the landingPage
@@ -235,11 +218,10 @@ public class LandingPageResourceIntTest {
             .image1(UPDATED_IMAGE_1)
             .image2(UPDATED_IMAGE_2)
             .image3(UPDATED_IMAGE_3);
-        LandingPageDTO landingPageDTO = landingPageMapper.toDto(updatedLandingPage);
 
         restLandingPageMockMvc.perform(put("/api/landing-pages")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(landingPageDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedLandingPage)))
             .andExpect(status().isOk());
 
         // Validate the LandingPage in the database
@@ -253,10 +235,6 @@ public class LandingPageResourceIntTest {
         assertThat(testLandingPage.getImage1()).isEqualTo(UPDATED_IMAGE_1);
         assertThat(testLandingPage.getImage2()).isEqualTo(UPDATED_IMAGE_2);
         assertThat(testLandingPage.getImage3()).isEqualTo(UPDATED_IMAGE_3);
-
-        // Validate the LandingPage in Elasticsearch
-        LandingPage landingPageEs = landingPageSearchRepository.findOne(testLandingPage.getId());
-        assertThat(landingPageEs).isEqualToComparingFieldByField(testLandingPage);
     }
 
     @Test
@@ -265,12 +243,11 @@ public class LandingPageResourceIntTest {
         int databaseSizeBeforeUpdate = landingPageRepository.findAll().size();
 
         // Create the LandingPage
-        LandingPageDTO landingPageDTO = landingPageMapper.toDto(landingPage);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restLandingPageMockMvc.perform(put("/api/landing-pages")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(landingPageDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(landingPage)))
             .andExpect(status().isCreated());
 
         // Validate the LandingPage in the database
@@ -283,7 +260,6 @@ public class LandingPageResourceIntTest {
     public void deleteLandingPage() throws Exception {
         // Initialize the database
         landingPageRepository.saveAndFlush(landingPage);
-        landingPageSearchRepository.save(landingPage);
         int databaseSizeBeforeDelete = landingPageRepository.findAll().size();
 
         // Get the landingPage
@@ -291,34 +267,9 @@ public class LandingPageResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean landingPageExistsInEs = landingPageSearchRepository.exists(landingPage.getId());
-        assertThat(landingPageExistsInEs).isFalse();
-
         // Validate the database is empty
         List<LandingPage> landingPageList = landingPageRepository.findAll();
         assertThat(landingPageList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void searchLandingPage() throws Exception {
-        // Initialize the database
-        landingPageRepository.saveAndFlush(landingPage);
-        landingPageSearchRepository.save(landingPage);
-
-        // Search the landingPage
-        restLandingPageMockMvc.perform(get("/api/_search/landing-pages?query=id:" + landingPage.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(landingPage.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].text1").value(hasItem(DEFAULT_TEXT_1.toString())))
-            .andExpect(jsonPath("$.[*].text2").value(hasItem(DEFAULT_TEXT_2.toString())))
-            .andExpect(jsonPath("$.[*].text3").value(hasItem(DEFAULT_TEXT_3.toString())))
-            .andExpect(jsonPath("$.[*].image1").value(hasItem(DEFAULT_IMAGE_1.toString())))
-            .andExpect(jsonPath("$.[*].image2").value(hasItem(DEFAULT_IMAGE_2.toString())))
-            .andExpect(jsonPath("$.[*].image3").value(hasItem(DEFAULT_IMAGE_3.toString())));
     }
 
     @Test
@@ -334,28 +285,5 @@ public class LandingPageResourceIntTest {
         assertThat(landingPage1).isNotEqualTo(landingPage2);
         landingPage1.setId(null);
         assertThat(landingPage1).isNotEqualTo(landingPage2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(LandingPageDTO.class);
-        LandingPageDTO landingPageDTO1 = new LandingPageDTO();
-        landingPageDTO1.setId(1L);
-        LandingPageDTO landingPageDTO2 = new LandingPageDTO();
-        assertThat(landingPageDTO1).isNotEqualTo(landingPageDTO2);
-        landingPageDTO2.setId(landingPageDTO1.getId());
-        assertThat(landingPageDTO1).isEqualTo(landingPageDTO2);
-        landingPageDTO2.setId(2L);
-        assertThat(landingPageDTO1).isNotEqualTo(landingPageDTO2);
-        landingPageDTO1.setId(null);
-        assertThat(landingPageDTO1).isNotEqualTo(landingPageDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(landingPageMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(landingPageMapper.fromId(null)).isNull();
     }
 }

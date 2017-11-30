@@ -1,0 +1,76 @@
+<div>
+    <h2 data-translate="wifiMgmtApp.landingPage.home.title">Landing Pages</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="landing-page.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="wifiMgmtApp.landingPage.home.createLabel">
+                        Create new Landing Page
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="wifiMgmtApp.landingPage.name">Name</span></th>
+                    <th><span data-translate="wifiMgmtApp.landingPage.text1">Text 1</span></th>
+                    <th><span data-translate="wifiMgmtApp.landingPage.text2">Text 2</span></th>
+                    <th><span data-translate="wifiMgmtApp.landingPage.text3">Text 3</span></th>
+                    <th><span data-translate="wifiMgmtApp.landingPage.image1">Image 1</span></th>
+                    <th><span data-translate="wifiMgmtApp.landingPage.image2">Image 2</span></th>
+                    <th><span data-translate="wifiMgmtApp.landingPage.image3">Image 3</span></th>
+                    <th><span data-translate="wifiMgmtApp.landingPage.theme">Theme</span></th>
+                    <th><span data-translate="wifiMgmtApp.landingPage.org">Org</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="landingPage in vm.landingPages track by landingPage.id">
+                    <td><a ui-sref="landing-page-detail({id:landingPage.id})">{{landingPage.id}}</a></td>
+                    <td>{{landingPage.name}}</td>
+                    <td>{{landingPage.text1}}</td>
+                    <td>{{landingPage.text2}}</td>
+                    <td>{{landingPage.text3}}</td>
+                    <td>{{landingPage.image1}}</td>
+                    <td>{{landingPage.image2}}</td>
+                    <td>{{landingPage.image3}}</td>
+                    <td>
+                        <a ui-sref="theme-detail({id:landingPage.theme.id})">{{landingPage.theme.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="organization-detail({id:landingPage.org.id})">{{landingPage.org.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="landing-page-detail({id:landingPage.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="landing-page.edit({id:landingPage.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="landing-page.delete({id:landingPage.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

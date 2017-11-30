@@ -4,8 +4,7 @@
             "home": {
                 "title": "Access Points",
                 "createLabel": "Thêm mới một Access Point",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Access Point",
-                "search": "Tìm Access Point"
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Access Point"
             },
             "created": "Một Access Point mới được tạo với định danh {{ param }}",
             "updated": "Một Access Point cập nhật với định danh {{ param }}",

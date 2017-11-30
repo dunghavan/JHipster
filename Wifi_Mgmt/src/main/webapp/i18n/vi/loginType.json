@@ -4,8 +4,7 @@
             "home": {
                 "title": "Login Types",
                 "createLabel": "Thêm mới một Login Type",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Login Type",
-                "search": "Tìm Login Type"
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Login Type"
             },
             "created": "Một Login Type mới được tạo với định danh {{ param }}",
             "updated": "Một Login Type cập nhật với định danh {{ param }}",

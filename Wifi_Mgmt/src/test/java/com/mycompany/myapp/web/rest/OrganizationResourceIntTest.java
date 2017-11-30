@@ -4,9 +4,6 @@ import com.mycompany.myapp.WifiMgmtApp;
 
 import com.mycompany.myapp.domain.Organization;
 import com.mycompany.myapp.repository.OrganizationRepository;
-import com.mycompany.myapp.repository.search.OrganizationSearchRepository;
-import com.mycompany.myapp.service.dto.OrganizationDTO;
-import com.mycompany.myapp.service.mapper.OrganizationMapper;
 import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -47,12 +44,6 @@ public class OrganizationResourceIntTest {
     private OrganizationRepository organizationRepository;
 
     @Autowired
-    private OrganizationMapper organizationMapper;
-
-    @Autowired
-    private OrganizationSearchRepository organizationSearchRepository;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -71,7 +62,7 @@ public class OrganizationResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        OrganizationResource organizationResource = new OrganizationResource(organizationRepository, organizationMapper, organizationSearchRepository);
+        OrganizationResource organizationResource = new OrganizationResource(organizationRepository);
         this.restOrganizationMockMvc = MockMvcBuilders.standaloneSetup(organizationResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -92,7 +83,6 @@ public class OrganizationResourceIntTest {
 
     @Before
     public void initTest() {
-        organizationSearchRepository.deleteAll();
         organization = createEntity(em);
     }
 
@@ -102,10 +92,9 @@ public class OrganizationResourceIntTest {
         int databaseSizeBeforeCreate = organizationRepository.findAll().size();
 
         // Create the Organization
-        OrganizationDTO organizationDTO = organizationMapper.toDto(organization);
         restOrganizationMockMvc.perform(post("/api/organizations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(organizationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(organization)))
             .andExpect(status().isCreated());
 
         // Validate the Organization in the database
@@ -113,10 +102,6 @@ public class OrganizationResourceIntTest {
         assertThat(organizationList).hasSize(databaseSizeBeforeCreate + 1);
         Organization testOrganization = organizationList.get(organizationList.size() - 1);
         assertThat(testOrganization.getName()).isEqualTo(DEFAULT_NAME);
-
-        // Validate the Organization in Elasticsearch
-        Organization organizationEs = organizationSearchRepository.findOne(testOrganization.getId());
-        assertThat(organizationEs).isEqualToComparingFieldByField(testOrganization);
     }
 
     @Test
@@ -126,12 +111,11 @@ public class OrganizationResourceIntTest {
 
         // Create the Organization with an existing ID
         organization.setId(1L);
-        OrganizationDTO organizationDTO = organizationMapper.toDto(organization);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restOrganizationMockMvc.perform(post("/api/organizations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(organizationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(organization)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -180,18 +164,16 @@ public class OrganizationResourceIntTest {
     public void updateOrganization() throws Exception {
         // Initialize the database
         organizationRepository.saveAndFlush(organization);
-        organizationSearchRepository.save(organization);
         int databaseSizeBeforeUpdate = organizationRepository.findAll().size();
 
         // Update the organization
         Organization updatedOrganization = organizationRepository.findOne(organization.getId());
         updatedOrganization
             .name(UPDATED_NAME);
-        OrganizationDTO organizationDTO = organizationMapper.toDto(updatedOrganization);
 
         restOrganizationMockMvc.perform(put("/api/organizations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(organizationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedOrganization)))
             .andExpect(status().isOk());
 
         // Validate the Organization in the database
@@ -199,10 +181,6 @@ public class OrganizationResourceIntTest {
         assertThat(organizationList).hasSize(databaseSizeBeforeUpdate);
         Organization testOrganization = organizationList.get(organizationList.size() - 1);
         assertThat(testOrganization.getName()).isEqualTo(UPDATED_NAME);
-
-        // Validate the Organization in Elasticsearch
-        Organization organizationEs = organizationSearchRepository.findOne(testOrganization.getId());
-        assertThat(organizationEs).isEqualToComparingFieldByField(testOrganization);
     }
 
     @Test
@@ -211,12 +189,11 @@ public class OrganizationResourceIntTest {
         int databaseSizeBeforeUpdate = organizationRepository.findAll().size();
 
         // Create the Organization
-        OrganizationDTO organizationDTO = organizationMapper.toDto(organization);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restOrganizationMockMvc.perform(put("/api/organizations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(organizationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(organization)))
             .andExpect(status().isCreated());
 
         // Validate the Organization in the database
@@ -229,7 +206,6 @@ public class OrganizationResourceIntTest {
     public void deleteOrganization() throws Exception {
         // Initialize the database
         organizationRepository.saveAndFlush(organization);
-        organizationSearchRepository.save(organization);
         int databaseSizeBeforeDelete = organizationRepository.findAll().size();
 
         // Get the organization
@@ -237,28 +213,9 @@ public class OrganizationResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean organizationExistsInEs = organizationSearchRepository.exists(organization.getId());
-        assertThat(organizationExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Organization> organizationList = organizationRepository.findAll();
         assertThat(organizationList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    public void searchOrganization() throws Exception {
-        // Initialize the database
-        organizationRepository.saveAndFlush(organization);
-        organizationSearchRepository.save(organization);
-
-        // Search the organization
-        restOrganizationMockMvc.perform(get("/api/_search/organizations?query=id:" + organization.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(organization.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
 
     @Test
@@ -274,28 +231,5 @@ public class OrganizationResourceIntTest {
         assertThat(organization1).isNotEqualTo(organization2);
         organization1.setId(null);
         assertThat(organization1).isNotEqualTo(organization2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(OrganizationDTO.class);
-        OrganizationDTO organizationDTO1 = new OrganizationDTO();
-        organizationDTO1.setId(1L);
-        OrganizationDTO organizationDTO2 = new OrganizationDTO();
-        assertThat(organizationDTO1).isNotEqualTo(organizationDTO2);
-        organizationDTO2.setId(organizationDTO1.getId());
-        assertThat(organizationDTO1).isEqualTo(organizationDTO2);
-        organizationDTO2.setId(2L);
-        assertThat(organizationDTO1).isNotEqualTo(organizationDTO2);
-        organizationDTO1.setId(null);
-        assertThat(organizationDTO1).isNotEqualTo(organizationDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(organizationMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(organizationMapper.fromId(null)).isNull();
     }
 }

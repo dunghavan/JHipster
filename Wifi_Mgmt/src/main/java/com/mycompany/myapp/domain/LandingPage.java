@@ -1,7 +1,6 @@
 package com.mycompany.myapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +13,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "landing_page")
-@Document(indexName = "landingpage")
 public class LandingPage implements Serializable {
 
     private static final long serialVersionUID = 1L;

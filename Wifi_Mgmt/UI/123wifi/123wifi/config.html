@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/simple-sidebar.css">
+<link rel="stylesheet" href="css/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+
+
+<style>body,html {background-color:#f5f5f5;}</style>
+
+<div id="wrapper"> 
+  
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar logo"> <a href="#"><img src="images/logo_sidebar.svg" alt=""></a> </li>
+      <hr>
+      <li><a href="dashboard.html"><i class="zmdi zmdi-home zmdi-hc-lg"></i>Dashboard</a></li>
+      <li><a href="device.html"><i class="zmdi zmdi-portable-wifi zmdi-hc-lg"></i>Device Manager</a></li>
+      <li><a href="client.html"><i class="zmdi zmdi-smartphone zmdi-hc-lg"></i>Clients</a></li>
+      <li class="active"><a href="config.html"><i class="zmdi zmdi-settings zmdi-hc-lg"></i>Configuration</a></li>
+      <li><a href="statis.html"><i class="zmdi zmdi-chart zmdi-hc-lg"></i>Statistic</a></li>
+    </ul>
+  </div>
+  <!-- /#sidebar-wrapper --> 
+  
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <div id="admin-header">
+      <div class="row">
+        <div class="col-xs-3"> <a href="#menu-toggle" id="menu-toggle"><i class="zmdi zmdi-menu zmdi-hc-lg"></i></a> </div>
+        <div class="col-xs-6 text-center"> <a href="#" class="hidden-md hidden-lg logo"><img src="images/logo_sidebar.svg" alt=""></a> </div>
+        <div class="col-xs-3 text-right">
+          <div class="dropdown"> <a href="#" class="dropdown-toggle mr15" id="acc-dropdown" data-toggle="dropdown"> <i class="zmdi zmdi-account zmdi-hc-lg"></i> <span class="hidden-sm hidden-xs ml5">gbcdemo</span> <span class="caret"></span> </a>
+            <ul class="dropdown-menu mt5 mr5 dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="#"><i class="zmdi zmdi-key mr5"></i>Key</a></li>
+              <li><a class="dropdown-item" href="#"><i class="zmdi zmdi-power mr5"></i>Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <h1 class="page-title">Device Configuration</h1>
+      
+      
+      
+      
+      <div class="panel panel-default">
+       
+        <div class="panel-header">WLAN GROUPS</div>
+        
+        <div class="panel-body">
+        	<div class="row">
+				<div class="col-sm-3 col-xs-12 mb15">
+					<div class="pull-left">
+						<div class="customSelect">
+							<select name="" id="" class="form-control">
+								<option value="10">10</option>
+								<option value="50">50</option>
+								<option value="100">100</option>
+							</select>
+						</div>
+					</div>
+					<div class="pull-left behind-select"><span>entries shown</span></div>
+				</div>
+
+				<div class="col-sm-3 col-sm-offset-6 col-xs-12 mb15">
+					<div class="search-box">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon"><i class="zmdi zmdi-search zmdi-hc-lg"></i></span>
+							<input type="text" class="form-control" placeholder="Search..." aria-describedby="basic-addon1">
+						</div>
+					</div>
+				</div>
+			</div>
+          
+          
+          
+          <div class="clearfix"></div>
+          
+          <div class="table-responsive">
+            <table class="table table-hover table-striped">
+            <thead>
+            	<tr>
+                <th class="min-w200">Alias</th>
+                <th>SSID</th>
+                <th>Encryption</th>
+                <th>Create</th>
+                <th>Modified</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>LEVELUP</td>
+                <td>levelup</td>
+                <td>WPA2 Personal Mixed</td>
+                <td>2017-09-15 23:17:43.0</td>
+                <td>2017-09-15 23:17:43.0</td>
+                <td class="action"><a href="#popupUpdateWLANGroup" data-toggle="modal" class="touch-link"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a></td>
+              </tr>
+              <tr>
+                <td>LEVELUP</td>
+                <td>levelup</td>
+                <td>WPA2 Personal Mixed</td>
+                <td>2017-09-15 23:17:43.0</td>
+                <td>2017-09-15 23:17:43.0</td>
+                <td class="action"><a href="#popupUpdateWLANGroup" data-toggle="modal" class="touch-link"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a></td>
+              </tr>
+              <tr>
+                <td>LEVELUP</td>
+                <td>levelup</td>
+                <td>WPA2 Personal Mixed</td>
+                <td>2017-09-15 23:17:43.0</td>
+                <td>2017-09-15 23:17:43.0</td>
+                <td class="action"><a href="#popupUpdateWLANGroup" data-toggle="modal" class="touch-link"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a></td>
+              </tr>
+            </tbody>
+            </table>
+          </div>
+          
+          <a href="#" class="btn btn-blue-border mb15">Add</a>
+          
+          <div class="row mb20">
+          	<div class="col-sm-6">
+          		Showing 1 to 2 of 2 entries
+          	</div>
+          	<div class="col-sm-6 text-right text-center-xs">
+          		<div class="visible-xs mt30"></div>
+          		<ul class="pagination">
+				<li>
+				  <a href="#" aria-label="First">
+					<span class="zmdi zmdi-skip-previous"></span>
+				  </a>
+				</li>
+				<li>
+				  <a href="#" aria-label="Previous"><strong>PREV</strong></a>
+				</li>
+				<li class="active"><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li>
+				  <a href="#" aria-label="Next"><strong>NEXT</strong></a>
+				</li>
+				<li>
+				  <a href="#" aria-label="Last">
+					<span class="zmdi zmdi-skip-next"></span>
+				  </a>
+				</li>
+			  </ul>
+          	</div>
+          </div>
+			  
+       
+        </div>
+      </div>
+      
+      
+      <div class="panel panel-default">
+       
+        <div class="panel-header">CONFIGURATION</div>
+        
+        <div class="panel-body">
+        	<div class="row">
+				<div class="col-sm-3 col-xs-12 mb15">
+					<div class="pull-left">
+						<div class="customSelect">
+							<select name="" id="" class="form-control">
+								<option value="10">10</option>
+								<option value="50">50</option>
+								<option value="100">100</option>
+							</select>
+						</div>
+					</div>
+					<div class="pull-left behind-select"><span>entries shown</span></div>
+				</div>
+
+				<div class="col-sm-3 col-sm-offset-6 col-xs-12 mb15">
+					<div class="search-box">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon"><i class="zmdi zmdi-search zmdi-hc-lg"></i></span>
+							<input type="text" class="form-control" placeholder="Search..." aria-describedby="basic-addon1">
+						</div>
+					</div>
+				</div>
+			</div>
+          
+          
+          
+          <div class="clearfix"></div>
+          
+          <div class="table-responsive">
+            <table class="table table-hover table-striped">
+            <thead>
+            	<tr>
+                <th class="min-w200">Alias</th>
+                <th>Channel</th>
+                <th>Create</th>
+                <th>Modified</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>LevelUp-Chan1</td>
+                <td>1</td>
+                <td>2017-09-15 23:17:43.0</td>
+                <td>2017-09-15 23:17:43.0</td>
+                <td class="action"><a href="#popupUpdateConfig" data-toggle="modal" class="touch-link"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a></td>
+              </tr>
+              <tr>
+                <td>LevelUp-Chan11</td>
+                <td>11</td>
+                <td>2017-09-15 23:17:43.0</td>
+                <td>2017-09-15 23:17:43.0</td>
+                <td class="action"><a href="#popupUpdateConfig" data-toggle="modal" class="touch-link"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a></td>
+              </tr>
+            </tbody>
+            </table>
+          </div>
+          
+          <a href="#" class="btn btn-blue-border mb15">Add</a>
+          
+          <div class="row mb20">
+          	<div class="col-sm-6">
+          		Showing 1 to 2 of 2 entries
+          	</div>
+          	<div class="col-sm-6 text-right text-center-xs">
+          		<div class="visible-xs mt30"></div>
+          		<ul class="pagination">
+				<li>
+				  <a href="#" aria-label="First">
+					<span class="zmdi zmdi-skip-previous"></span>
+				  </a>
+				</li>
+				<li>
+				  <a href="#" aria-label="Previous"><strong>PREV</strong></a>
+				</li>
+				<li class="active"><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li>
+				  <a href="#" aria-label="Next"><strong>NEXT</strong></a>
+				</li>
+				<li>
+				  <a href="#" aria-label="Last">
+					<span class="zmdi zmdi-skip-next"></span>
+				  </a>
+				</li>
+			  </ul>
+          	</div>
+          </div>
+			  
+       
+        </div>
+      </div>
+
+      
+      
+      
+      
+      
+      
+      
+    </div>
+  </div>
+  <!-- /#page-content-wrapper --> 
+  
+</div>
+<!-- /#wrapper --> 
+
+
+
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="popupUpdateWLANGroup">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        UPDATE WLAN GROUP
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-sm-6 mb20">
+				<label class="title">ALIAS</label>
+				<input type="text" id="" class="form-control input-lg" value="LEVELUP">
+        	</div>
+        	<div class="col-sm-6 mb20">
+				<label class="title">SSID</label>
+				<input type="text" id="" class="form-control input-lg" value="levelup">
+        	</div>
+        	<div class="col-sm-6 mb20">
+				<label class="title">ENCRYPTION</label>
+				<div class="customSelect lg">
+					<select name="" id="" class="form-control input-lg">
+						<option value="1">No Encryption</option>
+						<option value="6">WPA2 Personal Mixed</option>
+					</select>
+				</div>					
+        	</div>
+        	<div class="col-sm-6 mb20">
+				<label class="title">PASSPHASE</label>
+				<input type="text" id="" class="form-control input-lg" value="2017-09-01 16:47:57.0">
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+       	<div class="row">
+       		<div class="col-xs-3 col-xs-offset-6">
+       			<button type="button" class="btn btn-info w-100" data-dismiss="modal">Reset</button>
+       		</div>
+       		<div class="col-xs-3">
+       			<button type="button" class="btn btn-blue w-100">Update</button>
+       		</div>
+       	</div>
+        
+        
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="popupUpdateConfig">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        UPDATE CONFIGURATION
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-sm-6 mb20">
+				<label class="title">ALIAS</label>
+				<input type="text" id="" class="form-control input-lg" value="LevelUp-Chan1">
+        	</div>
+        	<div class="col-sm-6 mb20">
+				<label class="title">WLAN GROUP</label>
+				<div class="customSelect lg">
+					<select name="" id="" class="form-control input-lg">
+						<option value="1">LEVEL UP</option>
+						<option value="6">123Wifi</option>
+					</select>
+				</div>
+        	</div>
+        	<div class="col-sm-6 mb20">
+				<label class="title">CHANNEL</label>
+				<div class="customSelect lg">
+					<select name="" id="" class="form-control input-lg">
+						<option value="0">auto</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+				</div>					
+        	</div>
+        	<div class="col-sm-6 mb20">
+				<label class="title">MAX ASSOC</label>
+				<input type="text" id="" class="form-control input-lg" value="25">
+        	</div>
+        </div>
+        
+        <a href="#advOptions" data-toggle="collapse"><i class="zmdi zmdi-chevron-down mr5"></i><strong>Advanced Options</strong></a>
+        
+        <div class="row collapse mt20" id="advOptions">
+        	<div class="col-sm-6 mb20">
+				<label class="title">HTMODE</label>
+				<div class="customSelect lg">
+					<select name="" id="" class="form-control input-lg">
+						<option value="20">HT20</option>
+						<option value="40-">HT40-</option>
+						<option value="40+">HT40+</option>
+						<option value="40">HT40</option>
+					</select>
+				</div>
+        	</div>
+        	<div class="col-sm-6 mb20">
+				<label class="title">TXPOWER</label>
+				<div class="customSelect lg">
+					<select name="" id="" class="form-control input-lg">
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+					</select>
+				</div>					
+        	</div>
+        	<div class="col-sm-6 mb20">
+				<label class="title">MAX INACTIVITY</label>
+				<input type="text" id="" class="form-control input-lg" value="300">
+        	</div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+       	<div class="row">
+       		<div class="col-xs-3 col-xs-offset-6">
+       			<button type="button" class="btn btn-info w-100" data-dismiss="modal">Reset</button>
+       		</div>
+       		<div class="col-xs-3">
+       			<button type="button" class="btn btn-blue w-100">Update</button>
+       		</div>
+       	</div>
+        
+        
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+
+
+<script src="js/jquery.min.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/simple-sidebar.js"></script> 
+<script src="js/default.js"></script> 
+<script>
+
+</script>
+</body>
+</html>

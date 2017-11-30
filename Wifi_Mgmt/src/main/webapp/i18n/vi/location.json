@@ -4,8 +4,7 @@
             "home": {
                 "title": "Locations",
                 "createLabel": "Thêm mới một Location",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Location",
-                "search": "Tìm Location"
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Location"
             },
             "created": "Một Location mới được tạo với định danh {{ param }}",
             "updated": "Một Location cập nhật với định danh {{ param }}",
